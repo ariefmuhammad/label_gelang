@@ -11,7 +11,6 @@ class Pasien extends Component {
             awalan: "%10",
             tanggal_masuk: ""
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.renderCari = this.renderCari.bind(this);
         this.getData = this.getData.bind(this);
@@ -80,26 +79,7 @@ class Pasien extends Component {
         });
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        axios
-            .post("/tracer/data", {
-                cari: this.state.cari
-            })
-            .then(response => {
-                this.setState({
-                    dataTracer: [response.data.cari],
-                    cari: "",
-                    awalan: "%10",
-                    tanggal_masuk: this.getTodayDate(),
-                    awalan: "%10",
-                    peminjam: "%10"
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
-    }
+
 
     renderCari() {
         if (this.state.tujuan === "101020101") {
@@ -108,16 +88,30 @@ class Pasien extends Component {
                     <thead>
                         <tr>
                             <th>No Urut</th>
+                            <th>Tanggal Masuk</th>
+                            <th>Awalan</th>
                             <th>Rekam Medis</th>
                             <th>Nama Pasien</th>
-                            <th>Jenis Kelamin</th>
+                            <th>JK</th>
                             <th>Tanggal Lahir</th>
+                            <th>Cetak</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.data.map(data => (
                             <tr key={data[0].nomor}>
                                 <td className="widthnodaftarp">{data[0].nomor}</td>
+                                <td className="widthtglmasuk"><input name="TANGGAL_MASUK" placeholder="Tanggal Masuk" type="date" className="form-control widthtglmasuk" required onChange={this.tanggalmasukChange} value={this.state.tanggal_masuk} /></td>
+                                <td className="widthawalan"><select name="AWALAN" id="exampleSelect" className="form-control widthawalan" onChange={this.awalanChange}>
+                                    <option value="%10"></option>
+                                    <option value="SDR.">SDR.</option>
+                                    <option value="TN.">TN.</option>
+                                    <option value="NY.">NY.</option> 
+                                    <option value="NN.">NN.</option>
+                                    <option value="AN.">AN.</option>
+                                    <option value="BY.">BY.</option>
+                                    <option value="BY.NY">BY.NY</option>
+                                    </select></td>
                                 <td className="widthnormp">
                                     {data[0].NORMTITIK}
                                 </td>
@@ -130,6 +124,52 @@ class Pasien extends Component {
                                 <td className="widthlahirp">
                                     {data[0].TANGGAL_LAHIR}
                                 </td>
+                                <td className="widthcetak">
+                                      
+                                       <a
+                                           onSubmit={this.handleSubmit}
+                                           // href={`/tracer/${data.NORM}/print`}
+                                           href=""
+                                           className="btn btn-primary btn-xs"
+                                           target="_blank"
+                                       >
+                                           <i className="fa fa-print"></i> Print Label
+                                       </a>
+                                       &nbsp;
+                                       <a
+                                           onSubmit={this.handleSubmit}
+                                           // href={`/tracer/${data.NORM}/print`}
+                                           href=""
+                                           className="btn btn-success btn-xs"
+                                           target="_blank"
+                                       >
+                                           <i className="fa fa-print"></i> Print Gelang
+                                       </a>
+                                       &nbsp;
+                                       <a
+                                           onSubmit={this.handleSubmit}
+                                        //    href={`/tracer/${data.NORM}/print`}
+                                           href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`}
+                                           className="btn btn-alternate btn-xs"
+                                           target="_blank"
+                                       >
+                                           <i className="fa fa-print"></i> Print Tracer
+                                       </a>
+                                       &nbsp;
+
+                                       <div className="dropdown d-inline-block">
+                                            <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" className="mb-2 mr-2 dropdown-toggle btn btn-primary">Primary</button>
+                                            <div tabIndex="-1" role="menu" aria-hidden="true" className="dropdown-menu">
+                                                <button type="button" tabIndex="0" className="dropdown-item">Menus</button>
+                                                <button type="button" tabIndex="0" className="dropdown-item">Settings</button>
+                                                <h6 tabIndex="-1" className="dropdown-header">Header</h6>
+                                                <button type="button" tabIndex="0" className="dropdown-item">Actions</button>
+                                                <div tabIndex="-1" className="dropdown-divider"></div>
+                                                <button type="button" className="0" className="dropdown-item">Dividers</button>
+                                            </div>
+                                        </div>                       
+
+                                    </td>
                             </tr>
                         ))}
                     </tbody>
@@ -155,9 +195,17 @@ class Pasien extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {post.map((detail, j) => (
+                            {post.map((detail, j) => {
+                                 if(detail['NORM'] == "")
+                                 return (
+                                    <tr key={`Key${j}`}>
+                                     <td colSpan="8"><center><b>Belum Ada Pasien</b></center></td>
+                                    </tr>
+                                 );
+                                 else
+                                 return (
                                 <tr key={`Key${j}`}>
-                                    <td className="widthnodaftarp">{detail.nomor}</td>
+                                    <td className="widthnodaftar">{detail.nomor}</td>
                                     <td className="widthtglmasuk"><input name="TANGGAL_MASUK" placeholder="Tanggal Masuk" type="date" className="form-control widthtglmasuk" required onChange={this.tanggalmasukChange} value={this.state.tanggal_masuk} /></td>
                                     <td className="widthawalan"><select name="AWALAN" id="exampleSelect" className="form-control widthawalan" onChange={this.awalanChange}>
                                     <option value="%10"></option>
@@ -169,50 +217,67 @@ class Pasien extends Component {
                                     <option value="BY.">BY.</option>
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
-                                    <td className="widthnormp">{detail.NORM}</td>
+                                    <td className="widthnorm">{detail.NORM}</td>
                                     <td>{detail.NAMA}</td>
-                                    <td className="widthjkp">
+                                    <td className="widthjk">
                                         {detail.JENIS_KELAMIN === 1
                                             ? "L"
                                             : detail.JENIS_KELAMIN === 2
                                             ? "P"
                                             : ""}
                                     </td>
-                                    <td className="widthlahirp">{detail.TANGGAL_LAHIR}</td>
-                                    <td className="widthcetak">
-                                      
+                                    <td className="widthlahir">{detail.TANGGAL_LAHIR}</td>
+                                    <td className="">
+                                       <div>
                                        <a
-                                           onSubmit={this.handleSubmit}
+                                        //    onSubmit={this.handleSubmit}
                                            // href={`/tracer/${data.NORM}/print`}
                                            href=""
-                                           className="btn btn-primary btn-xs"
+                                           className="btn btn-primary btn-sm"
                                            target="_blank"
                                        >
-                                           <i className="fa fa-print"></i> Print Label
+                                           <i className="fa fa-print"></i> Label
                                        </a>
+                                       </div>
                                        &nbsp;
+                                       <div>
                                        <a
-                                           onSubmit={this.handleSubmit}
+                                        //    onSubmit={this.handleSubmit}
                                            // href={`/tracer/${data.NORM}/print`}
                                            href=""
-                                           className="btn btn-success btn-xs"
+                                           className="btn btn-success btn-sm"
                                            target="_blank"
                                        >
-                                           <i className="fa fa-print"></i> Print Gelang
+                                           <i className="fa fa-print"></i> Gelang Dewasa
                                        </a>
+                                       </div>
                                        &nbsp;
+                                       <div>
                                        <a
-                                           onSubmit={this.handleSubmit}
+                                        //    onSubmit={this.handleSubmit}
+                                           // href={`/tracer/${data.NORM}/print`}
+                                           href=""
+                                           className="btn btn-danger btn-sm"
+                                           target="_blank"
+                                       >
+                                           <i className="fa fa-print"></i> Gelang Anak
+                                       </a>
+                                       </div>
+                                       &nbsp;
+                                       <div>
+                                       <a
+                                        //    onSubmit={this.handleSubmit}
                                         //    href={`/tracer/${data.NORM}/print`}
                                            href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`}
-                                           className="btn btn-alternate btn-xs"
+                                           className="btn btn-alternate btn-sm"
                                            target="_blank"
                                        >
-                                           <i className="fa fa-print"></i> Print Tracer
+                                           <i className="fa fa-print"></i> Tracer
                                        </a>
+                                       </div>
                                        &nbsp;
 
-                                       <div className="dropdown d-inline-block">
+                                       {/* <div className="dropdown d-inline-block">
                                             <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" className="mb-2 mr-2 dropdown-toggle btn btn-primary">Primary</button>
                                             <div tabIndex="-1" role="menu" aria-hidden="true" className="dropdown-menu">
                                                 <button type="button" tabIndex="0" className="dropdown-item">Menus</button>
@@ -222,11 +287,12 @@ class Pasien extends Component {
                                                 <div tabIndex="-1" className="dropdown-divider"></div>
                                                 <button type="button" className="0" className="dropdown-item">Dividers</button>
                                             </div>
-                                        </div>                       
+                                        </div>                        */}
 
                                     </td>
                                 </tr>
-                            ))}
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>

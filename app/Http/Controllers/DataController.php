@@ -191,8 +191,8 @@ class DataController extends Controller
                         $parts = str_split($normtitik, $split_length = 2);
                         $normtitik = $parts[0].".".$parts[1].".".$parts[2];
 
-
-                        $namaDokter['NORM'] = $normtitik;
+                        $namaDokter['NORM'] = $pasen['NORM'];
+                        $namaDokter['NORMTITIK'] = $normtitik;
                         $namaDokter['NAMA'] = $pasen['NAMA'];
                         $namaDokter['JENIS_KELAMIN'] = $pasen['JENIS_KELAMIN'];
                         $namaDokter['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($pasen['TANGGAL_LAHIR']));

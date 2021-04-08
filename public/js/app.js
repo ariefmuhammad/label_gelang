@@ -73655,7 +73655,6 @@ function (_Component) {
       awalan: "%10",
       tanggal_masuk: ""
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.renderCari = _this.renderCari.bind(_assertThisInitialized(_this));
     _this.getData = _this.getData.bind(_assertThisInitialized(_this));
@@ -73738,46 +73737,118 @@ function (_Component) {
       });
     }
   }, {
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      var _this4 = this;
-
-      e.preventDefault();
-      axios.post("/tracer/data", {
-        cari: this.state.cari
-      }).then(function (response) {
-        var _this4$setState;
-
-        _this4.setState((_this4$setState = {
-          dataTracer: [response.data.cari],
-          cari: "",
-          awalan: "%10",
-          tanggal_masuk: _this4.getTodayDate()
-        }, _defineProperty(_this4$setState, "awalan", "%10"), _defineProperty(_this4$setState, "peminjam", "%10"), _this4$setState));
-      })["catch"](function (error) {
-        console.log(error.message);
-      });
-    }
-  }, {
     key: "renderCari",
     value: function renderCari() {
-      var _this5 = this;
+      var _this4 = this;
 
       if (this.state.tujuan === "101020101") {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
           className: "mb-0 table table-bordered"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "No Urut"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Jenis Kelamin"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.data.map(function (data) {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "No Urut"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Masuk"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "JK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cetak"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.state.data.map(function (data) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
             key: data[0].nomor
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthnodaftarp"
           }, data[0].nomor), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthtglmasuk"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "TANGGAL_MASUK",
+            placeholder: "Tanggal Masuk",
+            type: "date",
+            className: "form-control widthtglmasuk",
+            required: true,
+            onChange: _this4.tanggalmasukChange,
+            value: _this4.state.tanggal_masuk
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthawalan"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+            name: "AWALAN",
+            id: "exampleSelect",
+            className: "form-control widthawalan",
+            onChange: _this4.awalanChange
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "%10"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "SDR."
+          }, "SDR."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "TN."
+          }, "TN."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "NY."
+          }, "NY."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "NN."
+          }, "NN."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "AN."
+          }, "AN."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BY."
+          }, "BY."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BY.NY"
+          }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthnormp"
           }, data[0].NORMTITIK), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data[0].NAMA), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthjkp"
           }, data[0].JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthlahirp"
-          }, data[0].TANGGAL_LAHIR));
+          }, data[0].TANGGAL_LAHIR), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthcetak"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            onSubmit: _this4.handleSubmit // href={`/tracer/${data.NORM}/print`}
+            ,
+            href: "",
+            className: "btn btn-primary btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Print Label"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            onSubmit: _this4.handleSubmit // href={`/tracer/${data.NORM}/print`}
+            ,
+            href: "",
+            className: "btn btn-success btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Print Gelang"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            onSubmit: _this4.handleSubmit //    href={`/tracer/${data.NORM}/print`}
+            ,
+            href: "/".concat(data[0].NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
+            className: "btn btn-alternate btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Print Tracer"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "dropdown d-inline-block"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            "aria-haspopup": "true",
+            "aria-expanded": "false",
+            "data-toggle": "dropdown",
+            className: "mb-2 mr-2 dropdown-toggle btn btn-primary"
+          }, "Primary"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            tabIndex: "-1",
+            role: "menu",
+            "aria-hidden": "true",
+            className: "dropdown-menu"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            tabIndex: "0",
+            className: "dropdown-item"
+          }, "Menus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            tabIndex: "0",
+            className: "dropdown-item"
+          }, "Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
+            tabIndex: "-1",
+            className: "dropdown-header"
+          }, "Header"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            type: "button",
+            tabIndex: "0",
+            className: "dropdown-item"
+          }, "Actions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            tabIndex: "-1",
+            className: "dropdown-divider"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
+            type: "button",
+            className: "0"
+          }, "className", "dropdown-item"), "Dividers")))));
         })));
       } else {
         return this.state.data.map(function (post, i) {
@@ -73792,10 +73863,14 @@ function (_Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", {
             className: "text-light"
           }, post[0].nama_dokter))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "No Urut"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Masuk"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "JK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cetak"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, post.map(function (detail, j) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            if (detail['NORM'] == "") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
               key: "Key".concat(j)
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              className: "widthnodaftarp"
+              colSpan: "8"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "Belum Ada Pasien"))));else return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+              key: "Key".concat(j)
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+              className: "widthnodaftar"
             }, detail.nomor), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
               className: "widthtglmasuk"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -73804,15 +73879,15 @@ function (_Component) {
               type: "date",
               className: "form-control widthtglmasuk",
               required: true,
-              onChange: _this5.tanggalmasukChange,
-              value: _this5.state.tanggal_masuk
+              onChange: _this4.tanggalmasukChange,
+              value: _this4.state.tanggal_masuk
             })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
               className: "widthawalan"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
               name: "AWALAN",
               id: "exampleSelect",
               className: "form-control widthawalan",
-              onChange: _this5.awalanChange
+              onChange: _this4.awalanChange
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
               value: "%10"
             }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -73830,72 +73905,46 @@ function (_Component) {
             }, "BY."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
               value: "BY.NY"
             }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              className: "widthnormp"
+              className: "widthnorm"
             }, detail.NORM), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, detail.NAMA), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              className: "widthjkp"
+              className: "widthjk"
             }, detail.JENIS_KELAMIN === 1 ? "L" : detail.JENIS_KELAMIN === 2 ? "P" : ""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              className: "widthlahirp"
+              className: "widthlahir"
             }, detail.TANGGAL_LAHIR), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-              className: "widthcetak"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              onSubmit: _this5.handleSubmit // href={`/tracer/${data.NORM}/print`}
-              ,
+              className: ""
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+              //    onSubmit={this.handleSubmit}
+              // href={`/tracer/${data.NORM}/print`}
               href: "",
-              className: "btn btn-primary btn-xs",
+              className: "btn btn-primary btn-sm",
               target: "_blank"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Print Label"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              onSubmit: _this5.handleSubmit // href={`/tracer/${data.NORM}/print`}
-              ,
+            }), " Label")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+              //    onSubmit={this.handleSubmit}
+              // href={`/tracer/${data.NORM}/print`}
               href: "",
-              className: "btn btn-success btn-xs",
+              className: "btn btn-success btn-sm",
               target: "_blank"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Print Gelang"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              onSubmit: _this5.handleSubmit //    href={`/tracer/${data.NORM}/print`}
-              ,
-              href: "/".concat(detail.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/").concat(_this5.state.peminjam, "/tracer"),
-              className: "btn btn-alternate btn-xs",
+            }), " Gelang Dewasa")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+              //    onSubmit={this.handleSubmit}
+              // href={`/tracer/${data.NORM}/print`}
+              href: "",
+              className: "btn btn-danger btn-sm",
               target: "_blank"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Print Tracer"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "dropdown d-inline-block"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-              type: "button",
-              "aria-haspopup": "true",
-              "aria-expanded": "false",
-              "data-toggle": "dropdown",
-              className: "mb-2 mr-2 dropdown-toggle btn btn-primary"
-            }, "Primary"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              tabIndex: "-1",
-              role: "menu",
-              "aria-hidden": "true",
-              className: "dropdown-menu"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-              type: "button",
-              tabIndex: "0",
-              className: "dropdown-item"
-            }, "Menus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-              type: "button",
-              tabIndex: "0",
-              className: "dropdown-item"
-            }, "Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
-              tabIndex: "-1",
-              className: "dropdown-header"
-            }, "Header"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-              type: "button",
-              tabIndex: "0",
-              className: "dropdown-item"
-            }, "Actions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              tabIndex: "-1",
-              className: "dropdown-divider"
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
-              type: "button",
-              className: "0"
-            }, "className", "dropdown-item"), "Dividers")))));
+            }), " Gelang Anak")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+              //    onSubmit={this.handleSubmit}
+              //    href={`/tracer/${data.NORM}/print`}
+              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
+              className: "btn btn-alternate btn-sm",
+              target: "_blank"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              className: "fa fa-print"
+            }), " Tracer")), "\xA0"));
           }))));
         });
       }
