@@ -180,7 +180,7 @@ class Track extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-ticket icon-gradient bg-happy-green"></i>
+                                <i className="pe-7s-ticket icon-gradient bg-arielle-smile"></i>
                             </div>
                             <div>
                                 TRACER

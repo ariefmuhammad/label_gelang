@@ -89,7 +89,7 @@ class Index extends Component {
                     &nbsp;
                     <a
                         href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`}
-                        className="btn btn-primary btn-xs"
+                        className="btn btn-success btn-xs"
                         target="_blank"
                     >
                         <i className="fa fa-print"></i> Cetak Gelang Dewasa
@@ -169,7 +169,7 @@ class Index extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-print icon-gradient bg-happy-green"></i>
+                                <i className="pe-7s-print icon-gradient bg-arielle-smile"></i>
                             </div>
                             <div>
                                 LABEL & GELANG
@@ -195,7 +195,7 @@ class Index extends Component {
                             </div>
                             <button
                                 type="submit"
-                                className="btn-square btn-hover-shine btn btn-success"
+                                className="btn-square btn-hover-shine btn btn-primary"
                             >
                                 <a className="pe-7s-search"></a> CARI / KLIK
                                 ENTER UNTUK CARI

@@ -17,7 +17,7 @@ class Sidebar extends Component {
 
     render() {
         return (
-            <div className="app-sidebar sidebar-shadow bg-happy-green sidebar-text-light">
+            <div className="app-sidebar sidebar-shadow bg-arielle-smile sidebar-text-light">
                 <div className="app-header__logo">
                     <div className="logo-src"></div>
                     <div className="header__pane ml-auto">
@@ -68,12 +68,12 @@ class Sidebar extends Component {
                                     Label & Gelang                               
                               </NavLink>
                             </li>
-                            <li >
+                            {/* <li >
                               <NavLink exact to={`/tracer`} activeClassName="mm-active"  className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
                                     <i className="metismenu-icon pe-7s-ticket"></i>
                                     Tracer
                               </NavLink>
-                            </li>
+                            </li> */}
                             <li>
                             <NavLink exact to={`/today_pasien`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
                                     <i className="metismenu-icon pe-7s-note2"></i>

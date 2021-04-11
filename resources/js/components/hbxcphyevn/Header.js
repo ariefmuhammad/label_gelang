@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Header extends Component {
     render() {
         return (
-            <div className="app-header header-shadow bg-happy-green header-text-light">
+            <div className="app-header header-shadow bg-arielle-smile header-text-light">
                 <div className="app-header__logo">
                     <div className="loogoo">RSUNTAN</div>
                     <div className="header__pane ml-auto">

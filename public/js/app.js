@@ -73494,7 +73494,7 @@ function (_Component) {
             className: "fa fa-print"
           }), " Cetak Label"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/gelang_dewasa"),
-            className: "btn btn-primary btn-xs",
+            className: "btn btn-success btn-xs",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
@@ -73571,7 +73571,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "pe-7s-print icon-gradient bg-happy-green"
+        className: "pe-7s-print icon-gradient bg-arielle-smile"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "LABEL & GELANG", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-subheading"
       }, "Halaman ini berfungsi untuk mencetak Label dan Gelang."))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -73590,7 +73590,7 @@ function (_Component) {
         required: true
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
-        className: "btn-square btn-hover-shine btn btn-success"
+        className: "btn-square btn-hover-shine btn btn-primary"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "pe-7s-search"
       }), " CARI / KLIK ENTER UNTUK CARI")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), this.renderCari())));
@@ -73635,7 +73635,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-
+ // import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 var Pasien =
 /*#__PURE__*/
@@ -73653,8 +73653,11 @@ function (_Component) {
       url: "/pasien/data",
       tujuan: "101010101",
       awalan: "%10",
-      tanggal_masuk: ""
+      tanggal_masuk: "",
+      isOpen: false
     };
+    _this.showMenu = _this.showMenu.bind(_assertThisInitialized(_this));
+    _this.dropdownButton = _this.dropdownButton.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.renderCari = _this.renderCari.bind(_assertThisInitialized(_this));
     _this.getData = _this.getData.bind(_assertThisInitialized(_this));
@@ -73737,6 +73740,80 @@ function (_Component) {
       });
     }
   }, {
+    key: "dropdownButton",
+    value: function dropdownButton() {
+      var menuClass = "dropdown d-inline-block".concat(this.state.isOpen ? " show" : "");
+      var menuClass2 = "dropdown-menu".concat(this.state.isOpen ? " show" : "");
+      var menuClass3 = "".concat(this.state.isOpen ? "true" : "false");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: menuClass
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.showMenu,
+        type: "button",
+        "aria-haspopup": "true",
+        "aria-expanded": menuClass3,
+        "data-toggle": "dropdown",
+        className: "mb-2 mr-2 dropdown-toggle btn btn-primary"
+      }, "Primary"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        tabIndex: "-1",
+        role: "menu",
+        "aria-hidden": "true",
+        className: menuClass2
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
+        tabIndex: "-1",
+        className: "dropdown-header"
+      }, "Cetak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        tabIndex: "-1",
+        className: "dropdown-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
+        type: "button",
+        className: "0"
+      }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-print"
+      }), "\xA0 Label"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        tabIndex: "-1",
+        className: "dropdown-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
+        type: "button",
+        className: "0"
+      }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-print"
+      }), "\xA0 Gelang Dewasa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        tabIndex: "-1",
+        className: "dropdown-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
+        type: "button",
+        className: "0"
+      }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-print"
+      }), "\xA0 Gelang Anak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        tabIndex: "-1",
+        className: "dropdown-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
+        type: "button",
+        className: "0"
+      }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-print"
+      }), "\xA0 Tracker"))));
+    }
+  }, {
+    key: "showMenu",
+    value: function showMenu(event) {
+      event.preventDefault();
+      this.setState({
+        isOpen: !this.state.isOpen
+      });
+    }
+  }, {
+    key: "getOne",
+    value: function getOne(detail) {
+      this.setState({
+        id: detail.id,
+        isOpen: !this.state.isOpen
+      });
+    } //   toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
+
+  }, {
     key: "renderCari",
     value: function renderCari() {
       var _this4 = this;
@@ -73789,66 +73866,40 @@ function (_Component) {
           }, data[0].JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthlahirp"
           }, data[0].TANGGAL_LAHIR), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthcetak"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onSubmit: _this4.handleSubmit // href={`/tracer/${data.NORM}/print`}
-            ,
-            href: "",
-            className: "btn btn-primary btn-xs",
+            className: ""
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            //    onSubmit={this.handleSubmit}
+            // href={`/tracer/${data.NORM}/print`}
+            href: "/".concat(data.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/label"),
+            className: "btn btn-primary btn-sm",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
-          }), " Print Label"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onSubmit: _this4.handleSubmit // href={`/tracer/${data.NORM}/print`}
-            ,
-            href: "",
-            className: "btn btn-success btn-xs",
+          }), " Label")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            //    onSubmit={this.handleSubmit}
+            // href={`/tracer/${data.NORM}/print`}
+            href: "/".concat(data.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/gelang_dewasa"),
+            className: "btn btn-success btn-sm",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
-          }), " Print Gelang"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            onSubmit: _this4.handleSubmit //    href={`/tracer/${data.NORM}/print`}
-            ,
-            href: "/".concat(data[0].NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
-            className: "btn btn-alternate btn-xs",
+          }), " Gelang Dewasa")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            //    onSubmit={this.handleSubmit}
+            // href={`/tracer/${data.NORM}/print`}
+            href: "/".concat(data.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/gelang_anak"),
+            className: "btn btn-danger btn-sm",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
-          }), " Print Tracer"), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            className: "dropdown d-inline-block"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            type: "button",
-            "aria-haspopup": "true",
-            "aria-expanded": "false",
-            "data-toggle": "dropdown",
-            className: "mb-2 mr-2 dropdown-toggle btn btn-primary"
-          }, "Primary"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            tabIndex: "-1",
-            role: "menu",
-            "aria-hidden": "true",
-            className: "dropdown-menu"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            type: "button",
-            tabIndex: "0",
-            className: "dropdown-item"
-          }, "Menus"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            type: "button",
-            tabIndex: "0",
-            className: "dropdown-item"
-          }, "Settings"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
-            tabIndex: "-1",
-            className: "dropdown-header"
-          }, "Header"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            type: "button",
-            tabIndex: "0",
-            className: "dropdown-item"
-          }, "Actions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-            tabIndex: "-1",
-            className: "dropdown-divider"
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _defineProperty({
-            type: "button",
-            className: "0"
-          }, "className", "dropdown-item"), "Dividers")))));
+          }), " Gelang Anak")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            //    onSubmit={this.handleSubmit}
+            //    href={`/tracer/${data.NORM}/print`}
+            href: "/".concat(data.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
+            className: "btn btn-alternate btn-sm",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Tracer")), "\xA0 \xA0", _this4.dropdownButton()));
         })));
       } else {
         return this.state.data.map(function (post, i) {
@@ -73859,10 +73910,13 @@ function (_Component) {
             className: "mb-0 table table-bordered"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
             colSpan: "8",
-            className: "bg-happy-green"
+            className: "bg-arielle-smile"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("center", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", {
             className: "text-light"
           }, post[0].nama_dokter))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "No Urut"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Masuk"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "JK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cetak"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, post.map(function (detail, j) {
+            var menuClass = "dropdown d-inline-block".concat(_this4.state.isOpen ? " show" : "");
+            var menuClass2 = "dropdown-menu".concat(_this4.state.isOpen ? " show" : "");
+            var menuClass3 = "".concat(_this4.state.isOpen ? "true" : "false");
             if (detail['NORM'] == "") return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
               key: "Key".concat(j)
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
@@ -73912,39 +73966,66 @@ function (_Component) {
               className: "widthlahir"
             }, detail.TANGGAL_LAHIR), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
               className: ""
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              //    onSubmit={this.handleSubmit}
-              // href={`/tracer/${data.NORM}/print`}
-              href: "",
-              className: "btn btn-primary btn-sm",
-              target: "_blank"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            }, "\xA0 \xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: menuClass
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+              onClick: function onClick(e) {
+                return _this4.getOne(detail);
+              },
+              type: "button",
+              "aria-haspopup": "true",
+              "aria-expanded": menuClass3,
+              "data-toggle": "dropdown",
+              className: "mb-2 mr-2 dropdown-toggle btn btn-primary"
+            }, "Primary"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              tabIndex: "-1",
+              role: "menu",
+              "aria-hidden": "true",
+              className: menuClass2
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h6", {
+              tabIndex: "-1",
+              className: "dropdown-header"
+            }, "Cetak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              tabIndex: "-1",
+              className: "dropdown-divider"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", _defineProperty({
+              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/label"),
+              target: "_blank",
+              type: "button",
+              className: "0"
+            }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Label")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              //    onSubmit={this.handleSubmit}
-              // href={`/tracer/${data.NORM}/print`}
-              href: "",
-              className: "btn btn-success btn-sm",
-              target: "_blank"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            }), "\xA0 Label"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              tabIndex: "-1",
+              className: "dropdown-divider"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", _defineProperty({
+              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/gelang_dewasa"),
+              target: "_blank",
+              type: "button",
+              className: "0"
+            }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Gelang Dewasa")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              //    onSubmit={this.handleSubmit}
-              // href={`/tracer/${data.NORM}/print`}
-              href: "",
-              className: "btn btn-danger btn-sm",
-              target: "_blank"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            }), "\xA0 Gelang Dewasa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              tabIndex: "-1",
+              className: "dropdown-divider"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", _defineProperty({
+              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/gelang_anak"),
+              target: "_blank",
+              type: "button",
+              className: "0"
+            }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Gelang Anak")), "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-              //    onSubmit={this.handleSubmit}
-              //    href={`/tracer/${data.NORM}/print`}
+            }), "\xA0 Gelang Anak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              tabIndex: "-1",
+              className: "dropdown-divider"
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", _defineProperty({
               href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
-              className: "btn btn-alternate btn-sm",
-              target: "_blank"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              target: "_blank",
+              type: "button",
+              className: "0"
+            }, "className", "dropdown-item"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
-            }), " Tracer")), "\xA0"));
+            }), "\xA0 Tracker")))));
           }))));
         });
       }
@@ -73970,8 +74051,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "pe-7s-note2 icon-gradient bg-happy-green"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "PASIEN HARI INI", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "pe-7s-note2 icon-gradient bg-arielle-smile"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "PASIEN HARI INI ", this.dropdownButton(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-subheading"
       }, "Halaman ini berfungsi untuk melihat Pasien Hari Ini."))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-card mb-3 card"
@@ -74270,7 +74351,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-icon"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "pe-7s-ticket icon-gradient bg-happy-green"
+        className: "pe-7s-ticket icon-gradient bg-arielle-smile"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "TRACER", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-title-subheading"
       }, "Halaman ini berfungsi untuk manajemen Tracer."))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -74393,12 +74474,12 @@ function (_Component) {
       }, "IT RS UNTAN")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "nav-item nav-link"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "badge badge-warning mr-1 ml-0"
+        className: "badge badge-primary mr-1 ml-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "IT")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "http://masariuman.xyz",
         target: "blank"
       }, "Arif Setiawan"), "\xA0 | M. Arief Maulana\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "badge badge-warning mr-1 ml-0"
+        className: "badge badge-primary mr-1 ml-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "TI"))))))));
     }
   }]);
@@ -74458,7 +74539,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "app-header header-shadow bg-happy-green header-text-light"
+        className: "app-header header-shadow bg-arielle-smile header-text-light"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "app-header__logo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -75011,7 +75092,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "app-sidebar sidebar-shadow bg-happy-green sidebar-text-light"
+        className: "app-sidebar sidebar-shadow bg-arielle-smile sidebar-text-light"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "app-header__logo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -75061,14 +75142,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "metismenu-icon pe-7s-print"
       }), "Label & Gelang")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        exact: true,
-        to: "/tracer",
-        activeClassName: "mm-active",
-        className: "{this.state.activeIndex==0 ? 'mm-active': null}",
-        onClick: this.toggleClass.bind(this, 1)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "metismenu-icon pe-7s-ticket"
-      }), "Tracer")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         exact: true,
         to: "/today_pasien",
         activeClassName: "mm-active",
