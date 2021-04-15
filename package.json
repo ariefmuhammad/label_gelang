@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "jshint": "^2.11.0",
+        "react-bootstrap": "^1.5.2",
         "react-router-dom": "^5.1.2",
         "xcode": "^2.1.0"
     }

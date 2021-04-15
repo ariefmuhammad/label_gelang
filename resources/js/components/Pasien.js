@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { DropdownButton,Dropdown } from 'react-bootstrap'
+
 
 class Pasien extends Component {
     constructor(props) {
@@ -10,10 +11,7 @@ class Pasien extends Component {
             tujuan: "101010101",
             awalan: "%10",
             tanggal_masuk: "",
-            isOpen: false,
         };
-        this.showMenu = this.showMenu.bind(this);
-        this.dropdownButton = this.dropdownButton.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.renderCari = this.renderCari.bind(this);
         this.getData = this.getData.bind(this);
@@ -83,56 +81,6 @@ class Pasien extends Component {
     }
 
 
-    dropdownButton() {
-        const menuClass = `dropdown d-inline-block${this.state.isOpen ? " show" : ""}`;
-        const menuClass2 = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
-        const menuClass3 = `${this.state.isOpen ? "true" : "false"}`;
-            return(
-        <div> 
-            <div className={menuClass}>
-                    <button onClick={this.showMenu} type="button" aria-haspopup="true" aria-expanded={menuClass3} data-toggle="dropdown" className="mb-2 mr-2 dropdown-toggle btn btn-primary">Primary</button>
-                <div tabIndex="-1" role="menu" aria-hidden="true" className={menuClass2}>
-                    {/* <button type="button" tabIndex="0" className="dropdown-item">Menus</button> */}
-                    {/* <button type="button" tabIndex="0" className="dropdown-item">Settings</button> */}
-                    <h6 tabIndex="-1" className="dropdown-header">Cetak</h6>
-                    {/* <button type="button" tabIndex="0" className="dropdown-item">Actions</button> */}
-                    <div tabIndex="-1" className="dropdown-divider"></div>
-                    <button type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Label</button>
-                    <div tabIndex="-1" className="dropdown-divider"></div>
-                    <button type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Gelang Dewasa</button>
-                    <div tabIndex="-1" className="dropdown-divider"></div>
-                    <button type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Gelang Anak</button>
-                    <div tabIndex="-1" className="dropdown-divider"></div>
-                    <button type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Tracker</button>
-                </div>
-            </div>  
-        </div>
-            
-                    );
-                }
-                
-              
-
-    showMenu(event) {
-        event.preventDefault();
-        
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-
-      }
-
-
-      getOne(detail){
-        this.setState({
-            id:detail.id,
-            isOpen: !this.state.isOpen
-        })
-    }
-
-    //   toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
-
-
 
     renderCari() {
         if (this.state.tujuan === "101020101") {
@@ -178,56 +126,19 @@ class Pasien extends Component {
                                     {data[0].TANGGAL_LAHIR}
                                 </td>
                                 <td className="">
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
-                                           className="btn btn-primary btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Label
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`}
-                                           className="btn btn-success btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Gelang Dewasa
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`}
-                                           className="btn btn-danger btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Gelang Anak
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                        //    href={`/tracer/${data.NORM}/print`}
-                                           href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`}
-                                           className="btn btn-alternate btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Tracer
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       &nbsp;
-                                       {this.dropdownButton()}
+                                       
+                                       <Dropdown>
+                                        <Dropdown.Toggle variant="focus" id="dropdown-basic">
+                                         <i className="fa fa-print"></i>&nbsp;Pilih
+                                         </Dropdown.Toggle>
+                                       
+                                         <Dropdown.Menu>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank"><div className="text-success"><i className="fa fa-print"></i>&nbsp;Label</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-info"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank"><div className="text-danger"><i className="fa fa-print"></i>&nbsp;Gelang Anak</div></Dropdown.Item>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
+                                         </Dropdown.Menu>
+                                       </Dropdown>
                                                  
 
                                 </td>
@@ -256,10 +167,7 @@ class Pasien extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {post.map((detail, j) => {
-                                        const menuClass = `dropdown d-inline-block${this.state.isOpen ? " show" : ""}`;
-                                        const menuClass2 = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
-                                        const menuClass3 = `${this.state.isOpen ? "true" : "false"}`;
+                            {post.map((detail, j) => {                                          
                                  if(detail['NORM'] == "")
                                  return (
                                     <tr key={`Key${j}`}>
@@ -281,7 +189,7 @@ class Pasien extends Component {
                                     <option value="BY.">BY.</option>
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
-                                    <td className="widthnorm">{detail.NORM}</td>
+                                    <td className="widthnorm">{detail.NORMTITIK}</td>
                                     <td>{detail.NAMA}</td>
                                     <td className="widthjk">
                                         {detail.JENIS_KELAMIN === 1
@@ -292,79 +200,18 @@ class Pasien extends Component {
                                     </td>
                                     <td className="widthlahir">{detail.TANGGAL_LAHIR}</td>
                                     <td className="">
-                                       {/* <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
-                                           className="btn btn-primary btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Label
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`}
-                                           className="btn btn-success btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Gelang Dewasa
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                           // href={`/tracer/${data.NORM}/print`}
-                                           href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`}
-                                           className="btn btn-danger btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Gelang Anak
-                                       </a>
-                                       </div>
-                                       &nbsp;
-                                       <div>
-                                       <a
-                                        //    onSubmit={this.handleSubmit}
-                                        //    href={`/tracer/${data.NORM}/print`}
-                                           href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`}
-                                           className="btn btn-alternate btn-sm"
-                                           target="_blank"
-                                       >
-                                           <i className="fa fa-print"></i> Tracer
-                                       </a>
-                                       </div> */}
-                                       &nbsp;
-                                       &nbsp;
-                                   
-                                 
-                                    <div className={menuClass}>
-                                            <button onClick={(e)=>this.getOne(detail)} type="button" aria-haspopup="true" aria-expanded={menuClass3} data-toggle="dropdown" className="mb-2 mr-2 dropdown-toggle btn btn-primary">Primary</button>
-                                        <div tabIndex="-1" role="menu" aria-hidden="true" className={menuClass2}>
-                                            {/* <button type="button" tabIndex="0" className="dropdown-item">Menus</button> */}
-                                            {/* <button type="button" tabIndex="0" className="dropdown-item">Settings</button> */}
-                                            <h6 tabIndex="-1" className="dropdown-header">Cetak</h6>
-                                            {/* <button type="button" tabIndex="0" className="dropdown-item">Actions</button> */}
-                                            <div tabIndex="-1" className="dropdown-divider"></div>
-                                            <a href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank" type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Label</a>
-                                            <div tabIndex="-1" className="dropdown-divider"></div>
-                                            <a href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank" type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Gelang Dewasa</a>
-                                            <div tabIndex="-1" className="dropdown-divider"></div>
-                                            <a href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank" type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Gelang Anak</a>
-                                            <div tabIndex="-1" className="dropdown-divider"></div>
-                                            <a href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`} target="_blank" type="button" className="0" className="dropdown-item"><i className="fa fa-print"></i>&nbsp; Tracker</a>
-                                        </div>
-                                    </div>  
-                                 
-
-      
-                                                 
-
+                                       <Dropdown>
+                                        <Dropdown.Toggle variant="focus" id="dropdown-basic">
+                                         <i className="fa fa-print"></i>&nbsp;Pilih
+                                         </Dropdown.Toggle>
+                                       
+                                         <Dropdown.Menu>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank"><div className="text-success"><i className="fa fa-print"></i>&nbsp;Label</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-info"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank"><div className="text-danger"><i className="fa fa-print"></i>&nbsp;Gelang Anak</div></Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
+                                         </Dropdown.Menu>
+                                       </Dropdown>                                                
                                     </td>
                                 </tr>
                                 );
@@ -393,7 +240,7 @@ class Pasien extends Component {
                                 <i className="pe-7s-note2 icon-gradient bg-arielle-smile"></i>
                             </div>
                             <div>
-                                PASIEN HARI INI {this.dropdownButton()}
+                                PASIEN HARI INI
                                 <div className="page-title-subheading">
                                     Halaman ini berfungsi untuk melihat Pasien
                                     Hari Ini.

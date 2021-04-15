@@ -195,7 +195,7 @@ class Index extends Component {
                             </div>
                             <button
                                 type="submit"
-                                className="btn-square btn-hover-shine btn btn-primary"
+                                className="btn-square btn-hover-shine btn btn-info"
                             >
                                 <a className="pe-7s-search"></a> CARI / KLIK
                                 ENTER UNTUK CARI

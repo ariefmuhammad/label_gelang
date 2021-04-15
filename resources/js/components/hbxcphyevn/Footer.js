@@ -31,7 +31,7 @@ class Footer extends Component {
                                     </a>
                                 </li>
                                 <li className="nav-item nav-link">
-                                    <div className="badge badge-primary mr-1 ml-0">
+                                    <div className="badge badge-info mr-1 ml-0">
                                         <small>IT</small>
                                     </div>
                                     <a
@@ -41,7 +41,7 @@ class Footer extends Component {
                                         Arif Setiawan
                                     </a>
                                     &nbsp; | M. Arief Maulana&nbsp;
-                                    <div className="badge badge-primary mr-1 ml-0">
+                                    <div className="badge badge-info mr-1 ml-0">
                                         <small>TI</small>
                                     </div>
                                 </li>
