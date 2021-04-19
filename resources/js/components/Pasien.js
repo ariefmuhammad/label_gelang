@@ -209,7 +209,7 @@ class Pasien extends Component {
                                            <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank"><div className="text-success"><i className="fa fa-print"></i>&nbsp;Label</div> </Dropdown.Item>
                                            <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-info"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
                                            <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank"><div className="text-danger"><i className="fa fa-print"></i>&nbsp;Gelang Anak</div></Dropdown.Item>
-                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer_v2`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
                                          </Dropdown.Menu>
                                        </Dropdown>                                                
                                     </td>

@@ -7,6 +7,7 @@ Route::get('/{id}/{awalan}/{tgl_masuk}/label', 'PrintController@templateLabel');
 Route::get('/{id}/{awalan}/{tgl_masuk}/gelang_dewasa', 'PrintController@templateGelangDewasa');
 Route::get('/{id}/{awalan}/{tgl_masuk}/gelang_anak', 'PrintController@templateGelangAnak');
 Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/tracer', 'PrintController@templateTracer');
+Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/tracer_v2', 'PrintController@templateTracerV2');
 Route::get('/{id}/{awalan}/{tgl_masuk}/testtujuan', 'PrintController@testtujuan');
 
 

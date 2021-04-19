@@ -89575,7 +89575,7 @@ function (_Component) {
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "fa fa-print"
             }), "\xA0Gelang Anak")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Dropdown"].Item, {
-              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer"),
+              href: "/".concat(detail.NORM, "/").concat(_this4.state.awalan, "/").concat(_this4.state.tanggal_masuk, "/").concat(_this4.state.peminjam, "/tracer_v2"),
               target: "_blank"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "text-alternate"
