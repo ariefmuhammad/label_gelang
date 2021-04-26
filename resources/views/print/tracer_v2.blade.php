@@ -49,7 +49,7 @@
 @foreach($label as $i => $label)
 
       <div class="t"><b class="text-right">{{$TANGGAL_MASUK}}</b></div>
-    <div class="n"><b class="text-center">{{$label->nomor}}</b></div>
+    <div class="n"><b class="text-center">1</b></div>
 <table style="margin:0;margin-left:13px;width:100%">
   <!-- <tr>
     <th>Firstname</th>

@@ -218,106 +218,134 @@ class PrintController extends Controller
          $peminjam = $peminjam;
          $data['PEMINJAM'] = $peminjam;
 
-         $data["pendaftaran"] = Pendaftaran::where('NORM', $id)->whereDate('TANGGAL', Carbon::now()->subDays(1))->first();
-         if ($data["pendaftaran"]) {
-            $data["tujuan"] = Tujuan::where('NOPEN',$data["pendaftaran"]->NOMOR)->first();
-            $data["ruangan"] = Ruang::where('ID',$data["tujuan"]->RUANGAN)->first();
-            $data["poli"] = $data["ruangan"]["DESKRIPSI"];
-            $data["dokter_ruangan"] = DokterRuangan::where('RUANGAN',$data["ruangan"]->ID)->first();
-            $data['dokter'] = Dokter::where('ID',$data["dokter_ruangan"]->DOKTER)->first();
-            $data['dokter_tujuan'] = Tujuan::where('Dokter',$data["dokter"]->ID)->where('NOPEN', $data["pendaftaran"]->NOMOR)->first();
-            $data['pegawai'] = Pegawai::where('NIP', $data['dokter']->NIP)->first();
-
-            $data['nama_dokter'] = $data['pegawai']->GELAR_DEPAN.'. '.$data['pegawai']->NAMA.'. '.$data['pegawai']->GELAR_BELAKANG;
-
-            $dokter_ruangan = DokterRuangan::where('RUANGAN',$data["ruangan"]->ID)->get();
-            foreach ($dokter_ruangan as $dokter_ruangans) {
-                $cek = Dokter::where('ID',$dokter_ruangans['DOKTER'])->first();
-                if ($cek['STATUS'] === 1) {
-                    $dokter[] = Dokter::where('ID',$dokter_ruangans['DOKTER'])->first();
-                }
-            }
-            $dokterCount = 0;
-            foreach ($dokter as $docter) {
-
-                $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(1))->orderBy("TANGGAL", "DESC")->get();
-                foreach ($today as $todays) {
-                    $cek = Tujuan::where('DOKTER',$docter['ID'])->where('NOPEN',$todays['NOMOR'])->first();
-                    if ($cek) {
-                        $tujuan_dokter[$dokterCount][] = $cek;
-                    }
-                }
-                // $tujuan_dokter[$docter['ID']] = Tujuan::where('DOKTER',$docter['ID'])->get();
-                $namaa = Pegawai::where('NIP',$docter['NIP'])->first();
-                if(empty($tujuan_dokter[$dokterCount][0])) {
-                    $nameng['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
-                    $nameng['NORM'] = "";
-                    $nameng['NAMA'] = "";
-                    $nameng['JENIS_KELAMIN'] = "";
-                    $nameng['TANGGAL_LAHIR'] = "";
-                    $nameng['nomor'] = "";
-                    $tujuan_dokter[$dokterCount][] = $nameng;
-                }
-                else {
-                    $offset = count($tujuan_dokter[$dokterCount]);
-                    foreach ($tujuan_dokter[$dokterCount] as $namaDokter) {
-                        $namaDokter['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
-                        $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(1))->where('NOMOR', $namaDokter['NOPEN'])->first();
-                        if (!$pendaftarans) {
-                            $namaDokter['NORM'] = "";
-                            $namaDokter['NAMA'] = "";
-                            $namaDokter['JENIS_KELAMIN'] = "";
-                            $namaDokter['TANGGAL_LAHIR'] = "";
-                        } else {
-                            $pasen = Data::where('NORM', $pendaftarans['NORM'])->first();
-    
-                            $normtitik = $pasen['NORM'];
-                            $length = strlen($normtitik);
-                            for ($i=$length; $i < 6; $i++) {
-                                    $normtitik = "0" . $normtitik;
-                            }
-                            $parts = str_split($normtitik, $split_length = 2);
-                            $normtitik = $parts[0].".".$parts[1].".".$parts[2];
-    
-                            $namaDokter['NORM'] = $pasen['NORM'];
-                            $namaDokter['NORMTITIK'] = $normtitik;
-                            $namaDokter['NAMA'] = $pasen['NAMA'];
-                            $namaDokter['JENIS_KELAMIN'] = $pasen['JENIS_KELAMIN'];
-                            $namaDokter['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($pasen['TANGGAL_LAHIR']));
-                            $namaDokter['nomor'] = $offset;
-                            $offset--;
-
-                            
-                        }
-                        
-                    }
-                }
-                $dokterCount++;
-            }
-
-            
-            $vv = $namaDokter->where('NOPEN',$data["pendaftaran"]->NOMOR)->first();
-        //        $data['tujuan_dokter'] = $tujuan_dokter;
-       
-            
-           
-            return $vv ;
-            
-
-
-           
-              
          
-           
+
+         $data["pendaftaran"] = Pendaftaran::where('NORM', $id)->whereDate('TANGGAL', Carbon::now()->subDays(15))->first();
+         if ($data["pendaftaran"]) {
+         $data["tujuan_pasien"] = Tujuan::where('NOPEN',$data["pendaftaran"]->NOMOR)->first();
+         $data["ruangan"] = Ruang::where('ID',$data["tujuan_pasien"]->RUANGAN)->first();
+         $data["poli"] = $data["ruangan"]["DESKRIPSI"];
+         $data["dokter_ruangan"] = DokterRuangan::where('RUANGAN',$data["ruangan"]->ID)->where('DOKTER',$data["tujuan_pasien"]->DOKTER)->first();
+         $data['dokter'] = Dokter::where('ID',$data["tujuan_pasien"]->DOKTER)->first();
+         $data['pegawai'] = Pegawai::where('NIP', $data['dokter']->NIP)->first();
+         $data['nama_dokter'] = $data['pegawai']->GELAR_DEPAN.'. '.$data['pegawai']->NAMA.'. '.$data['pegawai']->GELAR_BELAKANG;
+       
+        
+         
+         $dokter_ruangan = DokterRuangan::where('RUANGAN',$data["ruangan"]->ID)->where('DOKTER',$data["tujuan_pasien"]->DOKTER)->get();
+         
+         foreach ($dokter_ruangan as $dokter_ruangans) {
+            $cek = Dokter::where('ID',$dokter_ruangans['DOKTER'])->first();
+            if ($cek['STATUS'] === 1) {
+                $dokter[] = Dokter::where('ID',$dokter_ruangans['DOKTER'])->first();
+            }
+         }
+
+         
+
+
+         $dokterCount = 0;  
+         foreach ($dokter as $dokters) {
+            $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->orderBy("TANGGAL", "DESC")->get();
+            foreach ($today as $todays) {
+            $DD = Tujuan::where('DOKTER',$dokters['ID'])->where('NOPEN',$todays['NOMOR'])->first();
+            if ($DD) {
+                $tujuan_dokter[$dokterCount][] = $DD;
+            }
+           }
+         }
+        
+         
+         $namaa = Pegawai::where('NIP',$dokters['NIP'])->first();
+            if(empty($tujuan_dokter[$dokterCount][0])) {
+                $nameng['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
+                $nameng['NORM'] = "";
+                $nameng['NAMA'] = "";
+                $nameng['JENIS_KELAMIN'] = "";
+                $nameng['TANGGAL_LAHIR'] = "";
+                $nameng['nomor'] = "";
+                $tujuan_dokter[$dokterCount][] = $nameng;
+            }
+            
+         else {
+            $offset = count($tujuan_dokter[$dokterCount]);
+            foreach ($tujuan_dokter[$dokterCount] as $namaDokter) {
+                $namaDokter['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
+                $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->where('NOMOR', $namaDokter['NOPEN'])->first();    
+                if (!$pendaftarans) {        
+                    $namaDokter['NORM'] = "";
+                    $namaDokter['NAMA'] = "";
+                    $namaDokter['JENIS_KELAMIN'] = "";
+                    $namaDokter['TANGGAL_LAHIR'] = "";
+                } else {
+                    $pasen = Data::where('NORM', $pendaftarans['NORM'])->first();
+
+                    $normtitik = $pasen['NORM'];
+                    $length = strlen($normtitik);
+                    for ($i=$length; $i < 6; $i++) {
+                            $normtitik = "0" . $normtitik;
+                    }
+                    $parts = str_split($normtitik, $split_length = 2);
+                    $normtitik = $parts[0].".".$parts[1].".".$parts[2];
+
+                    $namaDokter['NORM'] = $pasen['NORM'];
+                    $namaDokter['NORMTITIK'] = $normtitik;
+                    $namaDokter['NAMA'] = $pasen['NAMA'];
+                    $namaDokter['JENIS_KELAMIN'] = $pasen['JENIS_KELAMIN'];
+                    $namaDokter['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($pasen['TANGGAL_LAHIR']));
+                    $namaDokter['nomor'] = $offset;
+                    $offset--;
+                    
+                    
+
+                    // $kk = $tujuan_dokter[0][0]->where('NOPEN',$data["pendaftaran"]->NOMOR)->get();
+                    
+                    // foreach($kk as $kkk) {
+                    //     $pasen = Data::where('NORM', $id)->first();
+
+                    //     $normtitik = $pasen['NORM'];
+                    //     $length = strlen($normtitik);
+                    //     for ($i=$length; $i < 6; $i++) {
+                    //             $normtitik = "0" . $normtitik;
+                    //     }
+                    //     $parts = str_split($normtitik, $split_length = 2);
+                    //     $normtitik = $parts[0].".".$parts[1].".".$parts[2];
+    
+                    //     $kkk['NORM'] = $pasen['NORM'];
+                    //     $kkk['NORMTITIK'] = $normtitik;
+                    //     $kkk['NAMA'] = $pasen['NAMA'];
+                    //     $kkk['JENIS_KELAMIN'] = $pasen['JENIS_KELAMIN'];
+                    //     $kkk['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($pasen['TANGGAL_LAHIR']));
+                    //     $kkk['nomor'] = $offset;
+                    //     $offset--;
+                    // }
+
+                    
+                    
+                }
+                
+            }
+     
+            
+            
+            
+        }
+        
+        $dokterCount++;
+        
+    
+        
+        
+        
+            
+        return $tujuan_dokter;
+
+    
 
          }
          else {
             $data["poli"] = "";
          }
-
-
-        //  dd($data);
-        // return $data;
 
          
          $pdf = PDF::loadView('print.tracer_v2', $data)->setPaper('A8', 'portrait');
