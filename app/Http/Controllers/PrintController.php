@@ -188,7 +188,7 @@ class PrintController extends Controller
          // return $pdf->download('laporan-pdf.pdf')
      }
 
-     public function templateTracerV2($id, $awalan, $tgl_masuk, $peminjam)
+     public function templateTracerV2($id, $awalan, $tgl_masuk, $peminjam, $no_urut)
 
      {
          // dd($awalan);
@@ -208,6 +208,8 @@ class PrintController extends Controller
          $label[0]['NORM'] = $norm;
          $label[0]['TANGGAL_LAHIR'] = $lahir;
          $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+
+         $label[0]['noUrut'] = $no_urut;
          $data['label'] = $label;
 
          // // $count = count($label);
@@ -220,7 +222,7 @@ class PrintController extends Controller
 
          
 
-         $data["pendaftaran"] = Pendaftaran::where('NORM', $id)->whereDate('TANGGAL', Carbon::now()->subDays(15))->first();
+         $data["pendaftaran"] = Pendaftaran::where('NORM', $id)->whereDate('TANGGAL', Carbon::now()->today())->first();
          if ($data["pendaftaran"]) {
          $data["tujuan_pasien"] = Tujuan::where('NOPEN',$data["pendaftaran"]->NOMOR)->first();
          $data["ruangan"] = Ruang::where('ID',$data["tujuan_pasien"]->RUANGAN)->first();
@@ -246,7 +248,7 @@ class PrintController extends Controller
 
          $dokterCount = 0;  
          foreach ($dokter as $dokters) {
-            $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->orderBy("TANGGAL", "DESC")->get();
+            $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->orderBy("TANGGAL", "DESC")->get();
             foreach ($today as $todays) {
             $DD = Tujuan::where('DOKTER',$dokters['ID'])->where('NOPEN',$todays['NOMOR'])->first();
             if ($DD) {
@@ -271,7 +273,7 @@ class PrintController extends Controller
             $offset = count($tujuan_dokter[$dokterCount]);
             foreach ($tujuan_dokter[$dokterCount] as $namaDokter) {
                 $namaDokter['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
-                $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->where('NOMOR', $namaDokter['NOPEN'])->first();    
+                $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->where('NOMOR', $namaDokter['NOPEN'])->first();    
                 if (!$pendaftarans) {        
                     $namaDokter['NORM'] = "";
                     $namaDokter['NAMA'] = "";
@@ -296,31 +298,18 @@ class PrintController extends Controller
                     $namaDokter['nomor'] = $offset;
                     $offset--;
                     
-                    
 
-                    // $kk = $tujuan_dokter[0][0]->where('NOPEN',$data["pendaftaran"]->NOMOR)->get();
-                    
-                    // foreach($kk as $kkk) {
-                    //     $pasen = Data::where('NORM', $id)->first();
 
-                    //     $normtitik = $pasen['NORM'];
-                    //     $length = strlen($normtitik);
-                    //     for ($i=$length; $i < 6; $i++) {
-                    //             $normtitik = "0" . $normtitik;
-                    //     }
-                    //     $parts = str_split($normtitik, $split_length = 2);
-                    //     $normtitik = $parts[0].".".$parts[1].".".$parts[2];
-    
-                    //     $kkk['NORM'] = $pasen['NORM'];
-                    //     $kkk['NORMTITIK'] = $normtitik;
-                    //     $kkk['NAMA'] = $pasen['NAMA'];
-                    //     $kkk['JENIS_KELAMIN'] = $pasen['JENIS_KELAMIN'];
-                    //     $kkk['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($pasen['TANGGAL_LAHIR']));
-                    //     $kkk['nomor'] = $offset;
-                    //     $offset--;
+
+                    //  $no_urut = $namaDokter['nomor'] = $offset;
+                    //  $data['no_urut'] = $no_urut;                    
+                    // if ($pasen['NORM'] === $label[0]['NORM']) {
+                    //     $label[0]['nomorUrut'] = $offset;
                     // }
+                    // $data['label'] = $label;
 
-                    
+                    // return $label;
+
                     
                 }
                 
@@ -338,7 +327,7 @@ class PrintController extends Controller
         
         
             
-        return $tujuan_dokter;
+        
 
     
 
@@ -346,8 +335,14 @@ class PrintController extends Controller
          else {
             $data["poli"] = "";
          }
-
          
+        
+        //  $data['totalPasienTujuan'] = count($tujuan_dokter[0]);
+        //  dd(rsort($tujuan_dokter[0]));
+             
+        //  $tujuan_dokter = $tujuan_dokter;
+        //  $data['tujuan_dokter'] = $tujuan_dokter;
+        //  return $tujuan_dokter;
          $pdf = PDF::loadView('print.tracer_v2', $data)->setPaper('A8', 'portrait');
          return $pdf->stream();
 

@@ -69,6 +69,13 @@
     .width250px{
         width: 250px;
     }
+    .widthdropdown{
+        width: 100px;
+    }
+    .bolden{
+        font-family:"Blod";
+        font-size: 20px;
+    }
     .loogoo{
         font-family: 'Yatra One', cursive;
         font-size: 35px;

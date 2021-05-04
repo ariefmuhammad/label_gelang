@@ -152,7 +152,7 @@ class DataController extends Controller
         $dokterCount = 0;
         foreach ($dokter as $docter) {
 
-            $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->orderBy("TANGGAL", "DESC")->get();
+            $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->orderBy("TANGGAL", "DESC")->get();
             foreach ($today as $todays) {
                 $cek = Tujuan::where('DOKTER',$docter['ID'])->where('NOPEN',$todays['NOMOR'])->first();
                 if ($cek) {
@@ -174,12 +174,14 @@ class DataController extends Controller
                 $offset = count($tujuan_dokter[$dokterCount]);
                 foreach ($tujuan_dokter[$dokterCount] as $namaDokter) {
                     $namaDokter['nama_dokter'] = $namaa->GELAR_DEPAN.'. '.$namaa->NAMA.', '.$namaa->GELAR_BELAKANG;
-                    $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(15))->where('NOMOR', $namaDokter['NOPEN'])->first();
+                    $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->whereIn('STATUS',[1,2])->where('NOMOR', $namaDokter['NOPEN'])->first();
                     if (!$pendaftarans) {
                         $namaDokter['NORM'] = "";
                         $namaDokter['NAMA'] = "";
                         $namaDokter['JENIS_KELAMIN'] = "";
                         $namaDokter['TANGGAL_LAHIR'] = "";
+                        $namaDokter['nomor'] = $offset;
+                        $offset--;
                     } else {
                         $pasen = Data::where('NORM', $pendaftarans['NORM'])->first();
 
@@ -249,7 +251,7 @@ class DataController extends Controller
             $dokter[] = Dokter::where('ID',$dokter_ruangans['DOKTER'])->get();
         }
         foreach ($tujuan as $tujuans) {
-            $cek = Pendaftaran::whereDate('TANGGAL', Carbon::now()->subDays(4))->where('NOMOR', $tujuans['NOPEN'])->first();
+            $cek = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->where('NOMOR', $tujuans['NOPEN'])->first();
             if ($cek) {
                 $pendaftaran[] = $cek;
             }

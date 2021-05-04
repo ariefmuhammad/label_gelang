@@ -87,13 +87,15 @@ class Index extends Component {
                         <i className="fa fa-print"></i> Cetak Label
                     </a>
                     &nbsp;
+                    &nbsp;
                     <a
                         href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`}
-                        className="btn btn-success btn-xs"
+                        className="btn btn-primary btn-xs"
                         target="_blank"
                     >
                         <i className="fa fa-print"></i> Cetak Gelang Dewasa
                     </a>
+                    &nbsp;
                     &nbsp;
                     <a
                         href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`}
@@ -121,7 +123,7 @@ class Index extends Component {
                                 <th>Tanggal Masuk</th>
                                 <th>Awalan</th>
                                 <th>Nama Pasien</th>
-                                <th>JK</th>
+                                <th>Jenis Kelamin</th>
                                 {/* <th>Tempat Lahir</th> */}
                                 <th>Tanggal Lahir</th>
                                 {/* <th>Alamat</th> */}
@@ -142,7 +144,7 @@ class Index extends Component {
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
                                 <td>{data.NAMA}</td>
-                                <td className="widthjk">{data.JENIS_KELAMIN === 1 ? "L" : "P"}</td>
+                                <td className="widthjkp">{data.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"}</td>
                                 {/* <td>{data.TEMPAT_LAHIR}</td> */}
                                 <td className="widthlahir">{data.TANGGAL_LAHIR}</td>
                                 {/* <td>{data.ALAMAT}</td> */}

@@ -11,13 +11,13 @@ class Footer extends Component {
                                 <li className="nav-item">
                                     <a
                                         href="http://rumahsakit.untan.ac.id/"
-                                        className="nav-link"
+                                        className="nav-link text-info"
                                     >
                                         Rumah Sakit Universitas Tanjungpura
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="#" className="nav-link text-info">
                                         Copyright &copy; 2020
                                     </a>
                                 </li>
@@ -26,7 +26,7 @@ class Footer extends Component {
                         <div className="app-footer-right">
                             <ul className="nav">
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link">
+                                    <a href="#" className="nav-link text-info">
                                         IT RS UNTAN
                                     </a>
                                 </li>
@@ -34,13 +34,20 @@ class Footer extends Component {
                                     <div className="badge badge-info mr-1 ml-0">
                                         <small>IT</small>
                                     </div>
-                                    <a
+                                    <a 
                                         href="http://masariuman.xyz"
                                         target="blank"
+                                        className="text-info"
                                     >
                                         Arif Setiawan
                                     </a>
-                                    &nbsp; | M. Arief Maulana&nbsp;
+                                    <a 
+                                        href="#"
+                                        target="blank"
+                                        className="text-info"
+                                    >
+                                    &nbsp;| M. Arief Maulana&nbsp;
+                                    </a>
                                     <div className="badge badge-info mr-1 ml-0">
                                         <small>TI</small>
                                     </div>

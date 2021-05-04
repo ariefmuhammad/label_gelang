@@ -74,7 +74,7 @@ class Pasien extends Component {
                 data: response.data.cari,
                 tanggal_masuk: this.getTodayDate(),
                 awalan: "%10",
-                peminjam: "%10"
+                peminjam: "%10",
             });
             // console.log(response.data.cari.pasien);
         });
@@ -93,7 +93,7 @@ class Pasien extends Component {
                             <th>Awalan</th>
                             <th>Rekam Medis</th>
                             <th>Nama Pasien</th>
-                            <th>JK</th>
+                            <th>Jenis Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>Cetak</th>
                         </tr>
@@ -101,7 +101,7 @@ class Pasien extends Component {
                     <tbody>
                         {this.state.data.map(data => (
                             <tr key={data[0].nomor}>
-                                <td className="widthnodaftarp">{data[0].nomor}</td>
+                                <td className="widthnodaftar">{data[0].nomor}</td>
                                 <td className="widthtglmasuk"><input name="TANGGAL_MASUK" placeholder="Tanggal Masuk" type="date" className="form-control widthtglmasuk" required onChange={this.tanggalmasukChange} value={this.state.tanggal_masuk} /></td>
                                 <td className="widthawalan"><select name="AWALAN" id="exampleSelect" className="form-control widthawalan" onChange={this.awalanChange}>
                                     <option value="%10"></option>
@@ -113,7 +113,7 @@ class Pasien extends Component {
                                     <option value="BY.">BY.</option>
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
-                                <td className="widthnormp">
+                                <td className="widthnorm">
                                     {data[0].NORMTITIK}
                                 </td>
                                 <td>{data[0].NAMA}</td>
@@ -122,11 +122,10 @@ class Pasien extends Component {
                                         ? "Laki-Laki"
                                         : "Perempuan"}
                                 </td>
-                                <td className="widthlahirp">
+                                <td className="widthlahir">
                                     {data[0].TANGGAL_LAHIR}
                                 </td>
-                                <td className="">
-                                       
+                                <td className="widthdropdown">
                                        <Dropdown>
                                         <Dropdown.Toggle variant="focus" id="dropdown-basic">
                                          <i className="fa fa-print"></i>&nbsp;Pilih
@@ -134,13 +133,11 @@ class Pasien extends Component {
                                        
                                          <Dropdown.Menu>
                                            <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank"><div className="text-success"><i className="fa fa-print"></i>&nbsp;Label</div> </Dropdown.Item>
-                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-info"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-primary"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
                                            <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank"><div className="text-danger"><i className="fa fa-print"></i>&nbsp;Gelang Anak</div></Dropdown.Item>
-                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
+                                           <Dropdown.Item href={`/${data[0].NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/${data[0].nomor}/tracer_v2`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
                                          </Dropdown.Menu>
-                                       </Dropdown>
-                                                 
-
+                                       </Dropdown>                
                                 </td>
                             </tr>
                         ))}
@@ -161,13 +158,17 @@ class Pasien extends Component {
                                 <th>Awalan</th>
                                 <th>Rekam Medis</th>
                                 <th>Nama Pasien</th>
-                                <th>JK</th>
+                                <th>Jenis Kelamin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Cetak</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {post.map((detail, j) => {                                          
+                            {post.map((detail, j) => {     
+                                  if(detail['NORM'] == "" && detail['STATUS'] == 0)
+                                  return (
+                                    <div></div>
+                                  );                                     
                                  if(detail['NORM'] == "")
                                  return (
                                     <tr key={`Key${j}`}>
@@ -191,15 +192,15 @@ class Pasien extends Component {
                                     </select></td>
                                     <td className="widthnorm">{detail.NORMTITIK}</td>
                                     <td>{detail.NAMA}</td>
-                                    <td className="widthjk">
+                                    <td className="widthjkp">
                                         {detail.JENIS_KELAMIN === 1
-                                            ? "L"
+                                            ? "Laki-Laki"
                                             : detail.JENIS_KELAMIN === 2
-                                            ? "P"
+                                            ? "Perempuan"
                                             : ""}
                                     </td>
                                     <td className="widthlahir">{detail.TANGGAL_LAHIR}</td>
-                                    <td className="">
+                                    <td className="widthdropdown">
                                        <Dropdown>
                                         <Dropdown.Toggle variant="focus" id="dropdown-basic">
                                          <i className="fa fa-print"></i>&nbsp;Pilih
@@ -207,9 +208,9 @@ class Pasien extends Component {
                                        
                                          <Dropdown.Menu>
                                            <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`} target="_blank"><div className="text-success"><i className="fa fa-print"></i>&nbsp;Label</div> </Dropdown.Item>
-                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-info"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`} target="_blank"><div className="text-primary"><i className="fa fa-print"></i>&nbsp;Gelang Dewasa</div> </Dropdown.Item>
                                            <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`} target="_blank"><div className="text-danger"><i className="fa fa-print"></i>&nbsp;Gelang Anak</div></Dropdown.Item>
-                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/tracer_v2`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
+                                           <Dropdown.Item href={`/${detail.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.peminjam}/${detail.nomor}/tracer_v2`} target="_blank"><div className="text-alternate"><i className="fa fa-print"></i>&nbsp;Tracer</div></Dropdown.Item>
                                          </Dropdown.Menu>
                                        </Dropdown>                                                
                                     </td>
@@ -259,11 +260,11 @@ class Pasien extends Component {
                                     </span>
                                     <p></p>
                                     <select
-                                        className="form-control parents"
+                                        className="form-control parents bolden"
                                         onChange={this.handleChange}
                                         value={this.state.tujuan}
                                     >
-                                        <option value="101010101">
+                                        <option className='bolden' value="101010101">
                                             Poli Anak
                                         </option>
                                         <option value="101010102">
