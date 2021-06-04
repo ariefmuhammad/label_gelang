@@ -8,6 +8,7 @@ import Footer from "./components/hbxcphyevn/Footer";
 import Index from "./components/Index";
 import Track from "./components/Track";
 import Pasien from "./components/Pasien";
+import Lab from "./components/Lab";
 // import Tracer from ".components/Track";
 
 if (document.getElementById("root")) {
@@ -25,6 +26,11 @@ if (document.getElementById("root")) {
                                 exact
                                 path="/today_pasien"
                                 component={Pasien}
+                            />
+                            <Route
+                                exact
+                                path="/pasien_lab"
+                                component={Lab}
                             />
                             <Index />
                         </Switch>

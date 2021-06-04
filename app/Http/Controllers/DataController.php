@@ -17,6 +17,37 @@ use Carbon\Carbon;
 
 class DataController extends Controller
 {
+
+    public function pasienLab(Request $request)
+    {
+        $dokter = Pegawai::where('PROFESI', '4')->select('nama')->get();
+        $data['DOKTER'] = $dokter;
+
+        $input = $request->cari;
+        $data = Data::where('NORM', 'like', '%' . $input . '%')->first();
+
+
+        $norm = $data->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+        $parts = str_split($norm, $split_length = 2);
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $data['NORMTITIK'] = $norm;
+
+
+
+        $data['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($data['TANGGAL_LAHIR']));
+
+        // return $dokter;
+
+        return response()->json([
+            'cari' => $data
+		]);
+    }
+
+
     public function cari(Request $request)
     {
         $input = $request->cari;

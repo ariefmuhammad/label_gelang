@@ -1,5 +1,5 @@
 <?php
-
+Route::get('/pasien_lab', 'DataController@pasienLab');
 
 Route::post('/', 'DataController@cari');
 // Route::get('/{id}/label', 'DataController@label');
