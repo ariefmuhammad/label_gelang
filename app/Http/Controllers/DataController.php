@@ -12,39 +12,40 @@ use App\Ruang;
 use App\DokterRuangan;
 use App\Dokter;
 use App\Pegawai;
+use App\Tindakan;
+use App\TarifTindakan;
 use PDF;
 use Carbon\Carbon;
 
 class DataController extends Controller
 {
 
-    public function pasienLab(Request $request)
+    public function dokter(Request $request)
     {
-        $dokter = Pegawai::where('PROFESI', '4')->select('nama')->get();
-        $data['DOKTER'] = $dokter;
+        $dokter = Pegawai::where('PROFESI', '4')->get();
 
-        $input = $request->cari;
-        $data = Data::where('NORM', 'like', '%' . $input . '%')->first();
+        return $dokter;
 
+        // return response()->json([
+        //     $data
+		// ]);
+    }
 
-        $norm = $data->NORM;
-        $length = strlen($norm);
-        for ($i=$length; $i < 6; $i++) {
-                $norm = "0" . $norm;
-        }
-        $parts = str_split($norm, $split_length = 2);
-        $norm = $parts[0].".".$parts[1].".".$parts[2];
-        $data['NORMTITIK'] = $norm;
+    public function tindakan(Request $request)
+    {
+        $tindakan = Tindakan::where('JENIS', '15')
+        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        ->get();
 
+        // $tindakan2 = TarifTindakan::join('tindakan', 'tarif_tindakan.TINDAKAN', '=', 'tindakan.ID')
+        // ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        // ->get();
+        
+       
+        // $tarif_tindakan = TarifTindakan::where('TINDAKAN', $tindakan->ID)->get();
 
-
-        $data['TANGGAL_LAHIR'] = date("d/m/Y", strtotime($data['TANGGAL_LAHIR']));
-
-        // return $dokter;
-
-        return response()->json([
-            'cari' => $data
-		]);
+        return $tindakan;
     }
 
 

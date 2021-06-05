@@ -5,6 +5,8 @@ class Lab extends Component {
         super(props);
         this.state = {
             data: [],
+            dokter: [],
+            tindakan: [],
             cari: "",
             awalan: "%10",
             tanggal_masuk: ""
@@ -49,12 +51,6 @@ class Lab extends Component {
         });
     }
 
-    dokterChange(e) {
-        this.setState({
-            dokter: e.target.value
-        });
-    }
-
     handleChange(e) {
         this.setState({
             cari: e.target.value
@@ -83,6 +79,24 @@ class Lab extends Component {
             });
     }
 
+    getDokter() {
+        axios.get(`/dokter`).then(response => {
+            this.setState({
+                dokter: response.data,
+            });
+            // console.log(response.data);
+        });
+    }
+
+    getTindakan() {
+        axios.get(`/tindakan`).then(response => {
+            this.setState({
+                tindakan: response.data,
+            });
+            // console.log(response.data);
+        });
+    }
+
     renderCari() {
         if (!this.state.data[0]) {
             return this.state.data.map(data => (
@@ -91,12 +105,12 @@ class Lab extends Component {
         } else {
             return this.state.data.map(data => (
                 <div key="1">
-                    <a
+                    {/* <a
                         href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
                         className="btn btn-focus btn-xs"
                         target="_blank"
                     >
-                        <i className="fa fa-print"></i> Cetak Label
+                        <i className="fa fa-print"></i> Cetak Kwitansi
                     </a>
                     &nbsp;
                     &nbsp;
@@ -116,7 +130,7 @@ class Lab extends Component {
                     >
                         <i className="fa fa-print"></i> Cetak Gelang Anak
                     </a>
-                    &nbsp;
+                    &nbsp; */}
                     {/* <a
                         href={`/${data.NORM}/gelang_anak`}
                         className="btn btn-danger btn-xs"
@@ -125,20 +139,18 @@ class Lab extends Component {
                         <i className="fa fa-print"></i> Cetak Tracer
                     </a> */}
                     &nbsp;
-                    <br></br>
-                    <br></br>
+                    {/* <br></br>
+                    <br></br> */}
                     <div className="table-responsive">
                     <table className="mb-0 table table-bordered">
                         <thead>
                             <tr>
                                 <th>Rekam Medis</th>
-                                <th>Tanggal Masuk</th>
+                                <th>Tanggal</th>
                                 <th>Awalan</th>
                                 <th>Nama Pasien</th>
                                 <th>Status</th>
                                 <th>Dokter</th>
-                                <th>Jenis Kelamin</th>                     
-                                <th>Tanggal Lahir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -165,17 +177,51 @@ class Lab extends Component {
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
-                                <td className="widthawalan"><select name="DOKTER" id="exampleSelect" className="form-control widthawalan" onChange={this.awalanChange}>
+                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control">
+                                    <option value="" hidden disabled>
+                                        -Pilih Dokter-
+                                    </option>
                                     <option value="%10"></option>
-                                    <option value="wiwik">wiwik</option>
-                                    <option value="agus">agus</option>
+                                    {
+                                      this.state.dokter.map((one_dokter, i) =>{
+                                        return (
+                                          <option key={one_dokter.ID} value={one_dokter.NAMA}>{one_dokter.NAMA}</option>
+                                        )
+                                      }) 
+                                    }
                                     </select>
                                 </td>
-                                <td className="widthjkp">{data.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"}</td>
-                                <td className="widthlahir">{data.TANGGAL_LAHIR}</td>
                             </tr>
                         </tbody>
                     </table>
+                      <br></br>
+                       <div>
+                       <label class="">Tindakan :</label>    
+                       <select name="TINDAKAN" id="exampleSelect" className="form-control">
+                                    <option value="" hidden disabled>
+                                        -Pilih Tindakan-
+                                    </option>
+                                    <option value="%10"></option>
+                                    {
+                                      this.state.tindakan.map((one_tindakan, i) =>{
+                                        return (
+                                          <option key={one_tindakan.ID} value={one_tindakan.NAMA}>{one_tindakan.NAMA} - Rp. {one_tindakan.TARIF}</option>
+                                        )
+                                      }) 
+                                    }
+                                    </select>
+                                    <br></br>
+                                    <label class="">Total Harga :</label>   
+                                    <input name="" placeholder="Total Harga" type="number" className="form-control" />
+                                    <br></br>
+                                    <a
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
+                                        className="btn btn-focus btn-xs"
+                                        target="_blank"
+                                    >
+                                        <i className="fa fa-print"></i> Cetak Kwitansi
+                                    </a>
+                       </div>
                   </div>
                 </div>
             ));
@@ -184,6 +230,8 @@ class Lab extends Component {
 
     componentDidMount() {
         this.getTodayDate();
+        this.getDokter();
+        this.getTindakan();
     }
 
     componentDidUpdate() {

@@ -89315,6 +89315,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Lab).call(this, props));
     _this.state = {
       data: [],
+      dokter: [],
+      tindakan: [],
       cari: "",
       awalan: "%10",
       tanggal_masuk: ""
@@ -89368,13 +89370,6 @@ function (_Component) {
       });
     }
   }, {
-    key: "dokterChange",
-    value: function dokterChange(e) {
-      this.setState({
-        dokter: e.target.value
-      });
-    }
-  }, {
     key: "handleChange",
     value: function handleChange(e) {
       this.setState({
@@ -89403,9 +89398,33 @@ function (_Component) {
       });
     }
   }, {
+    key: "getDokter",
+    value: function getDokter() {
+      var _this3 = this;
+
+      axios.get("/dokter").then(function (response) {
+        _this3.setState({
+          dokter: response.data
+        }); // console.log(response.data);
+
+      });
+    }
+  }, {
+    key: "getTindakan",
+    value: function getTindakan() {
+      var _this4 = this;
+
+      axios.get("/tindakan").then(function (response) {
+        _this4.setState({
+          tindakan: response.data
+        }); // console.log(response.data);
+
+      });
+    }
+  }, {
     key: "renderCari",
     value: function renderCari() {
-      var _this3 = this;
+      var _this5 = this;
 
       if (!this.state.data[0]) {
         return this.state.data.map(function (data) {
@@ -89417,29 +89436,11 @@ function (_Component) {
         return this.state.data.map(function (data) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "1"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/label"),
-            className: "btn btn-focus btn-xs",
-            target: "_blank"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "fa fa-print"
-          }), " Cetak Label"), "\xA0 \xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/gelang_dewasa"),
-            className: "btn btn-primary btn-xs",
-            target: "_blank"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "fa fa-print"
-          }), " Cetak Gelang Dewasa"), "\xA0 \xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/gelang_anak"),
-            className: "btn btn-danger btn-xs",
-            target: "_blank"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "fa fa-print"
-          }), " Cetak Gelang Anak"), "\xA0", "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          }, "\xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "table-responsive"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
             className: "mb-0 table table-bordered"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Masuk"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Dokter"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Jenis Kelamin"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Dokter"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthnorm"
           }, data.NORMTITIK), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthtglmasuk"
@@ -89449,15 +89450,15 @@ function (_Component) {
             type: "date",
             className: "form-control widthtglmasuk",
             required: true,
-            onChange: _this3.tanggalmasukChange,
-            value: _this3.state.tanggal_masuk
+            onChange: _this5.tanggalmasukChange,
+            value: _this5.state.tanggal_masuk
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: "widthawalan"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "AWALAN",
             id: "exampleSelect",
             className: "form-control widthawalan",
-            onChange: _this3.awalanChange
+            onChange: _this5.awalanChange
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "%10"
           }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -89480,7 +89481,7 @@ function (_Component) {
             name: "STATUS",
             id: "exampleSelect",
             className: "form-control widthawalan",
-            onChange: _this3.awalanChange
+            onChange: _this5.awalanChange
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "%10"
           }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
@@ -89494,23 +89495,53 @@ function (_Component) {
           }, "III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
           }, "UMUM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthawalan"
+            className: ""
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "DOKTER",
             id: "exampleSelect",
-            className: "form-control widthawalan",
-            onChange: _this3.awalanChange
+            className: "form-control"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "",
+            hidden: true,
+            disabled: true
+          }, "-Pilih Dokter-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "%10"
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "wiwik"
-          }, "wiwik"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "agus"
-          }, "agus"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthjkp"
-          }, data.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthlahir"
-          }, data.TANGGAL_LAHIR))))));
+          }), _this5.state.dokter.map(function (one_dokter, i) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+              key: one_dokter.ID,
+              value: one_dokter.NAMA
+            }, one_dokter.NAMA);
+          })))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+            "class": ""
+          }, "Tindakan :"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+            name: "TINDAKAN",
+            id: "exampleSelect",
+            className: "form-control"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "",
+            hidden: true,
+            disabled: true
+          }, "-Pilih Tindakan-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "%10"
+          }), _this5.state.tindakan.map(function (one_tindakan, i) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+              key: one_tindakan.ID,
+              value: one_tindakan.NAMA
+            }, one_tindakan.NAMA, " - Rp. ", one_tindakan.TARIF);
+          })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+            "class": ""
+          }, "Total Harga :"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            name: "",
+            placeholder: "Total Harga",
+            type: "number",
+            className: "form-control"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            href: "/".concat(data.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/label"),
+            className: "btn btn-focus btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Cetak Kwitansi"))));
         });
       }
     }
@@ -89518,6 +89549,8 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.getTodayDate();
+      this.getDokter();
+      this.getTindakan();
     }
   }, {
     key: "componentDidUpdate",
