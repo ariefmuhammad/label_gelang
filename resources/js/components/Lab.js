@@ -16,7 +16,7 @@ class Lab extends Component {
             input_dokter: "",
             add_tindakan: [],
             tarif: [],
-            hasil: '',
+            hasil: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +27,7 @@ class Lab extends Component {
         this.namaDokterChange = this.namaDokterChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.totalTarif = this.totalTarif.bind(this);
+        this.totalTarifChange = this.totalTarifChange.bind(this);
     }
 
     getTodayDate() {
@@ -143,7 +143,7 @@ class Lab extends Component {
         });
     }
 
-    totalTarif(e) {
+    totalTarifChange(e) {
         this.setState({
             hasil: e.target.value
         });
@@ -243,12 +243,13 @@ class Lab extends Component {
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
                                 <td>{data.NAMA}</td>
-                                <td className="widthawalan"><select name="STATUS" id="exampleSelect" className="form-control widthawalan" onChange={this.statusChange}>
-                                    <option value="%10"></option>
-                                    <option value="BPJS">BPJS</option>
-                                    <option value="I">I</option>
-                                    <option value="II">II</option> 
-                                    <option value="III">III</option>
+                                <td className=""><select name="STATUS" id="exampleSelect" className="form-control" onChange={this.statusChange} value={this.state.status}>
+                                    <option value="" hidden disabled>
+                                        -Pilih Status-
+                                    </option>
+                                    <option value="BPJS I">BPJS I</option>
+                                    <option value="BPJS II">BPJS II</option> 
+                                    <option value="BPJS III">BPJS III</option>
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
@@ -256,7 +257,6 @@ class Lab extends Component {
                                     <option value="" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
-                                    <option value="%10"></option>
                                     {
                                       this.state.dokter.map((one_dokter, i) =>{
                                         return (
@@ -336,7 +336,7 @@ class Lab extends Component {
                                     <label className=""><b>Total Harga :</b></label>   
                                     <div className="form-row">
                                        <div className="col-md-4">
-                                       <input name="" placeholder="Total Harga" type="number" className="form-control" onChange={this.onSubmit} value={this.state.hasil} />
+                                       <input name="TOTAL_TARIF" placeholder="Total Harga" type="number" className="form-control" onChange={this.totalTarifChange} value={this.state.hasil} />
                                        </div>
                                        <div className="col-md-8">
                                        <button
@@ -351,7 +351,7 @@ class Lab extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.hasil}/Laboratorium`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >

@@ -241,12 +241,13 @@ class Radiologi extends Component {
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
                                 <td>{data.NAMA}</td>
-                                <td className="widthawalan"><select name="STATUS" id="exampleSelect" className="form-control widthawalan" onChange={this.statusChange}>
-                                    <option value="%10"></option>
-                                    <option value="BPJS">BPJS</option>
-                                    <option value="I">I</option>
-                                    <option value="II">II</option> 
-                                    <option value="III">III</option>
+                                <td className=""><select name="STATUS" id="exampleSelect" className="form-control" onChange={this.statusChange} value={this.state.status}>
+                                    <option value="" hidden disabled>
+                                        -Pilih Status-
+                                    </option>
+                                    <option value="BPJS I">BPJS I</option>
+                                    <option value="BPJS II">BPJS II</option> 
+                                    <option value="BPJS III">BPJS III</option>
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
@@ -254,7 +255,6 @@ class Radiologi extends Component {
                                     <option value="" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
-                                    <option value="%10"></option>
                                     {
                                       this.state.dokter.map((one_dokter, i) =>{
                                         return (

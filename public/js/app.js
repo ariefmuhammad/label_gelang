@@ -89340,7 +89340,7 @@ function (_Component) {
       input_dokter: "",
       add_tindakan: [],
       tarif: [],
-      hasil: ''
+      hasil: ""
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -89351,7 +89351,7 @@ function (_Component) {
     _this.namaDokterChange = _this.namaDokterChange.bind(_assertThisInitialized(_this));
     _this.tarifChange = _this.tarifChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.totalTarif = _this.totalTarif.bind(_assertThisInitialized(_this));
+    _this.totalTarifChange = _this.totalTarifChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -89481,8 +89481,8 @@ function (_Component) {
       });
     }
   }, {
-    key: "totalTarif",
-    value: function totalTarif(e) {
+    key: "totalTarifChange",
+    value: function totalTarifChange(e) {
       this.setState({
         hasil: e.target.value
       });
@@ -89556,23 +89556,24 @@ function (_Component) {
           }, "BY."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "BY.NY"
           }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.NAMA), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthawalan"
+            className: ""
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "STATUS",
             id: "exampleSelect",
-            className: "form-control widthawalan",
-            onChange: _this5.statusChange
+            className: "form-control",
+            onChange: _this5.statusChange,
+            value: _this5.state.status
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "%10"
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS"
-          }, "BPJS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "I"
-          }, "I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "II"
-          }, "II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "III"
-          }, "III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "",
+            hidden: true,
+            disabled: true
+          }, "-Pilih Status-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS I"
+          }, "BPJS I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS II"
+          }, "BPJS II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS III"
+          }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
           }, "UMUM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: ""
@@ -89586,9 +89587,7 @@ function (_Component) {
             value: "",
             hidden: true,
             disabled: true
-          }, "-Pilih Dokter-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "%10"
-          }), _this5.state.dokter.map(function (one_dokter, i) {
+          }, "-Pilih Dokter-"), _this5.state.dokter.map(function (one_dokter, i) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
               key: one_dokter.ID,
               value: one_dokter.NAMA
@@ -89644,11 +89643,11 @@ function (_Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "col-md-4"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-            name: "",
+            name: "TOTAL_TARIF",
             placeholder: "Total Harga",
             type: "number",
             className: "form-control",
-            onChange: _this5.onSubmit,
+            onChange: _this5.totalTarifChange,
             value: _this5.state.hasil
           })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "col-md-8"
@@ -89662,7 +89661,7 @@ function (_Component) {
             "aria-hidden": "true",
             title: "Copy to use dollar"
           }, "\uF155"), "Total Harga"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(data.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/").concat(_this5.state.status, "/").concat(_this5.state.nama_dokter, "/Laboratorium"),
+            href: "/".concat(data.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/").concat(_this5.state.status, "/").concat(_this5.state.nama_dokter, "/").concat(_this5.state.hasil, "/Laboratorium"),
             className: "btn btn-focus btn-xs",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -90404,23 +90403,24 @@ function (_Component) {
           }, "BY."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "BY.NY"
           }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.NAMA), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            className: "widthawalan"
+            className: ""
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "STATUS",
             id: "exampleSelect",
-            className: "form-control widthawalan",
-            onChange: _this5.statusChange
+            className: "form-control",
+            onChange: _this5.statusChange,
+            value: _this5.state.status
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "%10"
-          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS"
-          }, "BPJS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "I"
-          }, "I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "II"
-          }, "II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "III"
-          }, "III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "",
+            hidden: true,
+            disabled: true
+          }, "-Pilih Status-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS I"
+          }, "BPJS I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS II"
+          }, "BPJS II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "BPJS III"
+          }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
           }, "UMUM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: ""
@@ -90434,9 +90434,7 @@ function (_Component) {
             value: "",
             hidden: true,
             disabled: true
-          }, "-Pilih Dokter-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "%10"
-          }), _this5.state.dokter.map(function (one_dokter, i) {
+          }, "-Pilih Dokter-"), _this5.state.dokter.map(function (one_dokter, i) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
               key: one_dokter.ID,
               value: one_dokter.NAMA
