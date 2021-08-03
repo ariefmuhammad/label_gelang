@@ -79,9 +79,13 @@ class Sidebar extends Component {
                                     <i className="metismenu-icon pe-7s-note2"></i>
                                     Pasien Hari Ini
                             </NavLink>
-                            <NavLink exact to={`/pasien_lab`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
-                                    <i className="metismenu-icon pe-7s-note2"></i>
-                                    Pasien Lab
+                            <NavLink exact to={`/laboratorium`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                    <i className="metismenu-icon pe-7s-drop"></i>
+                                    Laboratorium
+                            </NavLink>
+                            <NavLink exact to={`/radiologi`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                    <i className="metismenu-icon pe-7s-display1"></i>
+                                    Radiologi
                             </NavLink>
                             </li> 
                         </ul>                           

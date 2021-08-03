@@ -11,12 +11,10 @@ class Lab extends Component {
             awalan: "%10",
             tanggal_masuk: "",
             status: "",
-            nama_dokter: "",
             // tarif: "",
             input_dokter: "",
             add_tindakan: [],
             tarif: [],
-            hasil: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,10 +22,9 @@ class Lab extends Component {
         this.awalanChange = this.awalanChange.bind(this);
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
-        this.namaDokterChange = this.namaDokterChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
+        this.inputDokterChange = this.inputDokterChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.totalTarif = this.totalTarif.bind(this);
     }
 
     getTodayDate() {
@@ -81,9 +78,9 @@ class Lab extends Component {
         // });
     }
 
-    namaDokterChange(e) {
+    inputDokterChange(e) {
         this.setState({
-            nama_dokter: e.target.value
+            input_dokter: e.target.value
         });
     }
 
@@ -110,7 +107,7 @@ class Lab extends Component {
     }
 
     getDokter() {
-        axios.get(`/dokter/data`).then(response => {
+        axios.get(`/dokter`).then(response => {
             this.setState({
                 dokter: response.data,
             });
@@ -119,7 +116,7 @@ class Lab extends Component {
     }
 
     getTindakan() {
-        axios.get(`/laboratorium/data`).then(response => {
+        axios.get(`/lab`).then(response => {
             this.setState({
                 tindakan: response.data,
             });
@@ -143,34 +140,9 @@ class Lab extends Component {
         });
     }
 
-    totalTarif(e) {
-        this.setState({
-            hasil: e.target.value
-        });
-    }
-
     onSubmit(e) {
-   
-
-        var arr = this.state.add_tindakan;
-        arr = arr.map(Number);
-
-
-        const hasil = arr.reduce(
-            ( accumulator, currentValue ) => accumulator + currentValue,
-            0
-          );
-
-        this.state.hasil = hasil;
-
-        this.setState({
-            hasil: this.state.hasil
-        });
-
-        console.log(this.state.hasil); // [1, 2, 3]
-
+        console.log(this.state.add_tindakan, "$$$$");
     }
-
 
     renderCari() {
         if (!this.state.data[0]) {
@@ -252,7 +224,7 @@ class Lab extends Component {
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
-                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
+                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.inputDokterChange} value={this.state.input_dokter}>
                                     <option value="" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
@@ -271,16 +243,16 @@ class Lab extends Component {
                     </table>
                       <br></br>
                        <div>
-                       <label className=""><b>Tindakan Laboratorium :</b></label>  
+                       <label className="">Tindakan Laboratorium :</label>  
                        
                        {
-                                      this.state.add_tindakan.map((total, i) =>{
+                                      this.state.add_tindakan.map((i) =>{
                                         return (
                                             <div key={i}>
 
                        <div className="form-row">
                             <div className="col-md-11">
-                                    <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
+                                    <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={this.tarifChange}>
                                     <option value="" hidden disabled>
                                         -Pilih Tindakan-
                                     </option>
@@ -288,7 +260,7 @@ class Lab extends Component {
                                     {
                                       this.state.tindakan.map((one_tindakan, i) =>{
                                         return (
-                                          <option key={i} value={one_tindakan.TARIF}>{one_tindakan.NAMA} - Rp. {one_tindakan.TARIF}</option>
+                                          <option key={one_tindakan.ID} value={one_tindakan.TARIF}>{one_tindakan.NAMA} - Rp. {one_tindakan.TARIF}</option>
                                         )
                                       }) 
                                     }
@@ -330,36 +302,30 @@ class Lab extends Component {
                                                 </div>
                                     </div> */}
 
+
+
+                                    <br></br>
                               
                                     <br></br>
                                     <br></br>
-                                    <label className=""><b>Total Harga :</b></label>   
-                                    <div className="form-row">
-                                       <div className="col-md-4">
-                                       <input name="" placeholder="Total Harga" type="number" className="form-control" onChange={this.onSubmit} value={this.state.hasil} />
-                                       </div>
-                                       <div className="col-md-8">
-                                       <button
-                                       className="btn btn-success btn-xs"
-                                       onClick={(e)=>this.onSubmit(e)}
-                                       >
-                                       <i className="fa fa-fw" aria-hidden="true" title="Copy to use dollar"></i>Total Harga
-                                       </button>
-                                       </div>
-                                    </div>
+                                    <label className="">Total Harga :</label>   
+                                    <input name="" placeholder="Total Harga" type="number" className="form-control" onChange={this.tarifChange} value={this.state.tarif} />
                                     <br></br>
-                  
-                                   <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >
                                         <i className="fa fa-print"></i> Cetak Kwitansi
                                     </a>
-                                    <br></br>
-                                    <br></br>
-                                
+
+                                    <button
+                                       
+                                        className="btn btn-warning btn-xs"
+                                        onClick={(e)=>this.onSubmit(e)}
+                                    >
+                                        <i className="fa fa-print"></i> Submit
+                                    </button>
                        </div>
                   </div>
                 </div>

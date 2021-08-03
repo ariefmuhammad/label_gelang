@@ -350,6 +350,78 @@ class PrintController extends Controller
          // return $pdf->download('laporan-pdf.pdf')
      }
 
+     public function templateLaboratorium($id, $awalan, $tgl_masuk, $status, $nama_dokter)
+
+     {
+         // dd($awalan);
+
+        $label = Data::where('NORM',  $id)->get();
+        $norm = $label[0]->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($label[0]['TANGGAL_LAHIR']));
+
+        $label[0]['NORM'] = $norm;
+        $label[0]['TANGGAL_LAHIR'] = $lahir;
+        $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+        $data['label'] = $label;
+
+        // // $count = count($label);
+        // // $data['count'] = $count;
+        $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
+        $data['TANGGAL_MASUK'] = $tanggal_masuk;
+
+        $data['STATUS'] = $status;
+        $data['DOKTER'] = $nama_dokter;
+
+        $pdf = PDF::loadView('print.laboratorium', $data)->setPaper('A4', 'portrait');
+        return $pdf->stream();
+
+        // return view('print.label', $data);
+        // return $pdf->download('laporan-pdf.pdf')
+     }
+
+     public function templateRadiologi($id, $awalan, $tgl_masuk)
+
+     {
+         // dd($awalan);
+
+        $label = Data::where('NORM',  $id)->get();
+        $norm = $label[0]->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($label[0]['TANGGAL_LAHIR']));
+
+        $label[0]['NORM'] = $norm;
+        $label[0]['TANGGAL_LAHIR'] = $lahir;
+        $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+        $data['label'] = $label;
+
+        // // $count = count($label);
+        // // $data['count'] = $count;
+        $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
+        $data['TANGGAL_MASUK'] = $tanggal_masuk;
+
+
+        $pdf = PDF::loadView('print.radiologi', $data)->setPaper('A4', 'portrait');
+        return $pdf->stream();
+
+        // return view('print.label', $data);
+        // return $pdf->download('laporan-pdf.pdf')
+     }
+
      public function testtujuan($id, $awalan, $tgl_masuk)
 
      {

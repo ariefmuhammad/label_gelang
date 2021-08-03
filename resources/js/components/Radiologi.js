@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Lab extends Component {
+class Radiologi extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,7 +11,6 @@ class Lab extends Component {
             awalan: "%10",
             tanggal_masuk: "",
             status: "",
-            nama_dokter: "",
             // tarif: "",
             input_dokter: "",
             add_tindakan: [],
@@ -24,8 +23,8 @@ class Lab extends Component {
         this.awalanChange = this.awalanChange.bind(this);
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
-        this.namaDokterChange = this.namaDokterChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
+        this.inputDokterChange = this.inputDokterChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.totalTarif = this.totalTarif.bind(this);
     }
@@ -81,9 +80,9 @@ class Lab extends Component {
         // });
     }
 
-    namaDokterChange(e) {
+    inputDokterChange(e) {
         this.setState({
-            nama_dokter: e.target.value
+            input_dokter: e.target.value
         });
     }
 
@@ -119,7 +118,7 @@ class Lab extends Component {
     }
 
     getTindakan() {
-        axios.get(`/laboratorium/data`).then(response => {
+        axios.get(`/radiologi/data`).then(response => {
             this.setState({
                 tindakan: response.data,
             });
@@ -170,7 +169,6 @@ class Lab extends Component {
         console.log(this.state.hasil); // [1, 2, 3]
 
     }
-
 
     renderCari() {
         if (!this.state.data[0]) {
@@ -252,7 +250,7 @@ class Lab extends Component {
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
-                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
+                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.inputDokterChange} value={this.state.input_dokter}>
                                     <option value="" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
@@ -271,7 +269,7 @@ class Lab extends Component {
                     </table>
                       <br></br>
                        <div>
-                       <label className=""><b>Tindakan Laboratorium :</b></label>  
+                       <label className=""><b>Tindakan Radiologi :</b></label>  
                        
                        {
                                       this.state.add_tindakan.map((total, i) =>{
@@ -330,7 +328,8 @@ class Lab extends Component {
                                                 </div>
                                     </div> */}
 
-                              
+
+
                                     <br></br>
                                     <br></br>
                                     <label className=""><b>Total Harga :</b></label>   
@@ -351,7 +350,7 @@ class Lab extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/radiologi`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >
@@ -359,7 +358,7 @@ class Lab extends Component {
                                     </a>
                                     <br></br>
                                     <br></br>
-                                
+                                    
                        </div>
                   </div>
                 </div>
@@ -383,13 +382,13 @@ class Lab extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-drop icon-gradient bg-arielle-smile"></i>
+                                <i className="pe-7s-display1 icon-gradient bg-arielle-smile"></i>
                             </div>
                             <div>
-                                Laboratorium
+                                Radiologi
                                 <div className="page-title-subheading">
                                     Halaman ini berfungsi untuk mencetak Tindakan
-                                    Pasien Laboratorium.
+                                    Pasien Radiologi.
                                 </div>
                             </div>
                         </div>
@@ -425,4 +424,4 @@ class Lab extends Component {
     }
 }
 
-export default Lab;
+export default Radiologi;

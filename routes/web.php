@@ -1,6 +1,7 @@
 <?php
-Route::get('/dokter', 'DataController@dokter');
-Route::get('/tindakan', 'DataController@tindakan');
+Route::get('/dokter/data', 'DataController@dokter');
+Route::get('/laboratorium/data', 'DataController@tindakanLab');
+Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
 
 Route::post('/', 'DataController@cari');
 // Route::get('/{id}/label', 'DataController@label');
@@ -11,6 +12,9 @@ Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/tracer', 'PrintController@temp
 Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/{no_urut}/tracer_v2', 'PrintController@templateTracerV2');
 Route::get('/{id}/{awalan}/{tgl_masuk}/testtujuan', 'PrintController@testtujuan');
 
+
+Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/Laboratorium', 'PrintController@templateLaboratorium');
+Route::get('/{id}/{awalan}/{tgl_masuk}/Radiologi', 'PrintController@templateRadiologi');
 
 
 

@@ -9,6 +9,7 @@ import Index from "./components/Index";
 import Track from "./components/Track";
 import Pasien from "./components/Pasien";
 import Lab from "./components/Lab";
+import Radiologi from "./components/Radiologi";
 // import Tracer from ".components/Track";
 
 if (document.getElementById("root")) {
@@ -29,8 +30,13 @@ if (document.getElementById("root")) {
                             />
                             <Route
                                 exact
-                                path="/pasien_lab"
+                                path="/laboratorium"
                                 component={Lab}
+                            />
+                            <Route
+                                exact
+                                path="/radiologi"
+                                component={Radiologi}
                             />
                             <Index />
                         </Switch>

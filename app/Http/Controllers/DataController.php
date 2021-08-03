@@ -31,9 +31,27 @@ class DataController extends Controller
 		// ]);
     }
 
-    public function tindakan(Request $request)
+    public function tindakanLab(Request $request)
     {
         $tindakan = Tindakan::where('JENIS', '15')
+        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        ->groupBy('NAMA')
+        ->get();
+
+        // $tindakan2 = TarifTindakan::join('tindakan', 'tarif_tindakan.TINDAKAN', '=', 'tindakan.ID')
+        // ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        // ->get();
+        
+       
+        // $tarif_tindakan = TarifTindakan::get();
+
+        return $tindakan;
+    }
+
+    public function tindakanRadiologi(Request $request)
+    {
+        $tindakan = Tindakan::where('JENIS', '16')
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
         ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
         ->groupBy('NAMA')
