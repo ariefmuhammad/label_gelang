@@ -143,12 +143,22 @@
   </tr>
   <tr>
     <td>
+    <b style="font-family:sans-serif;">Tidakan</b>
+    </td>
+    <td> :
+    </td>
+    <td>
+    <b style="font-family:sans-serif;">{{$TINDAKAN}}</b>
+    </td>
+  </tr>
+  <tr>
+    <td>
     <b style="font-family:sans-serif;">Tarif</b>
     </td>
     <td> :
     </td>
     <td>
-    <b style="font-family:sans-serif;"></b>
+    <b style="font-family:sans-serif;">{{$TARIF}}</b>
     </td>
   </tr>
   <tr>

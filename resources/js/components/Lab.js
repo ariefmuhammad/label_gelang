@@ -14,8 +14,9 @@ class Lab extends Component {
             nama_dokter: "",
             // tarif: "",
             input_dokter: "",
+            nama_tindakan: [],
             add_tindakan: [],
-            tarif: [],
+            // tarif: [],
             hasil: "",
         };
         this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,7 @@ class Lab extends Component {
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
         this.namaDokterChange = this.namaDokterChange.bind(this);
+        this.tindakanChange = this.tindakanChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.totalTarifChange = this.totalTarifChange.bind(this);
@@ -68,6 +70,13 @@ class Lab extends Component {
             cari: e.target.value
         });
         // console.log(e.target.value);
+    }
+
+    tindakanChange(e, i) {
+        this.state.nama_tindakan[i] = e.target.value
+        this.setState({
+            nama_tindakan: this.state.nama_tindakan
+        });
     }
 
     tarifChange(e, i) {
@@ -279,8 +288,8 @@ class Lab extends Component {
                                             <div key={i}>
 
                        <div className="form-row">
-                            <div className="col-md-11">
-                                    <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
+                            <div className="col-md-6">
+                                    <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={(e) => this.tindakanChange(e, i)}>
                                     <option value="" hidden disabled>
                                         -Pilih Tindakan-
                                     </option>
@@ -288,7 +297,22 @@ class Lab extends Component {
                                     {
                                       this.state.tindakan.map((one_tindakan, i) =>{
                                         return (
-                                          <option key={i} value={one_tindakan.TARIF}>{one_tindakan.NAMA} - Rp. {one_tindakan.TARIF}</option>
+                                          <option key={i} value={one_tindakan.NAMA}>{one_tindakan.NAMA}</option>
+                                        )
+                                      }) 
+                                    }
+                                    </select>
+                            </div>
+                            <div className="col-md-5">
+                                    <select name="TARIF" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
+                                    <option value="" hidden disabled>
+                                        -Pilih Tarif-
+                                    </option>
+                                    <option hidden>-Pilih Tarif-</option>
+                                    {
+                                      this.state.tindakan.map((one_tindakan, i) =>{
+                                        return (
+                                          <option key={i} value={one_tindakan.TARIF}>Rp. {one_tindakan.TARIF}</option>
                                         )
                                       }) 
                                     }
@@ -351,7 +375,7 @@ class Lab extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.hasil}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.nama_tindakan}/${this.state.add_tindakan}/${this.state.hasil}/Laboratorium`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >

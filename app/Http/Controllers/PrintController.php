@@ -350,7 +350,7 @@ class PrintController extends Controller
          // return $pdf->download('laporan-pdf.pdf')
      }
 
-     public function templateLaboratorium($id, $awalan, $tgl_masuk, $status, $nama_dokter, $total_tarif)
+     public function templateLaboratorium($id, $awalan, $tgl_masuk, $status, $nama_dokter, $tindakan, $tarif, $total_tarif)
 
      {
          // dd($awalan);
@@ -379,6 +379,9 @@ class PrintController extends Controller
 
         $data['STATUS'] = $status;
         $data['DOKTER'] = $nama_dokter;
+        
+        $data['TINDAKAN'] = $tindakan;
+        $data['TARIF'] = $tarif;
         $data['TOTAL_TARIF'] = $total_tarif;
 
         $pdf = PDF::loadView('print.laboratorium', $data)->setPaper('A4', 'portrait');

@@ -89338,8 +89338,9 @@ function (_Component) {
       nama_dokter: "",
       // tarif: "",
       input_dokter: "",
+      nama_tindakan: [],
       add_tindakan: [],
-      tarif: [],
+      // tarif: [],
       hasil: ""
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -89349,6 +89350,7 @@ function (_Component) {
     _this.tanggalmasukChange = _this.tanggalmasukChange.bind(_assertThisInitialized(_this));
     _this.statusChange = _this.statusChange.bind(_assertThisInitialized(_this));
     _this.namaDokterChange = _this.namaDokterChange.bind(_assertThisInitialized(_this));
+    _this.tindakanChange = _this.tindakanChange.bind(_assertThisInitialized(_this));
     _this.tarifChange = _this.tarifChange.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.totalTarifChange = _this.totalTarifChange.bind(_assertThisInitialized(_this));
@@ -89401,6 +89403,14 @@ function (_Component) {
       this.setState({
         cari: e.target.value
       }); // console.log(e.target.value);
+    }
+  }, {
+    key: "tindakanChange",
+    value: function tindakanChange(e, i) {
+      this.state.nama_tindakan[i] = e.target.value;
+      this.setState({
+        nama_tindakan: this.state.nama_tindakan
+      });
     }
   }, {
     key: "tarifChange",
@@ -89600,13 +89610,13 @@ function (_Component) {
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "form-row"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              className: "col-md-11"
+              className: "col-md-6"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
               name: "TINDAKAN",
               id: "exampleSelect",
               className: "form-control",
               onChange: function onChange(e) {
-                return _this5.tarifChange(e, i);
+                return _this5.tindakanChange(e, i);
               }
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
               value: "",
@@ -89617,8 +89627,28 @@ function (_Component) {
             }, "-Pilih Tindakan-"), _this5.state.tindakan.map(function (one_tindakan, i) {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
                 key: i,
+                value: one_tindakan.NAMA
+              }, one_tindakan.NAMA);
+            }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              className: "col-md-5"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+              name: "TARIF",
+              id: "exampleSelect",
+              className: "form-control",
+              onChange: function onChange(e) {
+                return _this5.tarifChange(e, i);
+              }
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+              value: "",
+              hidden: true,
+              disabled: true
+            }, "-Pilih Tarif-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+              hidden: true
+            }, "-Pilih Tarif-"), _this5.state.tindakan.map(function (one_tindakan, i) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+                key: i,
                 value: one_tindakan.TARIF
-              }, one_tindakan.NAMA, " - Rp. ", one_tindakan.TARIF);
+              }, "Rp. ", one_tindakan.TARIF);
             }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               className: "col-md-1"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -89661,7 +89691,7 @@ function (_Component) {
             "aria-hidden": "true",
             title: "Copy to use dollar"
           }, "\uF155"), "Total Harga"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(data.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/").concat(_this5.state.status, "/").concat(_this5.state.nama_dokter, "/").concat(_this5.state.hasil, "/Laboratorium"),
+            href: "/".concat(data.NORM, "/").concat(_this5.state.awalan, "/").concat(_this5.state.tanggal_masuk, "/").concat(_this5.state.status, "/").concat(_this5.state.nama_dokter, "/").concat(_this5.state.nama_tindakan, "/").concat(_this5.state.add_tindakan, "/").concat(_this5.state.hasil, "/Laboratorium"),
             className: "btn btn-focus btn-xs",
             target: "_blank"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
