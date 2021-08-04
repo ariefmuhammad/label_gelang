@@ -73,6 +73,15 @@
            margin-top: 7px;
          }
 
+         table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+}
+
     </style>
 </head>
 
@@ -141,7 +150,7 @@
     <b style="font-family:sans-serif;">{{$STATUS}}</b>
     </td>
   </tr>
-  <tr>
+  <!-- <tr>
     <td>
     <b style="font-family:sans-serif;">Tidakan</b>
     </td>
@@ -170,6 +179,26 @@
     <td>
     <b style="font-family:sans-serif;">{{$TOTAL_TARIF}}</b>
     </td>
+  </tr> -->
+</table>
+
+<br>
+
+<table style="margin:0;margin-left:13px;width:100%">
+  <tr>
+    <th>No.</th>
+    <th>Jenis Pemeriksaan</th> 
+    <th>Tarif</th>
+  </tr>
+  <tr>
+    <td>1.</td>
+    <td>{{$TINDAKAN}}</td>
+    <td>Rp. {{$TARIF}}</td>
+  </tr>
+  <tr>
+   <td></td>
+   <td><b>Total</b></td>
+   <td>Rp. {{$TOTAL_TARIF}}</td>
   </tr>
 </table>
 
