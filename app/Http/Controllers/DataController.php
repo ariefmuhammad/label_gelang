@@ -22,7 +22,12 @@ class DataController extends Controller
 
     public function dokter(Request $request)
     {
-        $dokter = Pegawai::where('PROFESI', '4')->get();
+        $dokter = Pegawai::where('PROFESI', '4')->orderBy('NAMA')->get();
+
+
+        foreach ($dokter as $dokters) {
+            $dokters['NAMA_GELAR'] = $dokters['GELAR_DEPAN'].". ".$dokters['NAMA'].", ".$dokters['GELAR_BELAKANG'];
+        }    
 
         return $dokter;
 
@@ -39,15 +44,23 @@ class DataController extends Controller
         ->groupBy('NAMA')
         ->get();
 
-        // $tindakan2 = TarifTindakan::join('tindakan', 'tarif_tindakan.TINDAKAN', '=', 'tindakan.ID')
-        // ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
-        // ->get();
-        
-       
-        // $tarif_tindakan = TarifTindakan::get();
+      
+
+        foreach ($tindakan as $tindakans) {
+     
+            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+
+            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+            
+        }
+
+      
 
         return $tindakan;
     }
+
 
     public function tindakanRadiologi(Request $request)
     {
@@ -57,12 +70,16 @@ class DataController extends Controller
         ->groupBy('NAMA')
         ->get();
 
-        // $tindakan2 = TarifTindakan::join('tindakan', 'tarif_tindakan.TINDAKAN', '=', 'tindakan.ID')
-        // ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
-        // ->get();
+        foreach ($tindakan as $tindakans) {
+     
+
+            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+
+            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
         
-       
-        // $tarif_tindakan = TarifTindakan::get();
+        }
 
         return $tindakan;
     }

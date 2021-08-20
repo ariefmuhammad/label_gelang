@@ -350,9 +350,34 @@ class PrintController extends Controller
          // return $pdf->download('laporan-pdf.pdf')
      }
 
-     public function templateLaboratorium($id, $awalan, $tgl_masuk, $status, $nama_dokter, $tindakan, $tarif, $total_tarif)
+     public function templateLaboratorium($id, $awalan, $tgl_masuk, $status, $nama_dokter, $tarif, $total_tarif)
 
      {
+
+        // $var = 'a/asdas/fgdfg/zfdvs/sdfh';
+        $array = explode(',', $tarif);
+       
+    //    $aaa = json_encode($array);
+    // return $array;
+        // dd($array);
+        foreach ($array as $values)
+        {
+            // echo $values;
+            // echo "<br>";
+            echo ''.$values.'<br/>';    
+        }
+
+        $data['array'] = $array;
+        // return $array;
+
+       
+
+        // return $array;
+
+        // $ada = json_encode($array);
+        
+
+        
          // dd($awalan);
 
         $label = Data::where('NORM',  $id)->get();
@@ -380,9 +405,14 @@ class PrintController extends Controller
         $data['STATUS'] = $status;
         $data['DOKTER'] = $nama_dokter;
         
-        $data['TINDAKAN'] = $tindakan;
-        $data['TARIF'] = $tarif;
+        // $data['TINDAKAN'] = $tindakan;
+        
+
+        // $data['TARIF'] = $array;
+
         $data['TOTAL_TARIF'] = $total_tarif;
+
+        
 
         $pdf = PDF::loadView('print.laboratorium', $data)->setPaper('A4', 'portrait');
         return $pdf->stream();
@@ -391,9 +421,34 @@ class PrintController extends Controller
         // return $pdf->download('laporan-pdf.pdf')
      }
 
-     public function templateRadiologi($id, $awalan, $tgl_masuk)
+     public function templateRadiologi($id, $awalan, $tgl_masuk, $status, $nama_dokter, $tarif, $total_tarif)
 
      {
+
+          // $var = 'a/asdas/fgdfg/zfdvs/sdfh';
+          $array = explode(',', $tarif);
+       
+          //    $aaa = json_encode($array);
+          // return $array;
+              // dd($array);
+              foreach ($array as $values)
+              {
+                  // echo $values;
+                  // echo "<br>";
+                  echo ''.$values.'<br/>';    
+              }
+      
+              $data['array'] = $array;
+              // return $array;
+      
+             
+      
+              // return $array;
+      
+              // $ada = json_encode($array);
+        
+
+
          // dd($awalan);
 
         $label = Data::where('NORM',  $id)->get();
@@ -417,6 +472,16 @@ class PrintController extends Controller
         // // $data['count'] = $count;
         $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
         $data['TANGGAL_MASUK'] = $tanggal_masuk;
+
+        $data['STATUS'] = $status;
+        $data['DOKTER'] = $nama_dokter;
+        
+        // $data['TINDAKAN'] = $tindakan;
+        
+
+        // $data['TARIF'] = $array;
+
+        $data['TOTAL_TARIF'] = $total_tarif;
 
 
         $pdf = PDF::loadView('print.radiologi', $data)->setPaper('A4', 'portrait');

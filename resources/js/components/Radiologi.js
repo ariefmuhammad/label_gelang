@@ -10,11 +10,10 @@ class Radiologi extends Component {
             cari: "",
             awalan: "%10",
             tanggal_masuk: "",
-            status: "",
-            // tarif: "",
-            input_dokter: "",
+            status: "%10",
+            nama_dokter: "%10",
+             // nama_tindakan: [],
             add_tindakan: [],
-            tarif: [],
             hasil: '',
         };
         this.handleChange = this.handleChange.bind(this);
@@ -23,10 +22,10 @@ class Radiologi extends Component {
         this.awalanChange = this.awalanChange.bind(this);
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
+        this.namaDokterChange = this.namaDokterChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
-        this.inputDokterChange = this.inputDokterChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.totalTarif = this.totalTarif.bind(this);
+        this.totalTarifChange = this.totalTarifChange.bind(this);
     }
 
     getTodayDate() {
@@ -80,9 +79,9 @@ class Radiologi extends Component {
         // });
     }
 
-    inputDokterChange(e) {
+    namaDokterChange(e) {
         this.setState({
-            input_dokter: e.target.value
+            nama_dokter: e.target.value
         });
     }
 
@@ -130,6 +129,8 @@ class Radiologi extends Component {
         this.setState({
             add_tindakan: [...this.state.add_tindakan, ""]
         });
+
+        console.log(this.state.add_tindakan); // [1, 2, 3]
     }
 
     removeTindakan(i) {
@@ -142,20 +143,26 @@ class Radiologi extends Component {
         });
     }
 
-    totalTarif(e) {
+    totalTarifChange(e) {
         this.setState({
             hasil: e.target.value
         });
     }
 
     onSubmit(e) {
+        console.log(this.state.add_tindakan);
+
    
 
-        var arr = this.state.add_tindakan;
-        arr = arr.map(Number);
+        var importUserRole = this.state.add_tindakan + '';
+        var currentUserRole = importUserRole.split(',').map(function(user) {
+            return user.split('Rp.').pop();
+          });
+
+          currentUserRole = currentUserRole.map(Number);
 
 
-        const hasil = arr.reduce(
+        const hasil = currentUserRole.reduce(
             ( accumulator, currentValue ) => accumulator + currentValue,
             0
           );
@@ -242,7 +249,7 @@ class Radiologi extends Component {
                                     </select></td>
                                 <td>{data.NAMA}</td>
                                 <td className=""><select name="STATUS" id="exampleSelect" className="form-control" onChange={this.statusChange} value={this.state.status}>
-                                    <option value="" hidden disabled>
+                                    <option value="%10" hidden disabled>
                                         -Pilih Status-
                                     </option>
                                     <option value="BPJS I">BPJS I</option>
@@ -251,14 +258,14 @@ class Radiologi extends Component {
                                     <option value="UMUM">UMUM</option>
                                     </select>
                                 </td>
-                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.inputDokterChange} value={this.state.input_dokter}>
-                                    <option value="" hidden disabled>
+                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
+                                    <option value="%10" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
                                     {
                                       this.state.dokter.map((one_dokter, i) =>{
                                         return (
-                                          <option key={one_dokter.ID} value={one_dokter.NAMA}>{one_dokter.NAMA}</option>
+                                          <option key={one_dokter.ID} value={one_dokter.NAMA_GELAR}>{one_dokter.NAMA_GELAR}</option>
                                         )
                                       }) 
                                     }
@@ -277,16 +284,16 @@ class Radiologi extends Component {
                                             <div key={i}>
 
                        <div className="form-row">
-                            <div className="col-md-11">
-                                    <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
-                                    <option value="" hidden disabled>
-                                        -Pilih Tindakan-
-                                    </option>
+                            <div className="col-md-8">
+                                    <select name="TARIF" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
+                                    {/* <option value="" hidden disabled>
+                                        -Pilih Tindakana-
+                                    </option> */}
                                     <option hidden>-Pilih Tindakan-</option>
                                     {
-                                      this.state.tindakan.map((one_tindakan, i) =>{
+                                      this.state.tindakan.map((one_tarif, i) =>{
                                         return (
-                                          <option key={i} value={one_tindakan.TARIF}>{one_tindakan.NAMA} - Rp. {one_tindakan.TARIF}</option>
+                                          <option key={i} value={one_tarif.NAMA+" - "+"Rp. "+one_tarif.TARIF}>{one_tarif.TINDAKAN_TARIF}</option>
                                         )
                                       }) 
                                     }
@@ -333,11 +340,14 @@ class Radiologi extends Component {
                                     <br></br>
                                     <br></br>
                                     <label className=""><b>Total Harga :</b></label>   
+                                    <div>
+                                       <b>Rp.</b>
+                                    </div> 
                                     <div className="form-row">
-                                       <div className="col-md-4">
-                                       <input name="" placeholder="Total Harga" type="number" className="form-control" onChange={this.onSubmit} value={this.state.hasil} />
+                                       <div className="col-md-3">
+                                       <input disabled name="" placeholder="Total Harga" type="number" className="form-control" onChange={this.onSubmit} value={this.state.hasil} />
                                        </div>
-                                       <div className="col-md-8">
+                                       <div className="col-md-9">
                                        <button
                                        className="btn btn-success btn-xs"
                                        onClick={(e)=>this.onSubmit(e)}
@@ -350,7 +360,7 @@ class Radiologi extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/radiologi`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.add_tindakan}/${this.state.hasil}/Radiologi`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >

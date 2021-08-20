@@ -10,13 +10,10 @@ class Lab extends Component {
             cari: "",
             awalan: "%10",
             tanggal_masuk: "",
-            status: "",
-            nama_dokter: "",
-            // tarif: "",
-            input_dokter: "",
-            nama_tindakan: [],
+            status: "%10",
+            nama_dokter: "%10",
+            // nama_tindakan: [],
             add_tindakan: [],
-            // tarif: [],
             hasil: "",
         };
         this.handleChange = this.handleChange.bind(this);
@@ -26,10 +23,11 @@ class Lab extends Component {
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
         this.namaDokterChange = this.namaDokterChange.bind(this);
-        this.tindakanChange = this.tindakanChange.bind(this);
+        // this.tindakanChange = this.tindakanChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.totalTarifChange = this.totalTarifChange.bind(this);
+
     }
 
     getTodayDate() {
@@ -72,18 +70,22 @@ class Lab extends Component {
         // console.log(e.target.value);
     }
 
-    tindakanChange(e, i) {
-        this.state.nama_tindakan[i] = e.target.value
-        this.setState({
-            nama_tindakan: this.state.nama_tindakan
-        });
-    }
+    // tindakanChange(e, i) {
+    //     this.state.nama_tindakan[i] = e.target.value
+    //     this.setState({
+    //         nama_tindakan: this.state.nama_tindakan
+    //     });
+    // }
+
+
 
     tarifChange(e, i) {
         this.state.add_tindakan[i] = e.target.value
         this.setState({
             add_tindakan: this.state.add_tindakan
         });
+
+      
 
         // this.setState({
         //     tarif: e.target.value
@@ -140,6 +142,9 @@ class Lab extends Component {
         this.setState({
             add_tindakan: [...this.state.add_tindakan, ""]
         });
+
+        console.log(this.state.add_tindakan); // [1, 2, 3]
+
     }
 
     removeTindakan(i) {
@@ -158,14 +163,44 @@ class Lab extends Component {
         });
     }
 
+
+
+    onSubmitt(e) {
+
+        // let str =  this.state.add_tindakan + ''; //["AFP (Alpha Feto Protein) - 20000"]
+        // const myArr = str.split("-");
+
+
+        // console.log(myArr[1]); // [1, 2, 3]
+
+        
+        var importUserRole = this.state.add_tindakan + '';
+        // arr = arr.replace(/[^0-9\.]+/g, " ");
+        // let text = arr.toString();
+        // text = text.replaceAll(".+-", "");
+        // arr = arr.substring(arr.indexOf("-") + 1);
+        // let text = arr.toString();
+        // const myArr = text.split("-");
+        var currentUserRole = importUserRole.split(',').map(function(user) {
+            return user.split('-').pop();
+          });
+        console.log(currentUserRole); // [1, 2, 3]
+    }
+
+ 
+
     onSubmit(e) {
    
 
-        var arr = this.state.add_tindakan;
-        arr = arr.map(Number);
+        var importUserRole = this.state.add_tindakan + '';
+        var currentUserRole = importUserRole.split(',').map(function(user) {
+            return user.split('Rp.').pop();
+          });
+
+          currentUserRole = currentUserRole.map(Number);
 
 
-        const hasil = arr.reduce(
+        const hasil = currentUserRole.reduce(
             ( accumulator, currentValue ) => accumulator + currentValue,
             0
           );
@@ -253,7 +288,7 @@ class Lab extends Component {
                                     </select></td>
                                 <td>{data.NAMA}</td>
                                 <td className=""><select name="STATUS" id="exampleSelect" className="form-control" onChange={this.statusChange} value={this.state.status}>
-                                    <option value="" hidden disabled>
+                                    <option value="%10" hidden disabled>
                                         -Pilih Status-
                                     </option>
                                     <option value="BPJS I">BPJS I</option>
@@ -263,13 +298,13 @@ class Lab extends Component {
                                     </select>
                                 </td>
                                 <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
-                                    <option value="" hidden disabled>
+                                    <option value="%10" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
                                     {
                                       this.state.dokter.map((one_dokter, i) =>{
                                         return (
-                                          <option key={one_dokter.ID} value={one_dokter.NAMA}>{one_dokter.NAMA}</option>
+                                          <option key={one_dokter.ID} value={one_dokter.NAMA_GELAR}>{one_dokter.NAMA_GELAR}</option>
                                         )
                                       }) 
                                     }
@@ -288,7 +323,7 @@ class Lab extends Component {
                                             <div key={i}>
 
                        <div className="form-row">
-                            <div className="col-md-6">
+                            {/* <div className="col-md-6">
                                     <select name="TINDAKAN" id="exampleSelect" className="form-control" onChange={(e) => this.tindakanChange(e, i)}>
                                     <option value="" hidden disabled>
                                         -Pilih Tindakan-
@@ -302,17 +337,17 @@ class Lab extends Component {
                                       }) 
                                     }
                                     </select>
-                            </div>
-                            <div className="col-md-5">
+                            </div> */}
+                            <div className="col-md-8">
                                     <select name="TARIF" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
-                                    <option value="" hidden disabled>
-                                        -Pilih Tarif-
-                                    </option>
-                                    <option hidden>-Pilih Tarif-</option>
+                                    {/* <option value="" hidden disabled>
+                                        -Pilih Tindakana-
+                                    </option> */}
+                                    <option hidden>-Pilih Tindakan-</option>
                                     {
-                                      this.state.tindakan.map((one_tindakan, i) =>{
+                                      this.state.tindakan.map((one_tarif, i) =>{
                                         return (
-                                          <option key={i} value={one_tindakan.TARIF}>Rp. {one_tindakan.TARIF}</option>
+                                          <option key={i} value={one_tarif.NAMA+" - "+"Rp. "+one_tarif.TARIF}>{one_tarif.TINDAKAN_TARIF}</option>
                                         )
                                       }) 
                                     }
@@ -357,12 +392,15 @@ class Lab extends Component {
                               
                                     <br></br>
                                     <br></br>
-                                    <label className=""><b>Total Harga :</b></label>   
+                                    <label className=""><b>Total Harga :</b></label>  
+                                    <div>
+                                       <b>Rp.</b>
+                                    </div> 
                                     <div className="form-row">
-                                       <div className="col-md-4">
-                                       <input name="TOTAL_TARIF" placeholder="Total Harga" type="number" className="form-control" onChange={this.totalTarifChange} value={this.state.hasil} />
+                                       <div className="col-md-3">
+                                       <input disabled name="TOTAL_TARIF" placeholder="Total Harga" type="number" className="form-control" onChange={this.totalTarifChange} value={this.state.hasil} />
                                        </div>
-                                       <div className="col-md-8">
+                                       <div className="col-md-9">
                                        <button
                                        className="btn btn-success btn-xs"
                                        onClick={(e)=>this.onSubmit(e)}
@@ -375,7 +413,8 @@ class Lab extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.nama_tindakan}/${this.state.add_tindakan}/${this.state.hasil}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.add_tindakan}/${this.state.hasil}/Laboratorium`}
+                                        // href={`print_laboratorium`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
                                     >

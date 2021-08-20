@@ -13,9 +13,8 @@ Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/{no_urut}/tracer_v2', 'PrintCo
 Route::get('/{id}/{awalan}/{tgl_masuk}/testtujuan', 'PrintController@testtujuan');
 
 
-Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{tindakan}/{total_tarif}/{tarif}/Laboratorium', 'PrintController@templateLaboratorium');
-Route::get('/{id}/{awalan}/{tgl_masuk}/Radiologi', 'PrintController@templateRadiologi');
-
+Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{total_tarif}/{tarif}/Laboratorium', 'PrintController@templateLaboratorium')->name('print_laboratorium');
+Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{total_tarif}/{tarif}/Radiologi', 'PrintController@templateRadiologi');
 
 
 Route::get('/tracer/data', 'DataController@tracerData');
