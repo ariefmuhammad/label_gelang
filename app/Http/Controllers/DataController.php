@@ -42,6 +42,7 @@ class DataController extends Controller
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
         ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
         ->groupBy('NAMA')
+        ->orderBy('NAMA')
         ->get();
 
       
@@ -68,6 +69,7 @@ class DataController extends Controller
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
         ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
         ->groupBy('NAMA')
+        ->orderBy('NAMA')
         ->get();
 
         foreach ($tindakan as $tindakans) {
