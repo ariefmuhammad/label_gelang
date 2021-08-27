@@ -89596,11 +89596,7 @@ function (_Component) {
             disabled: true
           }, "-Pilih Status-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "BPJS I"
-          }, "BPJS I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS II"
-          }, "BPJS II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS III"
-          }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          }, "BPJS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
           }, "UMUM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "Klaim Covid"
@@ -90447,11 +90443,7 @@ function (_Component) {
             disabled: true
           }, "-Pilih Status-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "BPJS I"
-          }, "BPJS I"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS II"
-          }, "BPJS II"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-            value: "BPJS III"
-          }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          }, "BPJS"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
           }, "UMUM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "Klaim Covid"
