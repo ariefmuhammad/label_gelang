@@ -252,9 +252,7 @@ class Radiologi extends Component {
                                     <option value="%10" hidden disabled>
                                         -Pilih Status-
                                     </option>
-                                    <option value="BPJS I">BPJS I</option>
-                                    <option value="BPJS II">BPJS II</option> 
-                                    <option value="BPJS III">BPJS III</option>
+                                    <option value="BPJS I">BPJS</option>
                                     <option value="UMUM">UMUM</option>
                                     <option value="Klaim Covid">Klaim Covid</option>
                                     </select>
