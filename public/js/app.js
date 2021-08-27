@@ -89602,7 +89602,9 @@ function (_Component) {
             value: "BPJS III"
           }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
-          }, "UMUM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, "UMUM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "Klaim Covid"
+          }, "Klaim Covid"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: ""
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "DOKTER",
@@ -90451,7 +90453,9 @@ function (_Component) {
             value: "BPJS III"
           }, "BPJS III"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             value: "UMUM"
-          }, "UMUM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          }, "UMUM"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "Klaim Covid"
+          }, "Klaim Covid"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
             className: ""
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
             name: "DOKTER",

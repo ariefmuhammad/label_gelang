@@ -256,6 +256,7 @@ class Radiologi extends Component {
                                     <option value="BPJS II">BPJS II</option> 
                                     <option value="BPJS III">BPJS III</option>
                                     <option value="UMUM">UMUM</option>
+                                    <option value="Klaim Covid">Klaim Covid</option>
                                     </select>
                                 </td>
                                 <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
