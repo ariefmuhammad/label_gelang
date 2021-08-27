@@ -62,6 +62,33 @@ class DataController extends Controller
         return $tindakan;
     }
 
+    public function tindakanLabBpjs(Request $request)
+    {
+        $tindakan = Tindakan::where('JENIS', '15')
+        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF', 'tarif_tindakan.KELAS', 'tarif_tindakan.STATUS')
+        ->Where('tarif_tindakan.KELAS',  '=', 1)
+        ->where('tarif_tindakan.STATUS',  '=', 1)
+        ->orderBy('NAMA')
+        ->get();
+
+      
+
+        foreach ($tindakan as $tindakans) {
+     
+            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+
+            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+            
+        }
+
+      
+
+        return $tindakan;
+    }
+
 
     public function tindakanRadiologi(Request $request)
     {
