@@ -1,6 +1,7 @@
 <?php
 Route::get('/dokter/data', 'DataController@dokter');
 Route::get('/laboratorium/data', 'DataController@tindakanLab');
+Route::get('/laboratorium/data/bpjs', 'DataController@tindakanLabBpjs');
 Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
 
 Route::post('/', 'DataController@cari');
