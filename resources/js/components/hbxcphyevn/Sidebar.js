@@ -61,7 +61,7 @@ class Sidebar extends Component {
                 <div className="scrollbar-sidebar">
                     <div className="app-sidebar__inner">
                         <ul className="vertical-nav-menu">
-                            <li className="app-sidebar__heading"><center>Aplikasi</center> <center>Cetak Label, Gelang, Tracer</center><center>Dan Data Pasien Hari Ini</center><center>Rumah Sakit</center> <center>Universitas Tanjungpura</center> </li>
+                            <li className="app-sidebar__heading"><center>Aplikasi</center> <center>Label, Gelang, Tracer, Kwitansi</center><center>Dan Data Pasien Hari Ini</center><center>Rumah Sakit</center> <center>Universitas Tanjungpura</center> </li>
                             <li>
                             <NavLink exact to={`/`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}" onClick={this.toggleClass.bind(this, 0)}>                                
                                     <i className="metismenu-icon pe-7s-print"></i>
@@ -79,10 +79,39 @@ class Sidebar extends Component {
                                     <i className="metismenu-icon pe-7s-note2"></i>
                                     Pasien Hari Ini
                             </NavLink>
-                            <NavLink exact to={`/laboratorium`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                            </li>
+                            {/* <NavLink exact to={`/laboratorium`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
                                     <i className="metismenu-icon pe-7s-drop"></i>
                                     Laboratorium
-                            </NavLink>
+                            </NavLink> */}
+                                   <li className="mm-active">
+                                        <NavLink exact to={["/lab_bpjs", "/lab_umum", "/lab_klaim_covid"]} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                            <i className="metismenu-icon pe-7s-drop"></i>
+                                            Laboratorium
+                                            <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                        </NavLink>
+                                        <ul>
+                                            <li>
+                                                <NavLink exact to={`/lab_bpjs`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                                    <i className="metismenu-icon"></i>
+                                                    BPJS
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink exact to={`/lab_umum`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                                    <i className="metismenu-icon">
+                                                    </i>UMUM
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink exact to={`/lab_klaim_covid`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                                    <i className="metismenu-icon">
+                                                    </i>Klaim Covid
+                                                </NavLink>
+                                            </li>
+                                        </ul>
+                                    </li>
+                             <li>       
                             <NavLink exact to={`/radiologi`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
                                     <i className="metismenu-icon pe-7s-display1"></i>
                                     Radiologi

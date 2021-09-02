@@ -8,7 +8,10 @@ import Footer from "./components/hbxcphyevn/Footer";
 import Index from "./components/Index";
 import Track from "./components/Track";
 import Pasien from "./components/Pasien";
-import Lab from "./components/Lab";
+// import Lab from "./components/Lab";
+import LabBpjs from "./components/LabBpjs";
+import LabUmum from "./components/LabUmum";
+import LabKlaimCovid from "./components/LabKlaimCovid";
 import Radiologi from "./components/Radiologi";
 // import Tracer from ".components/Track";
 
@@ -28,10 +31,25 @@ if (document.getElementById("root")) {
                                 path="/today_pasien"
                                 component={Pasien}
                             />
-                            <Route
+                            {/* <Route
                                 exact
                                 path="/laboratorium"
                                 component={Lab}
+                            /> */}
+                            <Route
+                                exact
+                                path="/lab_bpjs"
+                                component={LabBpjs}
+                            />
+                            <Route
+                                exact
+                                path="/lab_umum"
+                                component={LabUmum}
+                            />
+                            <Route
+                                exact
+                                path="/lab_klaim_covid"
+                                component={LabKlaimCovid}
                             />
                             <Route
                                 exact

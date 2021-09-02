@@ -64,11 +64,10 @@ class DataController extends Controller
 
     public function tindakanLabBpjs(Request $request)
     {
-        $tindakan = Tindakan::where('JENIS', '15')
+        $tindakan = Tindakan::where('JENIS', '77')
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
-        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF', 'tarif_tindakan.KELAS', 'tarif_tindakan.STATUS')
-        ->Where('tarif_tindakan.KELAS',  '=', 1)
-        ->where('tarif_tindakan.STATUS',  '=', 1)
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        ->groupBy('NAMA')
         ->orderBy('NAMA')
         ->get();
 
