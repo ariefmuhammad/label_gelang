@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+import Select from 'react-select';
 
 class LabUmum extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            dokter: [],
+            // dokter: [],
+            selectDokter : [],
+            // ID: "",
+            // NAMA_GELAR: "",
+            selectPetugasLab : [],
             tindakan: [],
             cari: "",
             awalan: "%10",
             tanggal_masuk: "",
             status: "UMUM",
-            nama_dokter: "%10",
+            nama_dokter: "Dokter Pemesan",
+            nama_petugas_lab: "Petugas Laboratorium",
             // nama_tindakan: [],
             add_tindakan: [],
             hasil: "",
@@ -23,11 +29,19 @@ class LabUmum extends Component {
         this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
         this.statusChange = this.statusChange.bind(this);
         this.namaDokterChange = this.namaDokterChange.bind(this);
+        this.namaPetugasLabChange = this.namaPetugasLabChange.bind(this);
         // this.tindakanChange = this.tindakanChange.bind(this);
         this.tarifChange = this.tarifChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.totalTarifChange = this.totalTarifChange.bind(this);
 
+    }
+
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     getTodayDate() {
@@ -80,12 +94,16 @@ class LabUmum extends Component {
 
 
     tarifChange(e, i) {
-        this.state.add_tindakan[i] = e.target.value
+        // this.state.add_tindakan[i] = e.target.value
+        // this.setState({
+        //     add_tindakan: this.state.add_tindakan
+        // });
+
+        this.state.add_tindakan[i] = e.label
         this.setState({
             add_tindakan: this.state.add_tindakan
         });
 
-      
 
         // this.setState({
         //     tarif: e.target.value
@@ -93,10 +111,23 @@ class LabUmum extends Component {
     }
 
     namaDokterChange(e) {
+        console.log(e)
         this.setState({
-            nama_dokter: e.target.value
+            // ID:e.value, 
+            nama_dokter:e.label,
+            // nama_dokter: e.target.value
         });
     }
+
+    namaPetugasLabChange(e) {
+        console.log(e)
+        this.setState({
+            // ID:e.value, 
+            nama_petugas_lab:e.label,
+            // nama_petugas_lab: e.target.value
+        });
+    }
+
 
 
     handleSubmit(e) {
@@ -120,22 +151,58 @@ class LabUmum extends Component {
             });
     }
 
-    getDokter() {
-        axios.get(`/dokter/data`).then(response => {
-            this.setState({
-                dokter: response.data,
-            });
-            // console.log(response.data);
-        });
+    async getPetugasLab() {
+
+        const res = await axios.get('/petugas_lab/data')
+        const data = res.data
+    
+        const options = data.map(d => ({
+          "value" : d.ID,
+          "label" : d.NAMA_GELAR
+    
+        }))
+    
+        this.setState({selectPetugasLab: options})
     }
 
-    getTindakan() {
-        axios.get(`/laboratorium/data`).then(response => {
-            this.setState({
-                tindakan: response.data,
-            });
-            // console.log(response.data);
-        });
+    async getDokter() {
+        // axios.get(`/dokter/data`).then(response => {
+        //     this.setState({
+        //         dokter: response.data,
+        //     });
+        //     // console.log(response.data);
+        // });
+
+        const res = await axios.get('/dokter/data')
+        const data = res.data
+    
+        const options = data.map(d => ({
+          "value" : d.ID,
+          "label" : d.NAMA_GELAR
+    
+        }))
+    
+        this.setState({selectDokter: options})
+    }
+
+    async getTindakan() {
+        // axios.get(`/laboratorium/data`).then(response => {
+        //     this.setState({
+        //         tindakan: response.data,
+        //     });
+        //     // console.log(response.data);
+        // });
+
+        const res = await axios.get('/laboratorium/data')
+        const data = res.data
+    
+        const options = data.map(d => ({
+          "value" : d.ID,
+          "label" : d.TINDAKAN_TARIF
+    
+        }))
+    
+        this.setState({selectTarif: options})
     }
 
     addTindakan() {
@@ -222,6 +289,7 @@ class LabUmum extends Component {
                 <div key="1">DATA TIDAK ADA</div>
             ));
         } else {
+            // console.log(this.state.selectDokter)
             return this.state.data.map(data => (
                 <div key="1">
                     {/* <a
@@ -270,6 +338,7 @@ class LabUmum extends Component {
                                 <th>Nama Pasien</th>
                                 <th>Status</th>
                                 <th>Dokter</th>
+                                <th>Petugas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -287,10 +356,13 @@ class LabUmum extends Component {
                                     <option value="BY.NY">BY.NY</option>
                                     </select></td>
                                 <td>{data.NAMA}</td>
-                                <td className="">
+                                <td className="widthstatus">
                                     <input disabled name="STATUS" className="form-control" onChange={this.statusChange} value={this.state.status} />
                                 </td>
-                                <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
+                                <td className="widthdokterpetugaslab">
+                                <Select className="" name="DOKTER" options={this.state.selectDokter} onChange={this.namaDokterChange} placeholder="Pilih Dokter..."/>
+                                </td>
+                                {/* <td className=""><select name="DOKTER" id="exampleSelect" className="form-control" onChange={this.namaDokterChange} value={this.state.nama_dokter}>
                                     <option value="%10" hidden disabled>
                                         -Pilih Dokter-
                                     </option>
@@ -302,6 +374,9 @@ class LabUmum extends Component {
                                       }) 
                                     }
                                     </select>
+                                </td> */}
+                                <td className="widthdokterpetugaslab">
+                                <Select className="" name="PETUGAS_LAB" options={this.state.selectPetugasLab} onChange={this.namaPetugasLabChange} placeholder="Pilih Petugas..."/>
                                 </td>
                             </tr>
                         </tbody>
@@ -331,11 +406,10 @@ class LabUmum extends Component {
                                     }
                                     </select>
                             </div> */}
-                            <div className="col-md-8">
-                                    <select name="TARIF" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
-                                    {/* <option value="" hidden disabled>
-                                        -Pilih Tindakana-
-                                    </option> */}
+                            <div className="col-md-4">
+                                 <Select className="" name="TARIF" options={this.state.selectTarif} onChange={(e) => this.tarifChange(e, i)} placeholder="Pilih Tindakan..."/>
+                                    {/* <select name="TARIF" id="exampleSelect" className="form-control" onChange={(e) => this.tarifChange(e, i)}>
+                            
                                     <option hidden>-Pilih Tindakan-</option>
                                     {
                                       this.state.tindakan.map((one_tarif, i) =>{
@@ -344,9 +418,9 @@ class LabUmum extends Component {
                                         )
                                       }) 
                                     }
-                                    </select>
+                                    </select> */}
                             </div>
-                            <div className="col-md-1">
+                            <div className="col-md-8">
                                     <button
                                         className="btn btn-danger btn-xs"
                                         onClick={()=>this.removeTindakan(i)}
@@ -390,10 +464,10 @@ class LabUmum extends Component {
                                        <b>Rp.</b>
                                     </div> 
                                     <div className="form-row">
-                                       <div className="col-md-3">
+                                       <div className="col-md-2">
                                        <input disabled name="TOTAL_TARIF" placeholder="Total Harga" type="number" className="form-control" onChange={this.totalTarifChange} value={this.state.hasil} />
                                        </div>
-                                       <div className="col-md-9">
+                                       <div className="col-md-10">
                                        <button
                                        className="btn btn-success btn-xs"
                                        onClick={(e)=>this.onSubmit(e)}
@@ -406,7 +480,7 @@ class LabUmum extends Component {
                   
                                    <br></br>
                                     <a
-                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.add_tindakan}/${this.state.hasil}/Laboratorium`}
+                                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/${this.state.status}/${this.state.nama_dokter}/${this.state.nama_petugas_lab}/${this.state.add_tindakan}/${this.state.hasil}/Laboratorium`}
                                         // href={`print_laboratorium`}
                                         className="btn btn-focus btn-xs"
                                         target="_blank"
@@ -427,6 +501,7 @@ class LabUmum extends Component {
         this.getTodayDate();
         this.getDokter();
         this.getTindakan();
+        this.getPetugasLab();
     }
 
     componentDidUpdate() {

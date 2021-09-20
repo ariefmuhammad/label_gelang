@@ -62,6 +62,12 @@
     .widthlahirp{
         width: 110px;
     }
+    .widthstatus{
+        width: 145px;
+    }
+    .widthdokterpetugaslab{
+        width: 310px;
+    }
     
     .width50px{
         width: 50px;

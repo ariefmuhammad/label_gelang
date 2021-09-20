@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -85,11 +85,11 @@ class Sidebar extends Component {
                                     Laboratorium
                             </NavLink> */}
                                    <li className="mm-active">
-                                        <NavLink exact to={["/lab_bpjs", "/lab_umum", "/lab_klaim_covid"]} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                        <a href="#">
                                             <i className="metismenu-icon pe-7s-drop"></i>
                                             Laboratorium
                                             <i className="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                        </NavLink>
+                                        </a>
                                         <ul>
                                             <li>
                                                 <NavLink exact to={`/lab_bpjs`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
@@ -112,10 +112,10 @@ class Sidebar extends Component {
                                         </ul>
                                     </li>
                              <li>       
-                            <NavLink exact to={`/radiologi`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                            {/* <NavLink exact to={`/radiologi`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
                                     <i className="metismenu-icon pe-7s-display1"></i>
                                     Radiologi
-                            </NavLink>
+                            </NavLink> */}
                             </li> 
                         </ul>                           
                     </div>

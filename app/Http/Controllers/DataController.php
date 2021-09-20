@@ -36,6 +36,22 @@ class DataController extends Controller
 		// ]);
     }
 
+    public function petugasLab(Request $request)
+    {
+        $petugasLab = Pegawai::where('PROFESI', '2')->orderBy('NAMA')->get();
+
+
+        foreach ($petugasLab as $petugasLabs) {
+            $petugasLabs['NAMA_GELAR'] = $petugasLabs['NAMA'].", ".$petugasLabs['GELAR_BELAKANG'];
+        }    
+
+        return $petugasLab;
+
+        // return response()->json([
+        //     $data
+		// ]);
+    }
+
     public function tindakanLab(Request $request)
     {
         $tindakan = Tindakan::where('JENIS', '15')

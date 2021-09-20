@@ -1,5 +1,6 @@
 <?php
 Route::get('/dokter/data', 'DataController@dokter');
+Route::get('/petugas_lab/data', 'DataController@petugasLab');
 Route::get('/laboratorium/data', 'DataController@tindakanLab');
 Route::get('/laboratorium/data/bpjs', 'DataController@tindakanLabBpjs');
 Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
@@ -14,7 +15,7 @@ Route::get('/{id}/{awalan}/{tgl_masuk}/{peminjam}/{no_urut}/tracer_v2', 'PrintCo
 Route::get('/{id}/{awalan}/{tgl_masuk}/testtujuan', 'PrintController@testtujuan');
 
 
-Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{total_tarif}/{tarif}/Laboratorium', 'PrintController@templateLaboratorium')->name('print_laboratorium');
+Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{nama_petugas_lab}/{total_tarif}/{tarif}/Laboratorium', 'PrintController@templateLaboratorium')->name('print_laboratorium');
 Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{total_tarif}/{tarif}/Radiologi', 'PrintController@templateRadiologi');
 
 
