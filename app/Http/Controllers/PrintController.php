@@ -413,9 +413,11 @@ class PrintController extends Controller
         $data['TOTAL_TARIF'] = $total_tarif;
 
         
-
-        $pdf = PDF::loadView('print.laboratorium_v2', $data)->setPaper([0,0,311.8110236220472,113.3858267716535], 'landscape');
+        // $pdf = PDF::loadView('print.laboratorium_v2', $data)->setPaper([0,0,311.8110236220472,113.3858267716535], 'landscape');
         // $pdf = PDF::loadView('print.laboratorium_v3', $data)->setPaper([0,0,155.9055118110236,113.3858267716535], 'landscape');
+        // $pdf = PDF::loadView('print.laboratorium_v4', $data)->setPaper([0,0,396,684], 'landscape');
+        $pdf = PDF::loadView('print.laboratorium_v4', $data)->setPaper('A4', 'portrait');
+        // $pdf = PDF::loadView('print.laboratorium_v4', $data)->setPaper([0,0,595.2755905511811,420.9448818897638], 'portrait');
         return $pdf->stream();
 
         // return view('print.label', $data);
