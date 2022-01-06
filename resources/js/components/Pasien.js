@@ -303,6 +303,9 @@ class Pasien extends Component {
                                         <option value="101010114">
                                             Poli Hemodialisa
                                         </option>
+                                        <option value="101010115">
+                                            Poli Jantung
+                                        </option>
                                         <option value="101020101">IGD</option>
                                     </select>
                                 </div>

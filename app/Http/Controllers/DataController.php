@@ -104,6 +104,57 @@ class DataController extends Controller
         return $tindakan;
     }
 
+    public function tindakanLabOmega(Request $request)
+    {
+        $tindakan = Tindakan::where('JENIS', '78')
+        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        ->groupBy('NAMA')
+        ->orderBy('NAMA')
+        ->get();
+
+      
+
+        foreach ($tindakan as $tindakans) {
+     
+            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+
+            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+            
+        }
+
+      
+
+        return $tindakan;
+    }
+
+    public function tindakanLabProdia(Request $request)
+    {
+        $tindakan = Tindakan::where('JENIS', '79')
+        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+        ->groupBy('NAMA')
+        ->orderBy('NAMA')
+        ->get();
+
+      
+
+        foreach ($tindakan as $tindakans) {
+     
+            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+
+            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+            
+        }
+
+      
+
+        return $tindakan;
+    }
 
     public function tindakanRadiologi(Request $request)
     {

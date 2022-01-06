@@ -3,6 +3,8 @@ Route::get('/dokter/data', 'DataController@dokter');
 Route::get('/petugas_lab/data', 'DataController@petugasLab');
 Route::get('/laboratorium/data', 'DataController@tindakanLab');
 Route::get('/laboratorium/data/bpjs', 'DataController@tindakanLabBpjs');
+Route::get('/laboratorium/data/omega', 'DataController@tindakanLabOmega');
+Route::get('/laboratorium/data/prodia', 'DataController@tindakanLabProdia');
 Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
 
 Route::post('/', 'DataController@cari');

@@ -109,6 +109,18 @@ class Sidebar extends Component {
                                                     </i>Klaim Covid
                                                 </NavLink>
                                             </li>
+                                            <li>
+                                                <NavLink exact to={`/lab_omega`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                                    <i className="metismenu-icon">
+                                                    </i>Omega
+                                                </NavLink>
+                                            </li>
+                                            <li>
+                                                <NavLink exact to={`/lab_prodia`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                                    <i className="metismenu-icon">
+                                                    </i>Prodia
+                                                </NavLink>
+                                            </li>
                                         </ul>
                                     </li>
                              <li>       

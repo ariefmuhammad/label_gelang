@@ -97081,7 +97081,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LabBpjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/LabBpjs */ "./resources/js/components/LabBpjs.js");
 /* harmony import */ var _components_LabUmum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/LabUmum */ "./resources/js/components/LabUmum.js");
 /* harmony import */ var _components_LabKlaimCovid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/LabKlaimCovid */ "./resources/js/components/LabKlaimCovid.js");
-/* harmony import */ var _components_Radiologi__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Radiologi */ "./resources/js/components/Radiologi.js");
+/* harmony import */ var _components_LabOmega__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/LabOmega */ "./resources/js/components/LabOmega.js");
+/* harmony import */ var _components_LabProdia__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/LabProdia */ "./resources/js/components/LabProdia.js");
+/* harmony import */ var _components_Radiologi__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Radiologi */ "./resources/js/components/Radiologi.js");
 
 
 
@@ -97092,6 +97094,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // import Lab from "./components/Lab";
+
+
 
 
 
@@ -97127,8 +97131,16 @@ if (document.getElementById("root")) {
     component: _components_LabKlaimCovid__WEBPACK_IMPORTED_MODULE_12__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
+    path: "/lab_omega",
+    component: _components_LabOmega__WEBPACK_IMPORTED_MODULE_13__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/lab_prodia",
+    component: _components_LabProdia__WEBPACK_IMPORTED_MODULE_14__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
     path: "/radiologi",
-    component: _components_Radiologi__WEBPACK_IMPORTED_MODULE_13__["default"]
+    component: _components_Radiologi__WEBPACK_IMPORTED_MODULE_15__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Index__WEBPACK_IMPORTED_MODULE_7__["default"], null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_hbxcphyevn_Footer__WEBPACK_IMPORTED_MODULE_6__["default"], null)))), document.getElementById("root"));
 }
 
@@ -98645,6 +98657,1276 @@ function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/LabOmega.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/LabOmega.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var LabOmega =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(LabOmega, _Component);
+
+  function LabOmega(props) {
+    var _this;
+
+    _classCallCheck(this, LabOmega);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LabOmega).call(this, props));
+    _this.state = {
+      data: [],
+      // dokter: [],
+      selectDokter: [],
+      // ID: "",
+      // NAMA_GELAR: "",
+      selectPetugasLab: [],
+      tindakan: [],
+      cari: "",
+      awalan: "%10",
+      tanggal_masuk: "",
+      status: "-",
+      nama_dokter: "Dokter Pemesan",
+      nama_petugas_lab: "Petugas Laboratorium",
+      // nama_tindakan: [],
+      add_tindakan: [],
+      hasil: ""
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.renderCari = _this.renderCari.bind(_assertThisInitialized(_this));
+    _this.awalanChange = _this.awalanChange.bind(_assertThisInitialized(_this));
+    _this.tanggalmasukChange = _this.tanggalmasukChange.bind(_assertThisInitialized(_this));
+    _this.statusChange = _this.statusChange.bind(_assertThisInitialized(_this));
+    _this.namaDokterChange = _this.namaDokterChange.bind(_assertThisInitialized(_this));
+    _this.namaPetugasLabChange = _this.namaPetugasLabChange.bind(_assertThisInitialized(_this)); // this.tindakanChange = this.tindakanChange.bind(this);
+
+    _this.tarifChange = _this.tarifChange.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.totalTarifChange = _this.totalTarifChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(LabOmega, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.setState = function (state, callback) {
+        return;
+      };
+    }
+  }, {
+    key: "getTodayDate",
+    value: function getTodayDate() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+
+      var terbalik = yyyy + '-' + mm + '-' + dd;
+      return terbalik;
+    }
+  }, {
+    key: "tanggalmasukChange",
+    value: function tanggalmasukChange(e) {
+      this.setState({
+        tanggal_masuk: e.target.value
+      });
+    }
+  }, {
+    key: "awalanChange",
+    value: function awalanChange(e) {
+      this.setState({
+        awalan: e.target.value
+      });
+    }
+  }, {
+    key: "statusChange",
+    value: function statusChange(e) {
+      console.log(e);
+      this.setState({
+        // status: e.target.value
+        status: e.label
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        cari: e.target.value
+      }); // console.log(e.target.value);
+    } // tindakanChange(e, i) {
+    //     this.state.nama_tindakan[i] = e.target.value
+    //     this.setState({
+    //         nama_tindakan: this.state.nama_tindakan
+    //     });
+    // }
+
+  }, {
+    key: "tarifChange",
+    value: function tarifChange(e, i) {
+      // this.state.add_tindakan[i] = e.target.value
+      // this.setState({
+      //     add_tindakan: this.state.add_tindakan
+      // });
+      this.state.add_tindakan[i] = e.label;
+      this.setState({
+        add_tindakan: this.state.add_tindakan
+      }); // this.setState({
+      //     tarif: e.target.value
+      // });
+    }
+  }, {
+    key: "namaDokterChange",
+    value: function namaDokterChange(e) {
+      console.log(e);
+      this.setState({
+        // ID:e.value, 
+        nama_dokter: e.label // nama_dokter: e.target.value
+
+      });
+    }
+  }, {
+    key: "namaPetugasLabChange",
+    value: function namaPetugasLabChange(e) {
+      console.log(e);
+      this.setState({
+        // ID:e.value, 
+        nama_petugas_lab: e.label // nama_petugas_lab: e.target.value
+
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      axios.post("/", {
+        cari: this.state.cari
+      }).then(function (response) {
+        _this2.setState({
+          data: [response.data.cari],
+          cari: "",
+          awalan: "%10",
+          tanggal_masuk: _this2.getTodayDate()
+        });
+
+        console.log("from handle sumit", response); // console.log(this.state.data);
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    }
+  }, {
+    key: "getPetugasLab",
+    value: function () {
+      var _getPetugasLab = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/petugas_lab/data');
+
+              case 2:
+                res = _context.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.NAMA_GELAR
+                  };
+                });
+                this.setState({
+                  selectPetugasLab: options
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getPetugasLab() {
+        return _getPetugasLab.apply(this, arguments);
+      }
+
+      return getPetugasLab;
+    }()
+  }, {
+    key: "getDokter",
+    value: function () {
+      var _getDokter = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get('/dokter/data');
+
+              case 2:
+                res = _context2.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.NAMA_GELAR
+                  };
+                });
+                this.setState({
+                  selectDokter: options
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getDokter() {
+        return _getDokter.apply(this, arguments);
+      }
+
+      return getDokter;
+    }()
+  }, {
+    key: "getTindakan",
+    value: function () {
+      var _getTindakan = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/laboratorium/data/omega');
+
+              case 2:
+                res = _context3.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.TINDAKAN_TARIF
+                  };
+                });
+                this.setState({
+                  selectTarif: options
+                });
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getTindakan() {
+        return _getTindakan.apply(this, arguments);
+      }
+
+      return getTindakan;
+    }()
+  }, {
+    key: "getStatus",
+    value: function () {
+      var _getStatus = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                options = [{
+                  value: 'BPJS',
+                  label: 'BPJS'
+                }, {
+                  value: 'UMUM',
+                  label: 'UMUM'
+                }];
+                this.setState({
+                  selectStatus: options
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getStatus() {
+        return _getStatus.apply(this, arguments);
+      }
+
+      return getStatus;
+    }()
+  }, {
+    key: "addTindakan",
+    value: function addTindakan() {
+      this.setState({
+        add_tindakan: [].concat(_toConsumableArray(this.state.add_tindakan), [""])
+      });
+      console.log(this.state.add_tindakan); // [1, 2, 3]
+    }
+  }, {
+    key: "removeTindakan",
+    value: function removeTindakan(i) {
+      this.state.add_tindakan.splice(i, 1);
+      console.log(this.state.add_tindakan, "$$$$");
+      this.setState({
+        add_tindakan: this.state.add_tindakan
+      });
+    }
+  }, {
+    key: "totalTarifChange",
+    value: function totalTarifChange(e) {
+      this.setState({
+        hasil: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmitt",
+    value: function onSubmitt(e) {
+      // let str =  this.state.add_tindakan + ''; //["AFP (Alpha Feto Protein) - 20000"]
+      // const myArr = str.split("-");
+      // console.log(myArr[1]); // [1, 2, 3]
+      var importUserRole = this.state.add_tindakan + ''; // arr = arr.replace(/[^0-9\.]+/g, " ");
+      // let text = arr.toString();
+      // text = text.replaceAll(".+-", "");
+      // arr = arr.substring(arr.indexOf("-") + 1);
+      // let text = arr.toString();
+      // const myArr = text.split("-");
+
+      var currentUserRole = importUserRole.split(',').map(function (user) {
+        return user.split('-').pop();
+      });
+      console.log(currentUserRole); // [1, 2, 3]
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      var importUserRole = this.state.add_tindakan + '';
+      var currentUserRole = importUserRole.split(',').map(function (user) {
+        return user.split('Rp.').pop();
+      });
+      currentUserRole = currentUserRole.map(Number);
+      var hasil = currentUserRole.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      }, 0);
+      this.state.hasil = hasil;
+      this.setState({
+        hasil: this.state.hasil
+      });
+      console.log(this.state.hasil); // [1, 2, 3]
+    }
+  }, {
+    key: "renderCari",
+    value: function renderCari() {
+      var _this3 = this;
+
+      if (!this.state.data[0]) {
+        return this.state.data.map(function (data) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            key: "1"
+          }, "DATA TIDAK ADA");
+        });
+      } else {
+        // console.log(this.state.selectDokter)
+        return this.state.data.map(function (data) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            key: "1"
+          }, "\xA0", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "table-responsive"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+            className: "mb-0 table table-bordered"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Tanggal"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Dokter"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Petugas"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthnorm"
+          }, data.NORMTITIK), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthtglmasuk"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+            name: "TANGGAL_MASUK",
+            placeholder: "Tanggal Masuk",
+            type: "date",
+            className: "form-control widthtglmasuk",
+            required: true,
+            onChange: _this3.tanggalmasukChange,
+            value: _this3.state.tanggal_masuk
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthawalan"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+            name: "AWALAN",
+            id: "exampleSelect",
+            className: "form-control widthawalan",
+            onChange: _this3.awalanChange
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "%10"
+          }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "SDR."
+          }, "SDR."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "TN."
+          }, "TN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "NY."
+          }, "NY."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "NN."
+          }, "NN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "AN."
+          }, "AN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "BY."
+          }, "BY."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "BY.NY"
+          }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, data.NAMA), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthstatus"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "STATUS",
+            options: _this3.state.selectStatus,
+            onChange: _this3.statusChange,
+            placeholder: "Pilih Status"
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthdokterpetugaslab"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "DOKTER",
+            options: _this3.state.selectDokter,
+            onChange: _this3.namaDokterChange,
+            placeholder: "Pilih Dokter..."
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthdokterpetugaslab"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "PETUGAS_LAB",
+            options: _this3.state.selectPetugasLab,
+            onChange: _this3.namaPetugasLabChange,
+            placeholder: "Pilih Petugas..."
+          }))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+            className: ""
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Tindakan Laboratorium Omega :")), _this3.state.add_tindakan.map(function (total, i) {
+            return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              key: i
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "form-row"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "col-md-4"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              className: "",
+              name: "TARIF",
+              options: _this3.state.selectTarif,
+              onChange: function onChange(e) {
+                return _this3.tarifChange(e, i);
+              },
+              placeholder: "Pilih Tindakan..."
+            })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "col-md-8"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+              className: "btn btn-danger btn-xs",
+              onClick: function onClick() {
+                return _this3.removeTindakan(i);
+              }
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+              className: "fa fa-trash"
+            })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null));
+          }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            className: "btn btn-primary btn-xs",
+            onClick: function onClick(e) {
+              return _this3.addTindakan(e);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-plus"
+          }), " Tindakan")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+            className: ""
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Total Harga :")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Rp.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "form-row"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "col-md-2"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+            disabled: true,
+            name: "TOTAL_TARIF",
+            placeholder: "Total Harga",
+            type: "number",
+            className: "form-control",
+            onChange: _this3.totalTarifChange,
+            value: _this3.state.hasil
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "col-md-10"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            className: "btn btn-success btn-xs",
+            onClick: function onClick(e) {
+              return _this3.onSubmit(e);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-fw",
+            "aria-hidden": "true",
+            title: "Copy to use dollar"
+          }, "\uF155"), "Total Harga"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+            href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/").concat(_this3.state.status, "/").concat(_this3.state.nama_dokter, "/").concat(_this3.state.nama_petugas_lab, "/").concat(_this3.state.add_tindakan, "/").concat(_this3.state.hasil, "/Laboratorium") // href={`print_laboratorium`}
+            ,
+            className: "btn btn-focus btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Cetak Kwitansi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null))));
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getTodayDate();
+      this.getDokter();
+      this.getTindakan();
+      this.getPetugasLab();
+      this.getStatus();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "app-page-title"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-heading"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "pe-7s-drop icon-gradient bg-arielle-smile"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Laboratorium Omega", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-subheading"
+      }, "Halaman ini berfungsi untuk mencetak Tindakan Pasien Laboratorium ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Omega.")))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "main-card mb-3 card"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.cari,
+        className: "form-control-lg form-control",
+        placeholder: "Cari Nomor Rekam Medis",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "submit",
+        className: "btn-square btn-hover-shine btn btn-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        className: "pe-7s-search"
+      }), " CARI / KLIK ENTER UNTUK CARI")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null), this.renderCari())));
+    }
+  }]);
+
+  return LabOmega;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (LabOmega);
+
+/***/ }),
+
+/***/ "./resources/js/components/LabProdia.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/LabProdia.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var LabProdia =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(LabProdia, _Component);
+
+  function LabProdia(props) {
+    var _this;
+
+    _classCallCheck(this, LabProdia);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LabProdia).call(this, props));
+    _this.state = {
+      data: [],
+      // dokter: [],
+      selectDokter: [],
+      // ID: "",
+      // NAMA_GELAR: "",
+      selectPetugasLab: [],
+      tindakan: [],
+      cari: "",
+      awalan: "%10",
+      tanggal_masuk: "",
+      status: "-",
+      nama_dokter: "Dokter Pemesan",
+      nama_petugas_lab: "Petugas Laboratorium",
+      // nama_tindakan: [],
+      add_tindakan: [],
+      hasil: ""
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.renderCari = _this.renderCari.bind(_assertThisInitialized(_this));
+    _this.awalanChange = _this.awalanChange.bind(_assertThisInitialized(_this));
+    _this.tanggalmasukChange = _this.tanggalmasukChange.bind(_assertThisInitialized(_this));
+    _this.statusChange = _this.statusChange.bind(_assertThisInitialized(_this));
+    _this.namaDokterChange = _this.namaDokterChange.bind(_assertThisInitialized(_this));
+    _this.namaPetugasLabChange = _this.namaPetugasLabChange.bind(_assertThisInitialized(_this)); // this.tindakanChange = this.tindakanChange.bind(this);
+
+    _this.tarifChange = _this.tarifChange.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.totalTarifChange = _this.totalTarifChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(LabProdia, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.setState = function (state, callback) {
+        return;
+      };
+    }
+  }, {
+    key: "getTodayDate",
+    value: function getTodayDate() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1;
+      var yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+
+      var terbalik = yyyy + '-' + mm + '-' + dd;
+      return terbalik;
+    }
+  }, {
+    key: "tanggalmasukChange",
+    value: function tanggalmasukChange(e) {
+      this.setState({
+        tanggal_masuk: e.target.value
+      });
+    }
+  }, {
+    key: "awalanChange",
+    value: function awalanChange(e) {
+      this.setState({
+        awalan: e.target.value
+      });
+    }
+  }, {
+    key: "statusChange",
+    value: function statusChange(e) {
+      console.log(e);
+      this.setState({
+        // status: e.target.value
+        status: e.label
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        cari: e.target.value
+      }); // console.log(e.target.value);
+    } // tindakanChange(e, i) {
+    //     this.state.nama_tindakan[i] = e.target.value
+    //     this.setState({
+    //         nama_tindakan: this.state.nama_tindakan
+    //     });
+    // }
+
+  }, {
+    key: "tarifChange",
+    value: function tarifChange(e, i) {
+      // this.state.add_tindakan[i] = e.target.value
+      // this.setState({
+      //     add_tindakan: this.state.add_tindakan
+      // });
+      this.state.add_tindakan[i] = e.label;
+      this.setState({
+        add_tindakan: this.state.add_tindakan
+      }); // this.setState({
+      //     tarif: e.target.value
+      // });
+    }
+  }, {
+    key: "namaDokterChange",
+    value: function namaDokterChange(e) {
+      console.log(e);
+      this.setState({
+        // ID:e.value, 
+        nama_dokter: e.label // nama_dokter: e.target.value
+
+      });
+    }
+  }, {
+    key: "namaPetugasLabChange",
+    value: function namaPetugasLabChange(e) {
+      console.log(e);
+      this.setState({
+        // ID:e.value, 
+        nama_petugas_lab: e.label // nama_petugas_lab: e.target.value
+
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      axios.post("/", {
+        cari: this.state.cari
+      }).then(function (response) {
+        _this2.setState({
+          data: [response.data.cari],
+          cari: "",
+          awalan: "%10",
+          tanggal_masuk: _this2.getTodayDate()
+        });
+
+        console.log("from handle sumit", response); // console.log(this.state.data);
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    }
+  }, {
+    key: "getPetugasLab",
+    value: function () {
+      var _getPetugasLab = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/petugas_lab/data');
+
+              case 2:
+                res = _context.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.NAMA_GELAR
+                  };
+                });
+                this.setState({
+                  selectPetugasLab: options
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getPetugasLab() {
+        return _getPetugasLab.apply(this, arguments);
+      }
+
+      return getPetugasLab;
+    }()
+  }, {
+    key: "getDokter",
+    value: function () {
+      var _getDokter = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get('/dokter/data');
+
+              case 2:
+                res = _context2.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.NAMA_GELAR
+                  };
+                });
+                this.setState({
+                  selectDokter: options
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getDokter() {
+        return _getDokter.apply(this, arguments);
+      }
+
+      return getDokter;
+    }()
+  }, {
+    key: "getTindakan",
+    value: function () {
+      var _getTindakan = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var res, data, options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/laboratorium/data/prodia');
+
+              case 2:
+                res = _context3.sent;
+                data = res.data;
+                options = data.map(function (d) {
+                  return {
+                    "value": d.ID,
+                    "label": d.TINDAKAN_TARIF
+                  };
+                });
+                this.setState({
+                  selectTarif: options
+                });
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getTindakan() {
+        return _getTindakan.apply(this, arguments);
+      }
+
+      return getTindakan;
+    }()
+  }, {
+    key: "getStatus",
+    value: function () {
+      var _getStatus = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var options;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                options = [{
+                  value: 'BPJS',
+                  label: 'BPJS'
+                }, {
+                  value: 'UMUM',
+                  label: 'UMUM'
+                }];
+                this.setState({
+                  selectStatus: options
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function getStatus() {
+        return _getStatus.apply(this, arguments);
+      }
+
+      return getStatus;
+    }()
+  }, {
+    key: "addTindakan",
+    value: function addTindakan() {
+      this.setState({
+        add_tindakan: [].concat(_toConsumableArray(this.state.add_tindakan), [""])
+      });
+      console.log(this.state.add_tindakan); // [1, 2, 3]
+    }
+  }, {
+    key: "removeTindakan",
+    value: function removeTindakan(i) {
+      this.state.add_tindakan.splice(i, 1);
+      console.log(this.state.add_tindakan, "$$$$");
+      this.setState({
+        add_tindakan: this.state.add_tindakan
+      });
+    }
+  }, {
+    key: "totalTarifChange",
+    value: function totalTarifChange(e) {
+      this.setState({
+        hasil: e.target.value
+      });
+    }
+  }, {
+    key: "onSubmitt",
+    value: function onSubmitt(e) {
+      // let str =  this.state.add_tindakan + ''; //["AFP (Alpha Feto Protein) - 20000"]
+      // const myArr = str.split("-");
+      // console.log(myArr[1]); // [1, 2, 3]
+      var importUserRole = this.state.add_tindakan + ''; // arr = arr.replace(/[^0-9\.]+/g, " ");
+      // let text = arr.toString();
+      // text = text.replaceAll(".+-", "");
+      // arr = arr.substring(arr.indexOf("-") + 1);
+      // let text = arr.toString();
+      // const myArr = text.split("-");
+
+      var currentUserRole = importUserRole.split(',').map(function (user) {
+        return user.split('-').pop();
+      });
+      console.log(currentUserRole); // [1, 2, 3]
+    }
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(e) {
+      var importUserRole = this.state.add_tindakan + '';
+      var currentUserRole = importUserRole.split(',').map(function (user) {
+        return user.split('Rp.').pop();
+      });
+      currentUserRole = currentUserRole.map(Number);
+      var hasil = currentUserRole.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      }, 0);
+      this.state.hasil = hasil;
+      this.setState({
+        hasil: this.state.hasil
+      });
+      console.log(this.state.hasil); // [1, 2, 3]
+    }
+  }, {
+    key: "renderCari",
+    value: function renderCari() {
+      var _this3 = this;
+
+      if (!this.state.data[0]) {
+        return this.state.data.map(function (data) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            key: "1"
+          }, "DATA TIDAK ADA");
+        });
+      } else {
+        // console.log(this.state.selectDokter)
+        return this.state.data.map(function (data) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            key: "1"
+          }, "\xA0", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "table-responsive"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("table", {
+            className: "mb-0 table table-bordered"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Rekam Medis"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Tanggal"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Awalan"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Nama Pasien"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Status"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Dokter"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("th", null, "Petugas"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthnorm"
+          }, data.NORMTITIK), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthtglmasuk"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+            name: "TANGGAL_MASUK",
+            placeholder: "Tanggal Masuk",
+            type: "date",
+            className: "form-control widthtglmasuk",
+            required: true,
+            onChange: _this3.tanggalmasukChange,
+            value: _this3.state.tanggal_masuk
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthawalan"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+            name: "AWALAN",
+            id: "exampleSelect",
+            className: "form-control widthawalan",
+            onChange: _this3.awalanChange
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "%10"
+          }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "SDR."
+          }, "SDR."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "TN."
+          }, "TN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "NY."
+          }, "NY."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "NN."
+          }, "NN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "AN."
+          }, "AN."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "BY."
+          }, "BY."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+            value: "BY.NY"
+          }, "BY.NY"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", null, data.NAMA), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthstatus"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "STATUS",
+            options: _this3.state.selectStatus,
+            onChange: _this3.statusChange,
+            placeholder: "Pilih Status"
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthdokterpetugaslab"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "DOKTER",
+            options: _this3.state.selectDokter,
+            onChange: _this3.namaDokterChange,
+            placeholder: "Pilih Dokter..."
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("td", {
+            className: "widthdokterpetugaslab"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "",
+            name: "PETUGAS_LAB",
+            options: _this3.state.selectPetugasLab,
+            onChange: _this3.namaPetugasLabChange,
+            placeholder: "Pilih Petugas..."
+          }))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+            className: ""
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Tindakan Laboratorium Prodia :")), _this3.state.add_tindakan.map(function (total, i) {
+            return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              key: i
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "form-row"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "col-md-4"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              className: "",
+              name: "TARIF",
+              options: _this3.state.selectTarif,
+              onChange: function onChange(e) {
+                return _this3.tarifChange(e, i);
+              },
+              placeholder: "Pilih Tindakan..."
+            })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+              className: "col-md-8"
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+              className: "btn btn-danger btn-xs",
+              onClick: function onClick() {
+                return _this3.removeTindakan(i);
+              }
+            }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+              className: "fa fa-trash"
+            })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null));
+          }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            className: "btn btn-primary btn-xs",
+            onClick: function onClick(e) {
+              return _this3.addTindakan(e);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-plus"
+          }), " Tindakan")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+            className: ""
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Total Harga :")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Rp.")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "form-row"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "col-md-2"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+            disabled: true,
+            name: "TOTAL_TARIF",
+            placeholder: "Total Harga",
+            type: "number",
+            className: "form-control",
+            onChange: _this3.totalTarifChange,
+            value: _this3.state.hasil
+          })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+            className: "col-md-10"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            className: "btn btn-success btn-xs",
+            onClick: function onClick(e) {
+              return _this3.onSubmit(e);
+            }
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-fw",
+            "aria-hidden": "true",
+            title: "Copy to use dollar"
+          }, "\uF155"), "Total Harga"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+            href: "/".concat(data.NORM, "/").concat(_this3.state.awalan, "/").concat(_this3.state.tanggal_masuk, "/").concat(_this3.state.status, "/").concat(_this3.state.nama_dokter, "/").concat(_this3.state.nama_petugas_lab, "/").concat(_this3.state.add_tindakan, "/").concat(_this3.state.hasil, "/Laboratorium") // href={`print_laboratorium`}
+            ,
+            className: "btn btn-focus btn-xs",
+            target: "_blank"
+          }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Cetak Kwitansi"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null))));
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getTodayDate();
+      this.getDokter();
+      this.getTindakan();
+      this.getPetugasLab();
+      this.getStatus();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "app-page-title"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-heading"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "pe-7s-drop icon-gradient bg-arielle-smile"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Laboratorium Prodia", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "page-title-subheading"
+      }, "Halaman ini berfungsi untuk mencetak Tindakan Pasien Laboratorium ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("b", null, "Prodia.")))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "main-card mb-3 card"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.cari,
+        className: "form-control-lg form-control",
+        placeholder: "Cari Nomor Rekam Medis",
+        required: true
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        type: "submit",
+        className: "btn-square btn-hover-shine btn btn-info"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+        className: "pe-7s-search"
+      }), " CARI / KLIK ENTER UNTUK CARI")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null), this.renderCari())));
+    }
+  }]);
+
+  return LabProdia;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (LabProdia);
+
+/***/ }),
+
 /***/ "./resources/js/components/LabUmum.js":
 /*!********************************************!*\
   !*** ./resources/js/components/LabUmum.js ***!
@@ -99627,6 +100909,8 @@ function (_Component) {
       }, "Poli Rehabilitas Medik"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010114"
       }, "Poli Hemodialisa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010115"
+      }, "Poli Jantung"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101020101"
       }, "IGD"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-responsive"
@@ -101166,7 +102450,23 @@ function (_Component) {
         onClick: this.toggleClass.bind(this, 1)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "metismenu-icon"
-      }), "Klaim Covid")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null)))));
+      }), "Klaim Covid")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        exact: true,
+        to: "/lab_omega",
+        activeClassName: "mm-active",
+        className: "{this.state.activeIndex==0 ? 'mm-active': null}",
+        onClick: this.toggleClass.bind(this, 1)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "metismenu-icon"
+      }), "Omega")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        exact: true,
+        to: "/lab_prodia",
+        activeClassName: "mm-active",
+        className: "{this.state.activeIndex==0 ? 'mm-active': null}",
+        onClick: this.toggleClass.bind(this, 1)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "metismenu-icon"
+      }), "Prodia")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null)))));
     }
   }]);
 

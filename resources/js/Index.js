@@ -12,6 +12,8 @@ import Pasien from "./components/Pasien";
 import LabBpjs from "./components/LabBpjs";
 import LabUmum from "./components/LabUmum";
 import LabKlaimCovid from "./components/LabKlaimCovid";
+import LabOmega from "./components/LabOmega";
+import LabProdia from "./components/LabProdia";
 import Radiologi from "./components/Radiologi";
 // import Tracer from ".components/Track";
 
@@ -50,6 +52,16 @@ if (document.getElementById("root")) {
                                 exact
                                 path="/lab_klaim_covid"
                                 component={LabKlaimCovid}
+                            />
+                            <Route
+                                exact
+                                path="/lab_omega"
+                                component={LabOmega}
+                            />
+                            <Route
+                                exact
+                                path="/lab_prodia"
+                                component={LabProdia}
                             />
                             <Route
                                 exact
