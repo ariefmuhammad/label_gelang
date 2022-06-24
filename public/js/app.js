@@ -100895,6 +100895,8 @@ function (_Component) {
       }, "Poli Bedah Syaraf"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010104"
       }, "Poli Gigi Umum"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010115"
+      }, "Poli Jantung"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010105"
       }, "Poli Mata"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010106"
