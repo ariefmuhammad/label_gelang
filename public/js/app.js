@@ -100889,6 +100889,10 @@ function (_Component) {
       }, "Poli Anak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010102"
       }, "Poli Bedah"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010117"
+      }, "Poli Bedah Mulut"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010110"
+      }, "Poli Bedah Syaraf"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010104"
       }, "Poli Gigi Umum"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010105"
@@ -100897,20 +100901,14 @@ function (_Component) {
       }, "Poli Neurologi/Syaraf"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010107"
       }, "Poli Obgyn/Kandungan"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010116"
+      }, "Poli Patologi Anatomi"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010108"
       }, "Poli Penyakit Dalam"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "101010109"
-      }, "Poli THT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "101010110"
-      }, "Poli Bedah Syaraf"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "101010111"
-      }, "Poli Forensik"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101010112"
       }, "Poli Rehabilitas Medik"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "101010114"
-      }, "Poli Hemodialisa"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "101010115"
-      }, "Poli Jantung"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101010109"
+      }, "Poli THT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101020101"
       }, "IGD"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table-responsive"

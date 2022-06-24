@@ -270,12 +270,24 @@ class Pasien extends Component {
                                         <option value="101010102">
                                             Poli Bedah
                                         </option>
+                                        <option value="101010117">
+                                            Poli Bedah Mulut
+                                        </option>
+                                        <option value="101010110">
+                                            Poli Bedah Syaraf
+                                        </option>
+                                        {/* <option value="101010111">
+                                            Poli Forensik
+                                        </option> */}
                                         {/* <option value="101010103">
                                             Poli Gigi Anak
                                         </option> */}
                                         <option value="101010104">
                                             Poli Gigi Umum
                                         </option>
+                                        {/* <option value="101010114">
+                                            Poli Hemodialisa
+                                        </option> */}
                                         <option value="101010105">
                                             Poli Mata
                                         </option>
@@ -285,27 +297,18 @@ class Pasien extends Component {
                                         <option value="101010107">
                                             Poli Obgyn/Kandungan
                                         </option>
+                                        <option value="101010116">
+                                            Poli Patologi Anatomi
+                                        </option>
                                         <option value="101010108">
                                             Poli Penyakit Dalam
-                                        </option>
-                                        <option value="101010109">
-                                            Poli THT
-                                        </option>
-                                        <option value="101010110">
-                                            Poli Bedah Syaraf
-                                        </option>
-                                        <option value="101010111">
-                                            Poli Forensik
                                         </option>
                                         <option value="101010112">
                                             Poli Rehabilitas Medik
                                         </option>
-                                        <option value="101010114">
-                                            Poli Hemodialisa
-                                        </option>
-                                        <option value="101010115">
-                                            Poli Jantung
-                                        </option>
+                                        <option value="101010109">
+                                            Poli THT
+                                        </option>                                                        
                                         <option value="101020101">IGD</option>
                                     </select>
                                 </div>
