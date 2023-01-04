@@ -22,7 +22,7 @@ class DataController extends Controller
 
     public function dokter(Request $request)
     {
-        $dokter = Pegawai::where('PROFESI', '4')->orderBy('NAMA')->get();
+        $dokter = Pegawai::where('PROFESI', '4')->where('STATUS', 1)->orderBy('NAMA')->get();
 
 
         foreach ($dokter as $dokters) {
@@ -38,7 +38,7 @@ class DataController extends Controller
 
     public function petugasLab(Request $request)
     {
-        $petugasLab = Pegawai::where('PROFESI', '2')->orderBy('NAMA')->get();
+        $petugasLab = Pegawai::where('PROFESI', '2')->where('STATUS', 1)->orderBy('NAMA')->get();
 
 
         foreach ($petugasLab as $petugasLabs) {
