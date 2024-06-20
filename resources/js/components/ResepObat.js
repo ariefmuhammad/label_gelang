@@ -53,7 +53,7 @@ class ResepObat extends Component {
     handleSubmit(e) {
         e.preventDefault();
         axios
-            .post("/resep/data", {
+            .post("resep/data", {
                 cari: this.state.cari
             })
             .then(response => {

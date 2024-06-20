@@ -6,7 +6,7 @@ Route::get('/laboratorium/data', 'DataController@tindakanLab');
 // Route::get('/laboratorium/data/omega', 'DataController@tindakanLabOmega');
 // Route::get('/laboratorium/data/prodia', 'DataController@tindakanLabProdia');
 Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
-Route::post('/resep/data', 'ObatController@OrderResep');
+Route::post('resep/data', 'ObatController@OrderResep');
 Route::post('/', 'DataController@cari');
 // Route::get('/{id}/label', 'DataController@label');
 Route::get('/{id}/{awalan}/{tgl_masuk}/label', 'PrintController@templateLabel');
