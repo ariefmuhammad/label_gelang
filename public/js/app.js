@@ -94965,7 +94965,7 @@ var ResepObat = /*#__PURE__*/function (_Component) {
     value: function handleSubmit(e) {
       var _this2 = this;
       e.preventDefault();
-      axios.post("resep/data", {
+      axios.post("view_resep", {
         cari: this.state.cari
       }).then(function (response) {
         _this2.setState({
