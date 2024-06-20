@@ -9,11 +9,13 @@ import Index from "./components/Index";
 import Track from "./components/Track";
 import Pasien from "./components/Pasien";
 // import Lab from "./components/Lab";
-import LabBpjs from "./components/LabBpjs";
-import LabUmum from "./components/LabUmum";
-import LabKlaimCovid from "./components/LabKlaimCovid";
-import LabOmega from "./components/LabOmega";
-import LabProdia from "./components/LabProdia";
+// import LabBpjs from "./components/LabBpjs";
+// import LabUmum from "./components/LabUmum";
+// import LabKlaimCovid from "./components/LabKlaimCovid";
+// import LabOmega from "./components/LabOmega";
+// import LabProdia from "./components/LabProdia";
+import Laboratorium from "./components/Laboratorium";
+import ResepObat from "./components/ResepObat";
 import Radiologi from "./components/Radiologi";
 // import Tracer from ".components/Track";
 
@@ -40,6 +42,11 @@ if (document.getElementById("root")) {
                             /> */}
                             <Route
                                 exact
+                                path="/laboratorium"
+                                component={Laboratorium}
+                            />
+                            {/* <Route
+                                exact
                                 path="/lab_bpjs"
                                 component={LabBpjs}
                             />
@@ -62,11 +69,16 @@ if (document.getElementById("root")) {
                                 exact
                                 path="/lab_prodia"
                                 component={LabProdia}
-                            />
+                            /> */}
                             <Route
                                 exact
                                 path="/radiologi"
                                 component={Radiologi}
+                            />
+                            <Route
+                                exact
+                                path="/resep_obat"
+                                component={ResepObat}
                             />
                             <Index />
                         </Switch>

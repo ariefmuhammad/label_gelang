@@ -54,7 +54,7 @@ class DataController extends Controller
 
     public function tindakanLab(Request $request)
     {
-        $tindakan = Tindakan::where('JENIS', '15')
+        $tindakan = Tindakan::where('JENIS', '8')
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
         ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
         ->groupBy('NAMA')
@@ -79,90 +79,90 @@ class DataController extends Controller
         return $tindakan;
     }
 
-    public function tindakanLabBpjs(Request $request)
-    {
-        $tindakan = Tindakan::where('JENIS', '77')
-        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
-        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
-        ->groupBy('NAMA')
-        ->where('tarif_tindakan.STATUS', 1)
-        ->orderBy('NAMA')
-        ->get();
+    // public function tindakanLabBpjs(Request $request)
+    // {
+    //     $tindakan = Tindakan::where('JENIS', '77')
+    //     ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+    //     ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+    //     ->groupBy('NAMA')
+    //     ->where('tarif_tindakan.STATUS', 1)
+    //     ->orderBy('NAMA')
+    //     ->get();
 
       
 
-        foreach ($tindakan as $tindakans) {
+    //     foreach ($tindakan as $tindakans) {
      
-            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
 
-            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
             
-        }
+    //     }
 
       
 
-        return $tindakan;
-    }
+    //     return $tindakan;
+    // }
 
-    public function tindakanLabOmega(Request $request)
-    {
-        $tindakan = Tindakan::where('JENIS', '78')
-        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
-        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF', 'tarif_tindakan.STATUS')
-        ->groupBy('NAMA')
-        ->where('tarif_tindakan.STATUS', 1)
-        ->orderBy('NAMA')
-        ->get();
+    // public function tindakanLabOmega(Request $request)
+    // {
+    //     $tindakan = Tindakan::where('JENIS', '78')
+    //     ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+    //     ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF', 'tarif_tindakan.STATUS')
+    //     ->groupBy('NAMA')
+    //     ->where('tarif_tindakan.STATUS', 1)
+    //     ->orderBy('NAMA')
+    //     ->get();
 
       
 
-        foreach ($tindakan as $tindakans) {
+    //     foreach ($tindakan as $tindakans) {
      
-            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
 
-            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
             
-        }
+    //     }
 
       
 
-        return $tindakan;
-    }
+    //     return $tindakan;
+    // }
 
-    public function tindakanLabProdia(Request $request)
-    {
-        $tindakan = Tindakan::where('JENIS', '79')
-        ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
-        ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
-        ->groupBy('NAMA')
-        ->where('tarif_tindakan.STATUS', 1)
-        ->orderBy('NAMA')
-        ->get();
+    // public function tindakanLabProdia(Request $request)
+    // {
+    //     $tindakan = Tindakan::where('JENIS', '79')
+    //     ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
+    //     ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
+    //     ->groupBy('NAMA')
+    //     ->where('tarif_tindakan.STATUS', 1)
+    //     ->orderBy('NAMA')
+    //     ->get();
 
       
 
-        foreach ($tindakan as $tindakans) {
+    //     foreach ($tindakan as $tindakans) {
      
-            $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace("/"," atau ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace("/"," atau ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
 
-            $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
-            $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
+    //         $tindakans['NAMA'] = str_replace(","," & ", $tindakans['NAMA']);
+    //         $tindakans['TINDAKAN_TARIF'] = str_replace(","," & ", $tindakans['NAMA']). " - ". " Rp. " .$tindakans['TARIF'];
             
-        }
+    //     }
 
       
 
-        return $tindakan;
-    }
+    //     return $tindakan;
+    // }
 
     public function tindakanRadiologi(Request $request)
     {
-        $tindakan = Tindakan::where('JENIS', '16')
+        $tindakan = Tindakan::where('JENIS', '7')
         ->join('tarif_tindakan', 'tindakan.ID', '=', 'tarif_tindakan.TINDAKAN')
         ->select('tindakan.ID', 'tindakan.NAMA', 'tarif_tindakan.TARIF')
         ->groupBy('NAMA')

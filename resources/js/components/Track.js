@@ -180,7 +180,7 @@ class Track extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-ticket icon-gradient bg-arielle-smile"></i>
+                                <i className="pe-7s-ticket icon-gradient bg-deep-blue"></i>
                             </div>
                             <div>
                                 TRACER
@@ -206,7 +206,7 @@ class Track extends Component {
                             </div>
                             <button
                                 type="submit"
-                                className="btn-square btn-hover-shine btn btn-success"
+                                className="btn-square btn-hover-shine btn btn-alternate"
                             >
                                 <a className="pe-7s-search"></a> CARI / KLIK
                                 ENTER UNTUK CARI

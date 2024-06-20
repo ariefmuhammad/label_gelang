@@ -1,47 +1,47 @@
 import React, { Component } from "react";
 
-class Index extends Component {
+class ResepObat extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            hasilpasien: [],
             cari: "",
-            awalan: "%10",
-            tanggal_masuk: ""
+            // awalan: "%10",
+            // tanggal_masuk: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderCari = this.renderCari.bind(this);
-        this.awalanChange = this.awalanChange.bind(this);
-        this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
+        // this.awalanChange = this.awalanChange.bind(this);
+        // this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
     }
 
-    getTodayDate() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1;
-        var yyyy = today.getFullYear();
-        if(dd<10){
-            dd='0'+dd;
-        }
-        if(mm<10){
-            mm='0'+mm;
-        }
-        var terbalik = yyyy+'-'+mm+'-'+dd;
-        return terbalik;
-    }
+    // getTodayDate() {
+    //     var today = new Date();
+    //     var dd = today.getDate();
+    //     var mm = today.getMonth()+1;
+    //     var yyyy = today.getFullYear();
+    //     if(dd<10){
+    //         dd='0'+dd;
+    //     }
+    //     if(mm<10){
+    //         mm='0'+mm;
+    //     }
+    //     var terbalik = yyyy+'-'+mm+'-'+dd;
+    //     return terbalik;
+    // }
 
-    tanggalmasukChange(e) {
-        this.setState({
-            tanggal_masuk: e.target.value
-        });
-    }
+    // tanggalmasukChange(e) {
+    //     this.setState({
+    //         tanggal_masuk: e.target.value
+    //     });
+    // }
 
-    awalanChange(e) {
-        this.setState({
-            awalan: e.target.value
-        });
-    }
+    // awalanChange(e) {
+    //     this.setState({
+    //         awalan: e.target.value
+    //     });
+    // }
 
     handleChange(e) {
         this.setState({
@@ -53,15 +53,15 @@ class Index extends Component {
     handleSubmit(e) {
         e.preventDefault();
         axios
-            .post("/", {
+            .post("/resep/data", {
                 cari: this.state.cari
             })
             .then(response => {
                 this.setState({
-                    data: [response.data.cari],
+                    hasilpasien: [response.data.cari],
                     cari: "",
-                    awalan: "%10",
-                    tanggal_masuk: this.getTodayDate()
+                    // awalan: "%10",
+                    // tangga2l_masuk: this.getTodayDate()
                 });
                 console.log("from handle sumit", response);
                 // console.log(this.state.data);
@@ -69,40 +69,41 @@ class Index extends Component {
             .catch(error => {
                 console.log(error.message);
             });
-    }
+    }      
+    
 
     renderCari() {
-        if (!this.state.data[0]) {
-            return this.state.data.map(data => (
+        if (!this.state.hasilpasien[0]) {
+            return this.state.hasilpasien.map(hasilpasien => (
                 <div key="1">DATA TIDAK ADA</div>
             ));
         } else {
-            return this.state.data.map(data => (
+            return this.state.hasilpasien.map(hasilpasien => (
                 <div key="1">
                     <a
-                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/label`}
+                        href={`/${hasilpasien.NORM}/klaimkronis`}
+                        className="btn btn-success btn-xs"
+                        target="_blank"
+                    >
+                        <i className="fa fa-print"></i> Cetak Klaim Kronis
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a
+                        href={`/${hasilpasien.NORM}/klaiminacbg`}
+                        className="btn btn-warning btn-xs"
+                        target="_blank"
+                    >
+                        <i className="fa fa-print"></i> Cetak Klaim INACBG
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <a
+                        href={`/${hasilpasien.NORM}/klaimnormal`}
                         className="btn btn-focus btn-xs"
                         target="_blank"
                     >
-                        <i className="fa fa-print"></i> Cetak Label
-                    </a>
-                    &nbsp;
-                    &nbsp;
-                    <a
-                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_dewasa`}
-                        className="btn btn-primary btn-xs"
-                        target="_blank"
-                    >
-                        <i className="fa fa-print"></i> Cetak Gelang Dewasa
-                    </a>
-                    &nbsp;
-                    &nbsp;
-                    <a
-                        href={`/${data.NORM}/${this.state.awalan}/${this.state.tanggal_masuk}/gelang_anak`}
-                        className="btn btn-danger btn-xs"
-                        target="_blank"
-                    >
-                        <i className="fa fa-print"></i> Cetak Gelang Anak
+                        <i className="fa fa-print"></i> Cetak Klaim Normal
                     </a>
                     &nbsp;
                     {/* <a
@@ -119,35 +120,26 @@ class Index extends Component {
                     <table className="mb-0 table table-bordered">
                         <thead>
                             <tr>
-                                <th>Rekam Medis</th>
-                                <th>Tanggal Masuk</th>
-                                <th>Awalan</th>
+                                <th>NO REG</th>
+                                <th>NO RM</th>
                                 <th>Nama Pasien</th>
+                                <th>Unit</th>
+                                <th>DPJP</th>
                                 <th>Jenis Kelamin</th>
-                                {/* <th>Tempat Lahir</th> */}
                                 <th>Tanggal Lahir</th>
-                                {/* <th>Alamat</th> */}
+                                <th>Tgl/Jam</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="widthnorm">{data.NORMTITIK}</td>
-                                <td className="widthtglmasuk"><input name="TANGGAL_MASUK" placeholder="Tanggal Masuk" type="date" className="form-control widthtglmasuk" required onChange={this.tanggalmasukChange} value={this.state.tanggal_masuk} /></td>
-                                <td className="widthawalan"><select name="AWALAN" id="exampleSelect" className="form-control widthawalan" onChange={this.awalanChange}>
-                                    <option value="%10"></option>
-                                    <option value="SDR.">SDR.</option>
-                                    <option value="TN.">TN.</option>
-                                    <option value="NY.">NY.</option> 
-                                    <option value="NN.">NN.</option>
-                                    <option value="AN.">AN.</option>
-                                    <option value="BY.">BY.</option>
-                                    <option value="BY.NY">BY.NY</option>
-                                    </select></td>
-                                <td>{data.NAMA}</td>
-                                <td className="widthjkp">{data.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"}</td>
-                                {/* <td>{data.TEMPAT_LAHIR}</td> */}
-                                <td className="widthlahir">{data.TANGGAL_LAHIR}</td>
-                                {/* <td>{data.ALAMAT}</td> */}
+                                <td>{hasilpasien.KUNJUNGAN}</td>
+                                <td className="widthnorm">{hasilpasien.NORM}</td>
+                                <td>{hasilpasien.NAMA_PASIEN}</td>
+                                <td>{hasilpasien.UNIT}</td>
+                                <td>{hasilpasien.DPJP}</td>
+                                <td className="widthjkp">{hasilpasien.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"}</td>
+                                <td className="widthlahir">{hasilpasien.TANGGAL_LAHIR}</td>
+                                <td>{hasilpasien.MASUK}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -158,7 +150,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        this.getTodayDate();
+        // this.getTodayDate();
     }
 
     componentDidUpdate() {
@@ -171,13 +163,12 @@ class Index extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-print icon-gradient bg-deep-blue"></i>
+                                <i className="pe-7s-plugin icon-gradient bg-deep-blue"></i>
                             </div>
                             <div>
-                                LABEL & GELANG
+                                Resep Obat
                                 <div className="page-title-subheading">
-                                    Halaman ini berfungsi untuk mencetak Label
-                                    dan Gelang.
+                                    Halaman ini berfungsi untuk mencetak Resep Obat.
                                 </div>
                             </div>
                         </div>
@@ -213,4 +204,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default ResepObat;

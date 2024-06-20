@@ -150,7 +150,7 @@ class Pasien extends Component {
                     <table className="mb-0 table table-bordered">
                         <thead>
                             <tr>
-                            <th colSpan="8" className="bg-arielle-smile"><center><h5><b className="text-light">{post[0].nama_dokter}</b></h5></center></th>
+                            <th colSpan="8" className="bg-deep-blue"><center><h5><b className="text-dark">{post[0].nama_dokter}</b></h5></center></th>
                             </tr>
                             <tr>
                                 <th>No Urut</th>
@@ -238,7 +238,7 @@ class Pasien extends Component {
                     <div className="page-title-wrapper">
                         <div className="page-title-heading">
                             <div className="page-title-icon">
-                                <i className="pe-7s-note2 icon-gradient bg-arielle-smile"></i>
+                                <i className="pe-7s-note2 icon-gradient bg-deep-blue"></i>
                             </div>
                             <div>
                                 PASIEN HARI INI
@@ -276,6 +276,9 @@ class Pasien extends Component {
                                         <option value="101010110">
                                             Poli Bedah Syaraf
                                         </option>
+                                        <option value="101010118">
+                                            Poli BTKV
+                                        </option>
                                         {/* <option value="101010111">
                                             Poli Forensik
                                         </option> */}
@@ -311,6 +314,9 @@ class Pasien extends Component {
                                         </option>
                                         <option value="101010109">
                                             Poli THT
+                                        </option>
+                                        <option value="101110101">
+                                            Hemodialisa
                                         </option>                                                        
                                         <option value="101020101">IGD</option>
                                     </select>

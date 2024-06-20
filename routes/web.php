@@ -2,11 +2,11 @@
 Route::get('/dokter/data', 'DataController@dokter');
 Route::get('/petugas_lab/data', 'DataController@petugasLab');
 Route::get('/laboratorium/data', 'DataController@tindakanLab');
-Route::get('/laboratorium/data/bpjs', 'DataController@tindakanLabBpjs');
-Route::get('/laboratorium/data/omega', 'DataController@tindakanLabOmega');
-Route::get('/laboratorium/data/prodia', 'DataController@tindakanLabProdia');
+// Route::get('/laboratorium/data/bpjs', 'DataController@tindakanLabBpjs');
+// Route::get('/laboratorium/data/omega', 'DataController@tindakanLabOmega');
+// Route::get('/laboratorium/data/prodia', 'DataController@tindakanLabProdia');
 Route::get('/radiologi/data', 'DataController@tindakanRadiologi');
-
+Route::post('/resep/data', 'ObatController@OrderResep');
 Route::post('/', 'DataController@cari');
 // Route::get('/{id}/label', 'DataController@label');
 Route::get('/{id}/{awalan}/{tgl_masuk}/label', 'PrintController@templateLabel');
@@ -20,6 +20,9 @@ Route::get('/{id}/{awalan}/{tgl_masuk}/testtujuan', 'PrintController@testtujuan'
 Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{nama_petugas_lab}/{total_tarif}/{tarif}/Laboratorium', 'PrintController@templateLaboratorium')->name('print_laboratorium');
 Route::get('/{id}/{awalan}/{tgl_masuk}/{status}/{nama_dokter}/{total_tarif}/{tarif}/Radiologi', 'PrintController@templateRadiologi');
 
+Route::get('/{id}/klaimkronis', 'PrintController@klaimkronis')->name('print_klaimkronis');
+Route::get('/{id}/klaiminacbg', 'PrintController@klaiminacbg')->name('print_klaiminacbg');
+Route::get('/{id}/klaimnormal', 'PrintController@klaimnormal')->name('print_klaimnormal');
 
 Route::get('/tracer/data', 'DataController@tracerData');
 Route::post('/tracer/data', 'DataController@cariTracerData');
@@ -41,5 +44,8 @@ Route::any('{all}', function () {
     return view('hiyaa');
 })
 ->where(['all' => '.*']);
+
+
+
 
 
