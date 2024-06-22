@@ -16,6 +16,7 @@ class ResepObat extends Component {
         // this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
     }
 
+    
     // getTodayDate() {
     //     var today = new Date();
     //     var dd = today.getDate();
@@ -50,10 +51,10 @@ class ResepObat extends Component {
         // console.log(e.target.value);
     }
 
-    handleSubmit(e) {
+     handleSubmit(e) {
         e.preventDefault();
-        axios
-            .post(`/view_resep`, {
+         axios
+            .post("/resep/data", {
                 cari: this.state.cari
             })
             .then(response => {
@@ -133,7 +134,7 @@ class ResepObat extends Component {
                         <tbody>
                             <tr>
                                 <td>{hasilpasien.KUNJUNGAN}</td>
-                                <td className="widthnorm">{hasilpasien.NORM}</td>
+                                <td className="widthnorm">{hasilpasien.RM}</td>
                                 <td>{hasilpasien.NAMA_PASIEN}</td>
                                 <td>{hasilpasien.UNIT}</td>
                                 <td>{hasilpasien.DPJP}</td>

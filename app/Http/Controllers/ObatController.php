@@ -92,7 +92,7 @@ class ObatController extends Controller
         }    
 
         $join = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
-        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS',)
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS')
         ->where('layanan.farmasi.STATUS', 2)
         ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
         ->get();
@@ -168,7 +168,7 @@ class ObatController extends Controller
         ->first();
         
         $join = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
-        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGALphp', 'layanan.farmasi.STATUS',)
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGALphp', 'layanan.farmasi.STATUS')
         ->where('layanan.farmasi.STATUS', 2)
         ->where('layanan.farmasi.KUNJUNGAN', $kunjungan['NOMOR'])
         ->get();
