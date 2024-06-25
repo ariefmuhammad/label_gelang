@@ -143,7 +143,7 @@
         <b style="font-family:sans-serif;"> Total :</b>
         </td>
         <td colspan="3">
-         <b style="font-family:sans-serif;">{{$TOTAL_NORMAL}}</b>
+         <b style="font-family:sans-serif;">{{$HASIL_TOTAL_NORMAL}}</b>
         </td>
     </tr>
 

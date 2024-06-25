@@ -545,7 +545,638 @@ class PrintController extends Controller
      public function klaimkronis($id) {
         // dd($awalan);
 
+        // $kunjungan = Kunjungan::where('NOMOR', '1011201012406200201')->where('RUANGAN', 101120101)->first();
+        $kunjungan = Kunjungan::where('NOMOR', $id)->where('RUANGAN', 101120101)->first();
+
+        if (!$kunjungan) {
+            $joins = null;
+        }
+
+        $pendaftaran = Pendaftaran::where('NOMOR', $kunjungan['NOPEN'])->first();
+
+        if (!$pendaftaran) {
+            $joins = null;
+        }
+
+
+
+        $label = Data::where('NORM',  $pendaftaran['NORM'])->get();
+        if (!$label) {
+            $data = null;
+        }
+        $norm = $label[0]->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($label[0]['TANGGAL_LAHIR']));
+        $nama = $label[0]['NAMA'];
+
+        $label[0]['NORM'] = $norm;
+        $label[0]['TANGGAL_LAHIR'] = $lahir;
+        
+        // // $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+        // $data['label'] = $label;
+
+        // // $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
+        // // $data['TANGGAL_MASUK'] = $tanggal_masuk;
+        
+///////////////////////////////////////////////////////////////////////////////
+        $pasien = Pasien::where('NORM',  $pendaftaran['NORM'])->first();
+        // $pendaftaran = Pendaftaran::where('NORM', $pasien['NORM'])->orderBy('TANGGAL', 'desc')->first();
+
+        // if (!$pendaftaran) {
+        //     $$data = null;
+        // }
+    
+        // $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101120101)->orderBy('MASUK', 'desc')->first();
+
+        // if (!$kunjungan) {
+        //     $data = null;
+        // }
+
+        $resep = OrderResep::where('NOMOR', $kunjungan['REF'])->first();
+
+        if (!$resep) {
+            $data = null;
+        }
+
+        $farmasi = Farmasi::where('KUNJUNGAN', $kunjungan['NOMOR'])->first();
+
+        if (!$farmasi) {
+            $data = null;
+        }
+
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        
+        if (!$pembayaran) {
+            $data = null;
+        }
+
+        else {
+
+        $ruangan = Ruang::join('pendaftaran.kunjungan', 'master.ruangan.ID', '=', 'pendaftaran.kunjungan.RUANGAN')
+        ->select('master.ruangan.*')
+        ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
+        ->first();
+
+        $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
+        ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')
+        ->where('master.pegawai.PROFESI', '4')
+        ->where('master.pegawai.STATUS', 1)
+        ->where('master.dokter.STATUS', 1)
+        ->where('master.dokter.ID', $resep['DOKTER_DPJP'])
+        ->get();
+
+        foreach ($dokter as $dokters) {
+            $dokters['NAMA_GELAR'] = $dokters['GELAR_DEPAN'].". ".$dokters['NAMA'].", ".$dokters['GELAR_BELAKANG'];
+        }    
+
+        // $obat = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        // ->select('inventory.barang.NAMA',)
+        // ->where('layanan.farmasi.STATUS', 2)
+        // ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        // ->get();
+
+        // foreach ($obat as $obats) {
+        //     $obats['NAMA'];
+        // }
+
+        $tarif = Farmasi::join('inventory.barang', 'layanan.farmasi.FARMASI', '=', 'inventory.barang.ID')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.HARI', 30)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        ->get();
+
+        foreach($tarif as $tarifs) {
+            if ($tarifs['HARI'] == 30) {
+            $tarifs['VKLAIM_KRONIS'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['VKLAIM_INACBG'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['KLAIM_KRONIS'] = 23/30 * $tarifs['VKLAIM_KRONIS'];
+            $tarifs['KLAIM_INACBG'] = 7/30 * $tarifs['VKLAIM_INACBG'];
+            $tarifs['HASIL_KLAIM_KRONIS'] = round($tarifs['KLAIM_KRONIS'], 2);
+            $tarifs['HASIL_KLAIM_INACBG'] = round($tarifs['KLAIM_INACBG'], 2);
+            $tarifs['QTY_KRONIS'] = 23/30 * $tarifs['JUMLAH'];
+            $tarifs['QTY_INACBG'] = 7/30 * $tarifs['JUMLAH'];
+            $tarifs['HASIL_QTY_KRONIS'] = round($tarifs['QTY_KRONIS'], 2);
+            $tarifs['HASIL_QTY_INACBG'] = round($tarifs['QTY_INACBG'], 2);
+            // $tarifs['QTY_KRONISX1'] = substr($tarifs['QTY_KRONIS'],0,4);
+            // $tarifs['QTY_INACBGX1'] = substr($tarifs['QTY_INACBG'],0,4);
+            // $tarifs['QTY_KRONISY'] = floatval($tarifs['QTY_KRONISX1']);
+            // $tarifs['QTY_INACBGY'] = floatval($tarifs['QTY_INACBGX1']);
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF']; 
+            } else {
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];  
+            }
+        }
+
+        $data['TOTAL_KRONIS'] = $tarif->sum('KLAIM_KRONIS');
+        $data['HASIL_TOTAL_KRONIS'] = round($data['TOTAL_KRONIS'], 2);
+
+
+        $tagihan = Tagihan::where('pembayaran.tagihan.ID', $pendaftaran['NOMOR'])
+        ->select('pembayaran.tagihan.ID', 'pembayaran.tagihan.REF', 'pembayaran.tagihan.TOTAL')
+        ->where('pembayaran.tagihan.JENIS', 1)
+        ->first();
+
+      
+
+        $join = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN'])  //$kunjungan['NOMOR']
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->first();
+
+
+        // foreach ($join as $joins) {
+        //     if ($joins['HARI'] == 30) {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         $joins['JUMLAH'];
+        //         $joins['TARIF'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['KLAIM_KRONIS'] = 23/30 * $pembayaran['TARIF'];
+        //         // $joins['KLAIM_INACBG'] = 7/30 *  $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'DIBAGI DUA 23 & 7 hari';
+        //     } else {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'TIDAK DIBAGI DUA';
+        //     }
+    
+        //  }
+
+        }
+
+        // $data['obat'] = $obat;
+        $data['label'] = $label;
+        $data['pasien'] = $pasien;
+        $data['tarif'] = $tarif;
+        $data['tagihan'] = $tagihan;
+        $data['ruangan'] = $ruangan;
+        $data['dokter'] = $dokters;
+        $data['kunjungan'] = $kunjungan;
+
+        // $hasilpasien = $join;
+        // $data['listresep'] = $hasilpasien;
+        // return response()->json($data);
+
+        $pdf = PDF::loadView('print.klaimkronis', $data)->setPaper(array(0, 0, 164.409448818, 600.409448818), 'portrait');
+        return $pdf->stream();
+     }
+
+     public function klaiminacbg($id) {
+        // dd($awalan);
+        // $kunjungan = Kunjungan::where('NOMOR', '1011201012406200201')->where('RUANGAN', 101120101)->first();
+        $kunjungan = Kunjungan::where('NOMOR', $id)->where('RUANGAN', 101120101)->first();
+
+        if (!$kunjungan) {
+            $data = null;
+        }
+
+        $pendaftaran = Pendaftaran::where('NOMOR', $kunjungan['NOPEN'])->first();
+
+        if (!$pendaftaran) {
+            $data = null;
+        }
+
+
+
+        $label = Data::where('NORM',  $pendaftaran['NORM'])->get();
+        if (!$label) {
+            $data = null;
+        }
+        $norm = $label[0]->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($label[0]['TANGGAL_LAHIR']));
+        $nama = $label[0]['NAMA'];
+
+        $label[0]['NORM'] = $norm;
+        $label[0]['TANGGAL_LAHIR'] = $lahir;
+        
+        // // $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+        // $data['label'] = $label;
+
+        // // $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
+        // // $data['TANGGAL_MASUK'] = $tanggal_masuk;
+        
+///////////////////////////////////////////////////////////////////////////////
+        $pasien = Pasien::where('NORM',  $pendaftaran['NORM'])->first();
+        // $pendaftaran = Pendaftaran::where('NORM', $pasien['NORM'])->orderBy('TANGGAL', 'desc')->first();
+
+        // if (!$pendaftaran) {
+        //     $joins = null;
+        // }
+    
+        // $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101120101)->orderBy('MASUK', 'desc')->first();
+
+        // if (!$kunjungan) {
+        //     $joins = null;
+        // }
+
+        $resep = OrderResep::where('NOMOR', $kunjungan['REF'])->first();
+
+        if (!$resep) {
+            $data = null;
+        }
+
+        $farmasi = Farmasi::where('KUNJUNGAN', $kunjungan['NOMOR'])->first();
+
+        if (!$farmasi) {
+            $data = null;
+        }
+
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        
+        if (!$pembayaran) {
+            $data = null;
+        }
+
+        else {
+
+        $ruangan = Ruang::join('pendaftaran.kunjungan', 'master.ruangan.ID', '=', 'pendaftaran.kunjungan.RUANGAN')
+        ->select('master.ruangan.*')
+        ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
+        ->first();
+
+        $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
+        ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')
+        ->where('master.pegawai.PROFESI', '4')
+        ->where('master.pegawai.STATUS', 1)
+        ->where('master.dokter.STATUS', 1)
+        ->where('master.dokter.ID', $resep['DOKTER_DPJP'])
+        ->get();
+
+        foreach ($dokter as $dokters) {
+            $dokters['NAMA_GELAR'] = $dokters['GELAR_DEPAN'].". ".$dokters['NAMA'].", ".$dokters['GELAR_BELAKANG'];
+        }    
+
+        // $obat = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        // ->select('inventory.barang.NAMA',)
+        // ->where('layanan.farmasi.STATUS', 2)
+        // ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        // ->get();
+
+        // foreach ($obat as $obats) {
+        //     $obats['NAMA'];
+        // }
+
+        $tarif = Farmasi::join('inventory.barang', 'layanan.farmasi.FARMASI', '=', 'inventory.barang.ID')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.HARI', 30)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        ->get();
+
+        foreach($tarif as $tarifs) {
+            if ($tarifs['HARI'] == 30) {
+            $tarifs['VKLAIM_KRONIS'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['VKLAIM_INACBG'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['KLAIM_KRONIS'] = 23/30 * $tarifs['VKLAIM_KRONIS'];
+            $tarifs['KLAIM_INACBG'] = 7/30 * $tarifs['VKLAIM_INACBG'];
+            $tarifs['HASIL_KLAIM_KRONIS'] = round($tarifs['KLAIM_KRONIS'], 2);
+            $tarifs['HASIL_KLAIM_INACBG'] = round($tarifs['KLAIM_INACBG'], 2);
+            $tarifs['QTY_KRONIS'] = 23/30 * $tarifs['JUMLAH'];
+            $tarifs['QTY_INACBG'] = 7/30 * $tarifs['JUMLAH'];
+            $tarifs['HASIL_QTY_KRONIS'] = round($tarifs['QTY_KRONIS'], 2);
+            $tarifs['HASIL_QTY_INACBG'] = round($tarifs['QTY_INACBG'], 2);
+            // $tarifs['QTY_KRONISX'] = substr($tarifs['QTY_KRONIS'],0,4);
+            // $tarifs['QTY_INACBGX'] = substr($tarifs['QTY_INACBG'],0,4);
+            // $tarifs['QTY_KRONISY'] = floatval($tarifs['QTY_KRONISX']);
+            // $tarifs['QTY_INACBGY'] = floatval($tarifs['QTY_INACBGX']);
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF']; 
+            } else {
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];  
+            }
+        }
+
+        $data['TOTAL_INACBG'] = $tarif->sum('KLAIM_INACBG');
+        $data['HASIL_TOTAL_INACBG'] = round($data['TOTAL_INACBG'], 2);
+
+
+        $tagihan = Tagihan::where('pembayaran.tagihan.ID', $pendaftaran['NOMOR'])
+        ->select('pembayaran.tagihan.ID', 'pembayaran.tagihan.REF', 'pembayaran.tagihan.TOTAL')
+        ->where('pembayaran.tagihan.JENIS', 1)
+        ->first();
+
+      
+
+        $join = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN'])  //$kunjungan['NOMOR']
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->first();
+
+
+        // foreach ($join as $joins) {
+        //     if ($joins['HARI'] == 30) {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         $joins['JUMLAH'];
+        //         $joins['TARIF'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['KLAIM_KRONIS'] = 23/30 * $pembayaran['TARIF'];
+        //         // $joins['KLAIM_INACBG'] = 7/30 *  $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'DIBAGI DUA 23 & 7 hari';
+        //     } else {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'TIDAK DIBAGI DUA';
+        //     }
+    
+        //  }
+
+        }
+
+        // $data['obat'] = $obat;
+        $data['label'] = $label;
+        $data['pasien'] = $pasien;
+        $data['tarif'] = $tarif;
+        $data['tagihan'] = $tagihan;
+        $data['ruangan'] = $ruangan;
+        $data['dokter'] = $dokters;
+        $data['kunjungan'] = $kunjungan;
+
+        // $hasilpasien = $join;
+        // $data['listresep'] = $hasilpasien;
+        // return response()->json($data);
+
+        $pdf = PDF::loadView('print.klaiminacbg', $data)->setPaper(array(0, 0, 164.409448818, 600.409448818), 'portrait');
+        return $pdf->stream();
+     }
+
+     public function klaimnormal($id) {
+        // dd($awalan);
+        // $kunjungan = Kunjungan::where('NOMOR', '1011201012406200201')->where('RUANGAN', 101120101)->first();
+        $kunjungan = Kunjungan::where('NOMOR', $id)->where('RUANGAN', 101120101)->first();
+
+        if (!$kunjungan) {
+            $data = null;
+        }
+
+        $pendaftaran = Pendaftaran::where('NOMOR', $kunjungan['NOPEN'])->first();
+
+        if (!$pendaftaran) {
+            $data = null;
+        }
+
+
+
+        $label = Data::where('NORM',  $pendaftaran['NORM'])->get();
+        if (!$label) {
+            $data = null;
+        }
+        $norm = $label[0]->NORM;
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($label[0]['TANGGAL_LAHIR']));
+        $nama = $label[0]['NAMA'];
+
+        $label[0]['NORM'] = $norm;
+        $label[0]['TANGGAL_LAHIR'] = $lahir;
+        
+        // // $label[0]['NAMA'] = $awalan.' '.$label[0]['NAMA'];
+        // $data['label'] = $label;
+
+        // // $tanggal_masuk = date("d/m/Y", strtotime($tgl_masuk));
+        // // $data['TANGGAL_MASUK'] = $tanggal_masuk;
+        
+///////////////////////////////////////////////////////////////////////////////
+        $pasien = Pasien::where('NORM',  $pendaftaran['NORM'])->first();
+        // $pendaftaran = Pendaftaran::where('NORM', $pasien['NORM'])->orderBy('TANGGAL', 'desc')->first();
+
+        // if (!$pendaftaran) {
+        //     $joins = null;
+        // }
+    
+        // $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101120101)->orderBy('MASUK', 'desc')->first();
+
+        // if (!$kunjungan) {
+        //     $joins = null;
+        // }
+
+        $resep = OrderResep::where('NOMOR', $kunjungan['REF'])->first();
+
+        if (!$resep) {
+            $data = null;
+        }
+
+        $farmasi = Farmasi::where('KUNJUNGAN', $kunjungan['NOMOR'])->first();
+
+        if (!$farmasi) {
+            $data = null;
+        }
+
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        
+        if (!$pembayaran) {
+            $data = null;
+        }
+
+        else {
+
+        $ruangan = Ruang::join('pendaftaran.kunjungan', 'master.ruangan.ID', '=', 'pendaftaran.kunjungan.RUANGAN')
+        ->select('master.ruangan.*')
+        ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
+        ->first();
+
+        $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
+        ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')
+        ->where('master.pegawai.PROFESI', '4')
+        ->where('master.pegawai.STATUS', 1)
+        ->where('master.dokter.STATUS', 1)
+        ->where('master.dokter.ID', $resep['DOKTER_DPJP'])
+        ->get();
+
+        foreach ($dokter as $dokters) {
+            $dokters['NAMA_GELAR'] = $dokters['GELAR_DEPAN'].". ".$dokters['NAMA'].", ".$dokters['GELAR_BELAKANG'];
+        }    
+
+        // $obat = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        // ->select('inventory.barang.NAMA',)
+        // ->where('layanan.farmasi.STATUS', 2)
+        // ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        // ->get();
+
+        // foreach ($obat as $obats) {
+        //     $obats['NAMA'];
+        // }
+
+        $tarif = Farmasi::join('inventory.barang', 'layanan.farmasi.FARMASI', '=', 'inventory.barang.ID')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
+        ->get();
+
+        foreach($tarif as $tarifs) {
+            if ($tarifs['HARI'] == 30) {
+            $tarifs['VKLAIM_KRONIS'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['VKLAIM_INACBG'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $tarifs['KLAIM_KRONIS'] = 23/30 * $tarifs['VKLAIM_KRONIS'];
+            $tarifs['KLAIM_INACBG'] = 7/30 * $tarifs['VKLAIM_INACBG'];
+            $tarifs['HASIL_KLAIM_KRONIS'] = round($tarifs['KLAIM_KRONIS'], 2);
+            $tarifs['HASIL_KLAIM_INACBG'] = round($tarifs['KLAIM_INACBG'], 2);
+            $tarifs['QTY_KRONIS'] = 23/30 * $tarifs['JUMLAH'];
+            $tarifs['QTY_INACBG'] = 7/30 * $tarifs['JUMLAH'];
+            $tarifs['HASIL_QTY_KRONIS'] = round($tarifs['QTY_KRONIS'], 2);
+            $tarifs['HASIL_QTY_INACBG'] = round($tarifs['QTY_INACBG'], 2);
+            // $tarifs['QTY_KRONISX'] = substr($tarifs['QTY_KRONIS'],0,4);
+            // $tarifs['QTY_INACBGX'] = substr($tarifs['QTY_INACBG'],0,4);
+            // $tarifs['QTY_KRONISY'] = floatval($tarifs['QTY_KRONISX']);
+            // $tarifs['QTY_INACBGY'] = floatval($tarifs['QTY_INACBGX']);
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $subject = $tarifs['JUMLAH'];
+            $search = '.00';
+            $tarifs['XJUMLAH'] = str_replace($search, '', $subject) ; 
+            } else {
+            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $subject = $tarifs['JUMLAH'];
+            $search = '.00';
+            $tarifs['XJUMLAH'] = str_replace($search, '', $subject) ;   
+            }
+        }
+
+        $data['TOTAL_NORMAL'] = $tarif->sum('KLAIM_NORMAL');
+        $data['HASIL_TOTAL_NORMAL'] = round($data['TOTAL_NORMAL'], 2);
+
+
+        $tagihan = Tagihan::where('pembayaran.tagihan.ID', $pendaftaran['NOMOR'])
+        ->select('pembayaran.tagihan.ID', 'pembayaran.tagihan.REF', 'pembayaran.tagihan.TOTAL')
+        ->where('pembayaran.tagihan.JENIS', 1)
+        ->first();
+
+      
+
+        $join = Barang::join('layanan.farmasi', 'inventory.barang.ID', '=', 'layanan.farmasi.FARMASI')
+        ->join('pembayaran.rincian_tagihan', 'layanan.farmasi.ID', '=', 'pembayaran.rincian_tagihan.REF_ID')
+        ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
+        ->where('layanan.farmasi.STATUS', 2)
+        ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN'])  //$kunjungan['NOMOR']
+        ->where('pembayaran.rincian_tagihan.JENIS', 4)
+        ->first();
+
+
+        // foreach ($join as $joins) {
+        //     if ($joins['HARI'] == 30) {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         $joins['JUMLAH'];
+        //         $joins['TARIF'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['KLAIM_KRONIS'] = 23/30 * $pembayaran['TARIF'];
+        //         // $joins['KLAIM_INACBG'] = 7/30 *  $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'DIBAGI DUA 23 & 7 hari';
+        //     } else {
+        //         $joins['NORM'] = $norm;
+        //         $joins['NAMA'];
+        //         $joins['TANGGAL_LAHIR'] = $lahir;
+        //         $joins['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+        //         $joins['NAMA_PASIEN'] = $nama;
+        //         $joins['UNIT'] = $ruangan['DESKRIPSI'];
+        //         $joins['DPJP'] = $dokters['NAMA_GELAR'];
+        //         // $joins['TARIF_AWAL'] = $pembayaran['TARIF'];
+        //         // $joins['QTY'] = $pembayaran['JUMLAH'];
+        //         $joins['KUNJUNGAN'];
+        //         $joins['KETERANGAN'] = 'TIDAK DIBAGI DUA';
+        //     }
+    
+        //  }
+
+        }
+
+        // $data['obat'] = $obat;
+        $data['label'] = $label;
+        $data['pasien'] = $pasien;
+        $data['tarif'] = $tarif;
+        $data['tagihan'] = $tagihan;
+        $data['ruangan'] = $ruangan;
+        $data['dokter'] = $dokters;
+        $data['kunjungan'] = $kunjungan;
+
+        // $hasilpasien = $join;
+        // $data['listresep'] = $hasilpasien;
+        // return response()->json($data);
+
+        $pdf = PDF::loadView('print.klaimnormal', $data)->setPaper(array(0, 0, 164.409448818, 600.409448818), 'portrait');
+        return $pdf->stream();
+     }
+
+
+
+
+
+     public function klaimkronisV($id) {
+        // dd($awalan);
+
         $label = Data::where('NORM',  $id)->get();
+        if (!$label) {
+            $data = null;
+        }
         $norm = $label[0]->NORM;
         $length = strlen($norm);
         for ($i=$length; $i < 6; $i++) {
@@ -722,10 +1353,13 @@ class PrintController extends Controller
         return $pdf->stream();
      }
 
-     public function klaiminacbg($id) {
+     public function klaiminacbgV($id) {
         // dd($awalan);
 
         $label = Data::where('NORM',  $id)->get();
+        if (!$label) {
+            $data = null;
+        }
         $norm = $label[0]->NORM;
         $length = strlen($norm);
         for ($i=$length; $i < 6; $i++) {
@@ -752,31 +1386,31 @@ class PrintController extends Controller
         $pendaftaran = Pendaftaran::where('NORM', $pasien['NORM'])->orderBy('TANGGAL', 'desc')->first();
 
         if (!$pendaftaran) {
-            $joins = null;
+            $data = null;
         }
     
         $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101120101)->orderBy('MASUK', 'desc')->first();
 
         if (!$kunjungan) {
-            $joins = null;
+            $data = null;
         }
 
         $resep = OrderResep::where('NOMOR', $kunjungan['REF'])->first();
 
         if (!$resep) {
-            $joins = null;
+            $data = null;
         }
 
         $farmasi = Farmasi::where('KUNJUNGAN', $kunjungan['NOMOR'])->first();
 
         if (!$farmasi) {
-            $joins = null;
+            $data = null;
         }
 
         $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
         
         if (!$pembayaran) {
-            $joins = null;
+            $data = null;
         }
 
         else {
@@ -902,10 +1536,13 @@ class PrintController extends Controller
         return $pdf->stream();
      }
 
-     public function klaimnormal($id) {
+     public function klaimnormalV($id) {
         // dd($awalan);
 
         $label = Data::where('NORM',  $id)->get();
+        if (!$label) {
+            $data = null;
+        }
         $norm = $label[0]->NORM;
         $length = strlen($norm);
         for ($i=$length; $i < 6; $i++) {
@@ -932,31 +1569,31 @@ class PrintController extends Controller
         $pendaftaran = Pendaftaran::where('NORM', $pasien['NORM'])->orderBy('TANGGAL', 'desc')->first();
 
         if (!$pendaftaran) {
-            $joins = null;
+            $data = null;
         }
     
         $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101120101)->orderBy('MASUK', 'desc')->first();
 
         if (!$kunjungan) {
-            $joins = null;
+            $data = null;
         }
 
         $resep = OrderResep::where('NOMOR', $kunjungan['REF'])->first();
 
         if (!$resep) {
-            $joins = null;
+            $data = null;
         }
 
         $farmasi = Farmasi::where('KUNJUNGAN', $kunjungan['NOMOR'])->first();
 
         if (!$farmasi) {
-            $joins = null;
+            $data = null;
         }
 
         $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
         
         if (!$pembayaran) {
-            $joins = null;
+            $data = null;
         }
 
         else {

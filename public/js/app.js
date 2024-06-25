@@ -93234,12 +93234,7 @@ try {
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.headers.common = {
-  'X-Requested-With': 'XMLHttpRequest',
-  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-};
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -94999,19 +94994,19 @@ var ResepObat = /*#__PURE__*/function (_Component) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "1"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(hasilpasien.NORM, "/klaimkronis"),
+            href: "/".concat(hasilpasien.KUNJUNGAN, "/klaimkronis"),
             className: "btn btn-success btn-xs",
             target: "_blank"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
           }), " Cetak Klaim Kronis"), "\xA0 \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(hasilpasien.NORM, "/klaiminacbg"),
+            href: "/".concat(hasilpasien.KUNJUNGAN, "/klaiminacbg"),
             className: "btn btn-warning btn-xs",
             target: "_blank"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
           }), " Cetak Klaim INACBG"), "\xA0 \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-            href: "/".concat(hasilpasien.NORM, "/klaimnormal"),
+            href: "/".concat(hasilpasien.KUNJUNGAN, "/klaimnormal"),
             className: "btn btn-focus btn-xs",
             target: "_blank"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -95065,7 +95060,7 @@ var ResepObat = /*#__PURE__*/function (_Component) {
         onChange: this.handleChange,
         value: this.state.cari,
         className: "form-control-lg form-control",
-        placeholder: "Cari Nomor Rekam Medis",
+        placeholder: "Cari Nomor Trs/Reg",
         required: true
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
@@ -96102,8 +96097,8 @@ var Sidebar = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\label_gelangccc12345\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\label_gelangccc12345\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\label_gelang_fix\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang_fix\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

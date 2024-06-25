@@ -82,7 +82,7 @@ class ResepObat extends Component {
             return this.state.hasilpasien.map(hasilpasien => (
                 <div key="1">
                     <a
-                        href={`/${hasilpasien.NORM}/klaimkronis`}
+                        href={`/${hasilpasien.KUNJUNGAN}/klaimkronis`}
                         className="btn btn-success btn-xs"
                         target="_blank"
                     >
@@ -91,7 +91,7 @@ class ResepObat extends Component {
                     &nbsp;
                     &nbsp;
                     <a
-                        href={`/${hasilpasien.NORM}/klaiminacbg`}
+                        href={`/${hasilpasien.KUNJUNGAN}/klaiminacbg`}
                         className="btn btn-warning btn-xs"
                         target="_blank"
                     >
@@ -100,7 +100,7 @@ class ResepObat extends Component {
                     &nbsp;
                     &nbsp;
                     <a
-                        href={`/${hasilpasien.NORM}/klaimnormal`}
+                        href={`/${hasilpasien.KUNJUNGAN}/klaimnormal`}
                         className="btn btn-focus btn-xs"
                         target="_blank"
                     >
@@ -183,7 +183,7 @@ class ResepObat extends Component {
                                     onChange={this.handleChange}
                                     value={this.state.cari}
                                     className="form-control-lg form-control"
-                                    placeholder="Cari Nomor Rekam Medis"
+                                    placeholder="Cari Nomor Trs/Reg"
                                     required
                                 />
                             </div>

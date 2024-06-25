@@ -124,10 +124,10 @@
          <b style="font-family:sans-serif;">{{$tarif->NAMA}}</b>
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">{{$tarif->QTY_KRONIS}}</b>
+         <b style="font-family:sans-serif;">{{$tarif->HASIL_QTY_KRONIS}}</b>
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">{{$tarif->KLAIM_KRONIS}}</b>
+         <b style="font-family:sans-serif;">{{$tarif->HASIL_KLAIM_KRONIS}}</b>
          </td>
     </tr>
       @endforeach
@@ -143,7 +143,7 @@
         <b style="font-family:sans-serif;"> Total :</b>
         </td>
         <td colspan="3">
-         <b style="font-family:sans-serif;">{{$TOTAL_KRONIS}}</b>
+         <b style="font-family:sans-serif;">{{$HASIL_TOTAL_KRONIS}}</b>
         </td>
     </tr>
 
