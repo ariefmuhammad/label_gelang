@@ -159,6 +159,12 @@ class Sidebar extends Component {
                                     Resep Obat klaim
                             </NavLink>
                             </li>
+                            <li>  
+                            <NavLink exact to={`/triage`} activeClassName="mm-active" className="{this.state.activeIndex==0 ? 'mm-active': null}"  onClick={this.toggleClass.bind(this, 1)}>
+                                    <i className="metismenu-icon pe-7s-bandaid"></i>
+                                    Triage
+                            </NavLink>
+                            </li>
              
                         </ul>                           
                     </div>

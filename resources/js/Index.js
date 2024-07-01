@@ -17,6 +17,7 @@ import Pasien from "./components/Pasien";
 import Laboratorium from "./components/Laboratorium";
 import ResepObat from "./components/ResepObat";
 import Radiologi from "./components/Radiologi";
+import Triage from "./components/Triage";
 // import Tracer from ".components/Track";
 
 if (document.getElementById("root")) {
@@ -79,6 +80,11 @@ if (document.getElementById("root")) {
                                 exact
                                 path="/resep_obat"
                                 component={ResepObat}
+                            />
+                            <Route
+                                exact
+                                path="/triage"
+                                component={Triage}
                             />
                             <Index />
                         </Switch>

@@ -38,6 +38,8 @@ route::get('/templategelangdewasa','PrintController@templateGelangDewasa');
 route::get('/templategelanganak','PrintController@templateGelangAnak');
 route::get('/templatetracer','PrintController@templateTracer');
 
+Route::post('/triage/data', 'TriageController@Triage');
+Route::get('/{id}/triage', 'PrintController@triage')->name('print_triage');
 
 
 Route::any('{all}', function () {

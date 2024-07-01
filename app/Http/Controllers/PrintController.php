@@ -857,7 +857,7 @@ class PrintController extends Controller
         ->select('inventory.barang.NAMA', 'layanan.farmasi.KUNJUNGAN', 'layanan.farmasi.HARI', 'layanan.farmasi.TANGGAL', 'layanan.farmasi.STATUS', 'pembayaran.rincian_tagihan.JUMLAH', 'pembayaran.rincian_tagihan.TARIF', 'pembayaran.rincian_tagihan.JENIS')
         ->where('pembayaran.rincian_tagihan.JENIS', 4)
         ->where('layanan.farmasi.STATUS', 2)
-        ->where('layanan.farmasi.HARI', 30)
+        // ->where('layanan.farmasi.HARI', 30)
         ->where('layanan.farmasi.KUNJUNGAN', $farmasi['KUNJUNGAN']) //$kunjungan['NOMOR']
         ->get();
 
@@ -879,7 +879,11 @@ class PrintController extends Controller
             // $tarifs['QTY_INACBGY'] = floatval($tarifs['QTY_INACBGX']);
             $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF']; 
             } else {
-            $tarifs['KLAIM_NORMAL'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];  
+            $tarifs['KLAIM_INACBG'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];   
+            $tarifs['HASIL_KLAIM_INACBG'] = $tarifs['JUMLAH'] * $tarifs['TARIF'];
+            $subject = $tarifs['JUMLAH'];
+            $search = '.00';
+            $tarifs['HASIL_QTY_INACBG'] = str_replace($search, '', $subject) ;   
             }
         }
 
@@ -1723,4 +1727,11 @@ class PrintController extends Controller
         $pdf = PDF::loadView('print.klaimnormal', $data)->setPaper(array(0, 0, 164.409448818, 600.409448818), 'portrait');
         return $pdf->stream();
      }
+
+
+     public function triage($id) {
+
+        $pdf = PDF::loadView('print.laboratorium_v4', $data)->setPaper('A4', 'portrait');
+     }
+
 }

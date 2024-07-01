@@ -93128,6 +93128,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Laboratorium__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Laboratorium */ "./resources/js/components/Laboratorium.js");
 /* harmony import */ var _components_ResepObat__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/ResepObat */ "./resources/js/components/ResepObat.js");
 /* harmony import */ var _components_Radiologi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/Radiologi */ "./resources/js/components/Radiologi.js");
+/* harmony import */ var _components_Triage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Triage */ "./resources/js/components/Triage.js");
 
 
 
@@ -93144,6 +93145,7 @@ __webpack_require__.r(__webpack_exports__);
 // import LabKlaimCovid from "./components/LabKlaimCovid";
 // import LabOmega from "./components/LabOmega";
 // import LabProdia from "./components/LabProdia";
+
 
 
 
@@ -93176,6 +93178,10 @@ if (document.getElementById("root")) {
     exact: true,
     path: "/resep_obat",
     component: _components_ResepObat__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/triage",
+    component: _components_Triage__WEBPACK_IMPORTED_MODULE_13__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Index__WEBPACK_IMPORTED_MODULE_7__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_hbxcphyevn_Footer__WEBPACK_IMPORTED_MODULE_6__["default"], null)))), document.getElementById("root"));
 }
 
@@ -95344,6 +95350,188 @@ var Track = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Triage.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Triage.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Triage = /*#__PURE__*/function (_Component) {
+  function Triage(props) {
+    var _this;
+    _classCallCheck(this, Triage);
+    _this = _callSuper(this, Triage, [props]);
+    _this.state = {
+      data: [],
+      cari: ""
+      // awalan: "%10",
+      // tanggal_masuk: ""
+    };
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.renderCari = _this.renderCari.bind(_this);
+    // this.awalanChange = this.awalanChange.bind(this);
+    // this.tanggalmasukChange = this.tanggalmasukChange.bind(this);
+    return _this;
+  }
+
+  // getTodayDate() {
+  //     var today = new Date();
+  //     var dd = today.getDate();
+  //     var mm = today.getMonth()+1;
+  //     var yyyy = today.getFullYear();
+  //     if(dd<10){
+  //         dd='0'+dd;
+  //     }
+  //     if(mm<10){
+  //         mm='0'+mm;
+  //     }
+  //     var terbalik = yyyy+'-'+mm+'-'+dd;
+  //     return terbalik;
+  // }
+
+  // tanggalmasukChange(e) {
+  //     this.setState({
+  //         tanggal_masuk: e.target.value
+  //     });
+  // }
+
+  // awalanChange(e) {
+  //     this.setState({
+  //         awalan: e.target.value
+  //     });
+  // }
+  _inherits(Triage, _Component);
+  return _createClass(Triage, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        cari: e.target.value
+      });
+      // console.log(e.target.value);
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this2 = this;
+      e.preventDefault();
+      axios.post("/triage/data", {
+        cari: this.state.cari
+      }).then(function (response) {
+        _this2.setState({
+          data: [response.data.cari],
+          cari: ""
+          // awalan: "%10",
+          // tangga2l_masuk: this.getTodayDate()
+        });
+        console.log("from handle sumit", response);
+        // console.log(this.state.data);
+      })["catch"](function (error) {
+        console.log(error.message);
+      });
+    }
+  }, {
+    key: "renderCari",
+    value: function renderCari() {
+      if (!this.state.data[0]) {
+        return this.state.data.map(function (data) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "1"
+          }, "DATA TIDAK ADA");
+        });
+      } else {
+        return this.state.data.map(function (data) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "1"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            href: "/".concat(data.NOPEN, "/triage"),
+            className: "btn btn-danger btn-xs disabled",
+            target: "_blank"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fa fa-print"
+          }), " Cetak Triage"), "\xA0 \xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "table-responsive"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+            className: "mb-0 table table-bordered"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "NO REG"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "NO RM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Nama Pasien"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Unit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "DPJP"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Jenis Kelamin"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tanggal Lahir"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Tgl/Jam"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.NOPEN), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthnorm"
+          }, data.RM), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.NAMA_PASIEN), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.UNIT), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.DPJP), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthjkp"
+          }, data.JENIS_KELAMIN === 1 ? "Laki-Laki" : "Perempuan"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            className: "widthlahir"
+          }, data.TANGGAL_LAHIR), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, data.TANGGAL))))));
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // this.getTodayDate();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "app-page-title"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-title-wrapper"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-title-heading"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-title-icon"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "pe-7s-bandaid icon-gradient bg-deep-blue"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Triage", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-title-subheading"
+      }, "Halaman ini berfungsi untuk mencetak hasil Triage."))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-card mb-3 card"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onChange: this.handleChange,
+        value: this.state.cari,
+        className: "form-control-lg form-control",
+        placeholder: "Cari No. Pendaftaran",
+        required: true
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        className: "btn-square btn-hover-shine btn btn-alternate"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "pe-7s-search"
+      }), " CARI / KLIK ENTER UNTUK CARI")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), this.renderCari())));
+    }
+  }]);
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+/* harmony default export */ __webpack_exports__["default"] = (Triage);
+
+/***/ }),
+
 /***/ "./resources/js/components/hbxcphyevn/Footer.js":
 /*!******************************************************!*\
   !*** ./resources/js/components/hbxcphyevn/Footer.js ***!
@@ -96071,7 +96259,15 @@ var Sidebar = /*#__PURE__*/function (_Component) {
         onClick: this.toggleClass.bind(this, 1)
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "metismenu-icon pe-7s-note2"
-      }), "Resep Obat klaim"))))));
+      }), "Resep Obat klaim")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        exact: true,
+        to: "/triage",
+        activeClassName: "mm-active",
+        className: "{this.state.activeIndex==0 ? 'mm-active': null}",
+        onClick: this.toggleClass.bind(this, 1)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "metismenu-icon pe-7s-bandaid"
+      }), "Triage"))))));
     }
   }]);
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
@@ -96097,8 +96293,8 @@ var Sidebar = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\label_gelang_fix\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang_fix\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\label_gelang\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
