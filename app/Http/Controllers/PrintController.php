@@ -21,6 +21,8 @@ use App\TujuanPasien;
 use App\Kunjungan;
 use App\RincianTagihan;
 use App\Tagihan;
+///
+use App\Triage;
 
 class PrintController extends Controller
 {
@@ -1731,7 +1733,184 @@ class PrintController extends Controller
 
      public function triage($id) {
 
-        $pdf = PDF::loadView('print.laboratorium_v4', $data)->setPaper('A4', 'portrait');
+      
+
+        // $pendaftaran = Pendaftaran::where('NOMOR', '2406300077')->first();
+        $pendaftaran = Pendaftaran::where('NOMOR', $id)->first();
+
+        if (!$pendaftaran) {
+            $joins = null;
+        }
+
+        $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101020101)->first();
+
+        if (!$kunjungan) {
+            $joins = null;
+        }
+
+        $pasien = Pasien::where('NORM', $pendaftaran['NORM'])->first();
+
+        if (!$pasien) {
+            $joins = null;
+        }
+
+        else {
+
+        $norm = $pasien['NORM'];
+        $length = strlen($norm);
+        for ($i=$length; $i < 6; $i++) {
+                $norm = "0" . $norm;
+        }
+
+        $parts = str_split($norm, $split_length = 2);
+
+        $norm = $parts[0].".".$parts[1].".".$parts[2];
+        $lahir = date("d/m/Y", strtotime($pasien['TANGGAL_LAHIR']));
+        $nama = $pasien['NAMA'];
+
+        $pasien['RM'] = $norm;
+        $pasien['TANGGAL_LAHIR'] = $lahir;
+
+       
+
+        $ruangan = Ruang::join('pendaftaran.kunjungan', 'master.ruangan.ID', '=', 'pendaftaran.kunjungan.RUANGAN')
+        ->select('master.ruangan.*')
+        ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
+        ->first();
+
+        $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
+        ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')
+        ->where('master.pegawai.PROFESI', '4')
+        ->where('master.pegawai.STATUS', 1)
+        ->where('master.dokter.STATUS', 1)
+        ->where('master.dokter.ID', $kunjungan['DPJP'])
+        ->get();
+
+        foreach ($dokter as $dokters) {
+            $dokters['NAMA_GELAR'] = $dokters['GELAR_DEPAN'].". ".$dokters['NAMA'].", ".$dokters['GELAR_BELAKANG'];
+        }  
+
+
+        $triage = Triage::where('NOPEN', $pendaftaran['NOMOR'])->get();
+
+
+        foreach($triage as $triages) {
+            $triages['NOPEN'];
+            $triages['NORM'];
+            $triages['TANGGAL'];
+            $triages['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+            $triages['RM'] = $pasien['RM'];
+            $triages['NAMA_PASIEN'] = $pasien['NAMA'];
+            $triages['UNIT'] = $ruangan['DESKRIPSI'];
+            $triages['DPJP'] = $dokters['NAMA_GELAR'];
+            $triages['TANGGAL_LAHIR'] = $pasien['TANGGAL_LAHIR'];
+        }
+
+        $kedatangan = $triages->KEDATANGAN; 
+        $arr = json_decode($kedatangan, TRUE);
+
+        $kasus = $triages->KASUS; 
+        $arr2 = json_decode($kasus, TRUE);
+
+        $anamnese = $triages->ANAMNESE; 
+        $arr3 = json_decode($anamnese, TRUE);
+
+        $tandaVital = $triages->TANDA_VITAL; 
+        $arr4 = json_decode($tandaVital, TRUE);
+    
+        $obgyn = $triages->OBGYN; 
+        $arr5 = json_decode($obgyn, TRUE);
+
+        $kebutuhanKhusus = $triages->KEBUTUHAN_KHUSUS; 
+        $arr6 = json_decode($kebutuhanKhusus, TRUE);
+
+        $pemeriksaanKategori = $triages->KATEGORI_PEMERIKSAAN; 
+        $arr7 = json_decode($pemeriksaanKategori, TRUE);
+
+        $pemeriksaanResusitasi = $triages->RESUSITASI; 
+        $arr8 = json_decode($pemeriksaanResusitasi, TRUE);
+
+        $pemeriksaanEmergency = $triages->EMERGENCY; 
+        $arr9 = json_decode($pemeriksaanEmergency, TRUE);
+
+        $pemeriksaanUrgent = $triages->URGENT; 
+        $arr10 = json_decode($pemeriksaanUrgent, TRUE);
+
+        $pemeriksaanLessUrgent = $triages->LESS_URGENT; 
+        $arr11 = json_decode($pemeriksaanLessUrgent, TRUE);
+
+        $pemeriksaanNonUrgent = $triages->NON_URGENT; 
+        $arr12 = json_decode($pemeriksaanNonUrgent, TRUE);
+
+        $pemeriksaanDoa = $triages->DOA; 
+        $arr13 = json_decode($pemeriksaanDoa, TRUE);
+        
+        $kriteria = $triages->KRITERIA; 
+        $arr14 = json_decode($kriteria, TRUE);
+
+        $handover = $triages->HANDOVER; 
+        $arr15 = json_decode($handover, TRUE);
+
+        $plan = $triages->PLAN; 
+        $arr16 = json_decode($plan, TRUE);
+
+     
+        
+    }
+ 
+
+
+        $data['kedatangan_jenis'] = $arr['JENIS'];
+        $data['kedatangan_tanggal'] = $arr['TANGGAL'];
+        $data['kedatangan_pengantar'] = $arr['PENGANTAR'];
+        $data['kedatangan_kepolisian'] = $arr['KEPOLISIAN'];
+        $data['kedatangan_asal_rujukan'] = $arr['ASAL_RUJUKAN'];
+        $data['kedatangan_alat_transportasi'] = $arr['ALAT_TRANSPORTASI'];
+
+        $data['kasus_jenis'] = $arr2['JENIS'];
+        $data['kasus_dimana'] = $arr2['DIMANA'];
+
+        $data['anamnese_terpimpin'] = $arr3['TERPIMPIN'];
+        $data['anamnese_keluhan_utama'] = $arr3['KELUHAN_UTAMA'];
+
+        $data['tanda_vital_suhu'] = $arr4['SUHU'];
+        $data['tanda_vital_sistole'] = $arr4['SISTOLE'];
+        $data['tanda_vital_diastole'] = $arr4['DIASTOLE'];
+        $data['tanda_vital_frek_nadi'] = $arr4['FREK_NADI'];
+        $data['tanda_vital_frek_nafas'] = $arr4['FREK_NAFAS'];
+        $data['tanda_vital_metode_ukur'] = $arr4['METODE_UKUR'];
+        $data['tanda_vital_skala_nyeri'] = $arr4['SKALA_NYERI'];
+
+        $data['obgyn_usia_gestasi'] = $arr5['USIA_GESTASI'];
+        $data['obgyn_detak_jantung'] = $arr5['DETAK_JANTUNG'];
+        $data['obgyn_dilatasi_serviks'] = $arr5['DILATASI_SERVIKS'];
+        $data['obgyn_kontraksi_uterus'] = $arr5['KONTRAKSI_UTERUS'];
+
+        $data['kebutuhan_khusus_airbone'] = $arr6['AIRBONE'];
+        $data['kebutuhan_khusus_dekontaminan'] = $arr6['DEKONTAMINAN'];
+
+        $data['pemeriksaan_kategori'] = $arr7['KATEGORI_PEMERIKSAAN'];
+        $data['pemeriksaan_resusitasi_checked'] = $arr8['CHECKED'];
+        $data['pemeriksaan_emergency_checked'] = $arr9['CHECKED'];
+        $data['pemeriksaan_urgent_checked'] = $arr10['CHECKED'];
+        $data['pemeriksaan_less_urgent_checked'] = $arr11['CHECKED'];
+        $data['pemeriksaan_non_urgent_checked'] = $arr12['CHECKED'];
+        $data['pemeriksaan_doa_checked'] = $arr13['CHECKED'];
+
+        $data['kriteria'] = $arr14['KRITERIA'];
+        $data['handover'] =$arr15['HANDOVER'];
+        $data['plan'] = $arr16['PLAN'];
+
+        $data['triage'] = $triage;
+        $data['pasien'] = $pasien;
+        $data['ruangan'] = $ruangan;
+        $data['dokter'] = $dokter;
+
+
+        // return response()->json($data);
+
+        $pdf = PDF::loadView('print.triage', $data)->setPaper('A4', 'portrait');
+        return $pdf->stream();
      }
 
 }
