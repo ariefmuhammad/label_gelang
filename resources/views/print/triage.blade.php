@@ -312,8 +312,11 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       Jenis Kasus<br>
-      Trauma :<br>
-      Non Trauma : {{$kasus_jenis}}<br>
+      @if($kasus_jenis == '1') 
+        Trauma :<br>
+      @else 
+      Non Trauma : <br>
+      @endif
       Dimana : {{$kasus_dimana}}<br>
     </b> 
     </td>
@@ -332,12 +335,12 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       Tanda Vital<br>
-      Tekanan Darah (Sistolik / Distolik) mmHg: / <br>
-      Frekuensi Nafas (RR) (X/Menit): <br>
-      Frekuensi Nadi (HR) (X/Menit): <br>
-      Suhu (OC): <br>
-      Skala Nyeri:
-      Metode Ukur:
+      Tekanan Darah (Sistolik / Distolik) mmHg: {{$tanda_vital_sistole}} / {{$tanda_vital_diastole}}<br>
+      Frekuensi Nafas (RR) (X/Menit): {{$tanda_vital_frek_nafas}}<br>
+      Frekuensi Nadi (HR) (X/Menit): {{$tanda_vital_frek_nadi}}<br>
+      Suhu (OC): {{$tanda_vital_suhu}}<br>
+      Skala Nyeri: {{$tanda_vital_skala_nyeri}} <br>
+      Metode Ukur: {{$tanda_vital_metode_ukur}}
     </b> 
     </td>
   </tr>
@@ -346,10 +349,10 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       Khusus Obgyn<br>
-      Usia Gestasi (Minggu):<br>
-      Kontrasi Uterus: <br>
-      Detak Jantung Janin (x/menit):<br>
-      Dilatasi Serviks (cm):<br>
+      Usia Gestasi (Minggu): {{$obgyn_usia_gestasi}}<br>
+      Kontrasi Uterus: {{$obgyn_detak_jantung}}<br>
+      Detak Jantung Janin (x/menit): {{$obgyn_dilatasi_serviks}}<br>
+      Dilatasi Serviks (cm): {{$obgyn_kontraksi_uterus}}<br>
     </b> 
     </td>
   </tr>
@@ -358,8 +361,8 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       Kebutuhan Khusus<br>
-      Airbone: <br>
-      Dekontaminan: <br>
+      Airbone: {{$kebutuhan_khusus_airbone}}<br>
+      Dekontaminan: {{$kebutuhan_khusus_dekontaminan}}<br>
     </b> 
     </td>
   </tr>
@@ -368,13 +371,20 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       Pemeriksaan<br>
-      Kategori: Umum / Neonatus / Obgyn <br>
-      Resusitasi (R1): <br>
-      Emergency (R2): <br>
-      Urgent (R3): <br>
-      Less Urgent (R4): <br>
-      Non Urgent (R5): <br>
-      Doa : <br>
+      @if($pemeriksaan_kategori == '1')
+      Umum
+      @elseif($periksaan_kateori == '2')
+      Neonatus
+      @lseif($periksaan_kateori == '3')
+      Obgyn
+      @endif
+      <br>
+      Resusitasi (R1): {{$pemeriksaan_resusitasi_checked}}<br>
+      Emergency (R2): {{$pemeriksaan_emergency_checked}}<br>
+      Urgent (R3): {{$pemeriksaan_urgent_checked}}<br>
+      Less Urgent (R4): {{$pemeriksaan_less_urgent_checked}}<br>
+      Non Urgent (R5): {{$pemeriksaan_non_urgent_checked}}<br>
+      Doa : {{$pemeriksaan_doa_checked}}<br>
     </b> 
     </td>
   </tr>
@@ -382,9 +392,19 @@ td {
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Kriteria Triage :<br>
-      Handover Jaga : <br>
-      Plan Zone : <br>
+      Kriteria Triage : {{$kriteria}}<br>
+      Handover Jaga : {{$handover}}<br>
+      Plan Zone : 
+      @if($plan == '1')
+      Zona Merah
+      @elseif($plan == '2')
+      Zona Kuning
+      @elseif($plan == '3')
+      Zona Hijau
+      @elseif($plan == '4')
+      Zona Hitam
+      @endif
+      <br>
     </b> 
     </td>
   </tr>

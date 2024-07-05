@@ -1825,7 +1825,7 @@ class PrintController extends Controller
         $arr6 = json_decode($kebutuhanKhusus, TRUE);
 
         $pemeriksaanKategori = $triages->KATEGORI_PEMERIKSAAN; 
-        $arr7 = json_decode($pemeriksaanKategori, TRUE);
+        // $arr7 = json_decode($pemeriksaanKategori, TRUE);
 
         $pemeriksaanResusitasi = $triages->RESUSITASI; 
         $arr8 = json_decode($pemeriksaanResusitasi, TRUE);
@@ -1846,13 +1846,13 @@ class PrintController extends Controller
         $arr13 = json_decode($pemeriksaanDoa, TRUE);
         
         $kriteria = $triages->KRITERIA; 
-        $arr14 = json_decode($kriteria, TRUE);
+        // $arr14 = json_decode($kriteria, TRUE);
 
         $handover = $triages->HANDOVER; 
-        $arr15 = json_decode($handover, TRUE);
+        // $arr15 = json_decode($handover, TRUE);
 
         $plan = $triages->PLAN; 
-        $arr16 = json_decode($plan, TRUE);
+        // $arr16 = json_decode($plan, TRUE);
 
      
         
@@ -1889,7 +1889,7 @@ class PrintController extends Controller
         $data['kebutuhan_khusus_airbone'] = $arr6['AIRBONE'];
         $data['kebutuhan_khusus_dekontaminan'] = $arr6['DEKONTAMINAN'];
 
-        $data['pemeriksaan_kategori'] = $arr7['KATEGORI_PEMERIKSAAN'];
+        $data['pemeriksaan_kategori'] = $pemeriksaanKategori;
         $data['pemeriksaan_resusitasi_checked'] = $arr8['CHECKED'];
         $data['pemeriksaan_emergency_checked'] = $arr9['CHECKED'];
         $data['pemeriksaan_urgent_checked'] = $arr10['CHECKED'];
@@ -1897,9 +1897,9 @@ class PrintController extends Controller
         $data['pemeriksaan_non_urgent_checked'] = $arr12['CHECKED'];
         $data['pemeriksaan_doa_checked'] = $arr13['CHECKED'];
 
-        $data['kriteria'] = $arr14['KRITERIA'];
-        $data['handover'] =$arr15['HANDOVER'];
-        $data['plan'] = $arr16['PLAN'];
+        $data['kriteria'] = $kriteria;
+        $data['handover'] =$handover;
+        $data['plan'] = $plan;
 
         $data['triage'] = $triage;
         $data['pasien'] = $pasien;
