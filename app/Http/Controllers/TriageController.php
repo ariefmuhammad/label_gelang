@@ -24,12 +24,6 @@ class TriageController extends Controller
             $joins = null;
         }
 
-        $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101020101)->first();
-
-        if (!$kunjungan) {
-            $joins = null;
-        }
-
         $pasien = Pasien::where('NORM', $pendaftaran['NORM'])->first();
 
         if (!$pasien) {
@@ -59,6 +53,18 @@ class TriageController extends Controller
         ->select('master.ruangan.*')
         ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
         ->first();
+
+        if($ruangan['ID'] == 101020101) {
+            $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101020101)->first();
+            }
+    
+            if($ruangan['ID'] == 101020401) {
+                $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->Where('RUANGAN', 101020401)->first();
+                }
+    
+            if (!$kunjungan) {
+                $data = null;
+            }
 
         $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
         ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')

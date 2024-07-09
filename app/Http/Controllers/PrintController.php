@@ -1739,19 +1739,13 @@ class PrintController extends Controller
         $pendaftaran = Pendaftaran::where('NOMOR', $id)->first();
 
         if (!$pendaftaran) {
-            $joins = null;
-        }
-
-        $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101020101)->first();
-
-        if (!$kunjungan) {
-            $joins = null;
+            $data = null;
         }
 
         $pasien = Pasien::where('NORM', $pendaftaran['NORM'])->first();
 
         if (!$pasien) {
-            $joins = null;
+            $data = null;
         }
 
         else {
@@ -1778,6 +1772,18 @@ class PrintController extends Controller
         ->where('pendaftaran.kunjungan.NOPEN', $pendaftaran['NOMOR'])
         ->first();
 
+        if($ruangan['ID'] == 101020101) {
+        $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->where('RUANGAN', 101020101)->first();
+        }
+
+        if($ruangan['ID'] == 101020401) {
+            $kunjungan = Kunjungan::where('NOPEN', $pendaftaran['NOMOR'])->Where('RUANGAN', 101020401)->first();
+            }
+
+        if (!$kunjungan) {
+            $data = null;
+        }
+
         $dokter = Pegawai::join('master.dokter', 'master.pegawai.NIP', '=', 'master.dokter.NIP')
         ->select('master.pegawai.*', 'master.dokter.NIP', 'master.dokter.ID')
         ->where('master.pegawai.PROFESI', '4')
@@ -1792,7 +1798,9 @@ class PrintController extends Controller
 
 
         $triage = Triage::where('NOPEN', $pendaftaran['NOMOR'])->get();
-
+        if (!$triage) {
+            $data = null;
+        }
 
         foreach($triage as $triages) {
             $triages['NOPEN'];
@@ -1806,6 +1814,9 @@ class PrintController extends Controller
             $triages['TANGGAL_LAHIR'] = $pasien['TANGGAL_LAHIR'];
         }
 
+        if (isset($triages)) {
+        
+       
         $kedatangan = $triages->KEDATANGAN; 
         $arr = json_decode($kedatangan, TRUE);
 
@@ -1854,21 +1865,45 @@ class PrintController extends Controller
         $plan = $triages->PLAN; 
         // $arr16 = json_decode($plan, TRUE);
 
-     
-        
     }
+        
+
  
-
-
+    if (isset($arr)) {
         $data['kedatangan_jenis'] = $arr['JENIS'];
         $data['kedatangan_tanggal'] = $arr['TANGGAL'];
         $data['kedatangan_pengantar'] = $arr['PENGANTAR'];
         $data['kedatangan_kepolisian'] = $arr['KEPOLISIAN'];
+        if(isset($arr['VISUM'])){
+        $data['kedatangan_visum'] = $arr['VISUM'];
+        }
         $data['kedatangan_asal_rujukan'] = $arr['ASAL_RUJUKAN'];
+        if(isset($arr['SISRUTE'])){
+        $data['kedatangan_sisrute'] = $arr['SISRUTE'];
+        }
         $data['kedatangan_alat_transportasi'] = $arr['ALAT_TRANSPORTASI'];
 
         $data['kasus_jenis'] = $arr2['JENIS'];
+
+
+        if(isset($arr2['LAKA_LANTAS'])){
+        $data['kasus_laka_lantas'] = $arr2['LAKA_LANTAS'];
+        }
+
+        if(isset($arr2['KECELAKAAN_KERJA'])){
+        $data['kasus_kecelakaan_kerja'] = $arr2['KECELAKAAN_KERJA'];
+        }
+
+        if(isset($arr2['UPPA'])){
+        $data['kasus_uppa'] = $arr2['UPPA'];
+        }
+
+        if($data['kasus_jenis'] == 0) {
+        if(isset($arr2['ENDEMIS'])){   
+        $data['kasus_endemis'] = $arr2['ENDEMIS'];
+        }
         $data['kasus_dimana'] = $arr2['DIMANA'];
+       }
 
         $data['anamnese_terpimpin'] = $arr3['TERPIMPIN'];
         $data['anamnese_keluhan_utama'] = $arr3['KELUHAN_UTAMA'];
@@ -1905,7 +1940,94 @@ class PrintController extends Controller
         $data['pasien'] = $pasien;
         $data['ruangan'] = $ruangan;
         $data['dokter'] = $dokter;
+         }
+         else {
+      
+            $data['kedatangan_jenis'] = '';
+            $data['kedatangan_tanggal'] = '';
+            $data['kedatangan_pengantar'] = '';
+            $data['kedatangan_kepolisian'] = '';
+            if(isset($arr['VISUM'])){
+            $data['kedatangan_visum'] = '';
+            }
+            $data['kedatangan_asal_rujukan'] = '';
+            if(isset($arr['SISRUTE'])){
+            $data['kedatangan_sisrute'] = '';
+            }
+            $data['kedatangan_alat_transportasi'] = '';
+    
+            $data['kasus_jenis'] = '';
+    
+    
+            if(isset($arr2['LAKA_LANTAS'])){
+            $data['kasus_laka_lantas'] = '';
+            }
+    
+            if(isset($arr2['KECELAKAAN_KERJA'])){
+            $data['kasus_kecelakaan_kerja'] = '';
+            }
+    
+            if(isset($arr2['UPPA'])){
+            $data['kasus_uppa'] = '';
+            }
+    
+            if($data['kasus_jenis'] == 0) {
+            if(isset($arr2['ENDEMIS'])){   
+            $data['kasus_endemis'] = '';
+            }
+            $data['kasus_dimana'] = '';
+           }
+    
+            $data['anamnese_terpimpin'] = '';
+            $data['anamnese_keluhan_utama'] = '';
+    
+            $data['tanda_vital_suhu'] = '';
+            $data['tanda_vital_sistole'] = '';
+            $data['tanda_vital_diastole'] = '';
+            $data['tanda_vital_frek_nadi'] = '';
+            $data['tanda_vital_frek_nafas'] = '';
+            $data['tanda_vital_metode_ukur'] = '';
+            $data['tanda_vital_skala_nyeri'] = '';
+    
+            $data['obgyn_usia_gestasi'] = '';
+            $data['obgyn_detak_jantung'] = '';
+            $data['obgyn_dilatasi_serviks'] = '';
+            $data['obgyn_kontraksi_uterus'] = '';
+    
+            $data['kebutuhan_khusus_airbone'] = '';
+            $data['kebutuhan_khusus_dekontaminan'] = '';
+    
+            $data['pemeriksaan_kategori'] = '';
+            $data['pemeriksaan_resusitasi_checked'] = '';
+            $data['pemeriksaan_emergency_checked'] = '';
+            $data['pemeriksaan_urgent_checked'] = '';
+            $data['pemeriksaan_less_urgent_checked'] = '';
+            $data['pemeriksaan_non_urgent_checked'] = '';
+            $data['pemeriksaan_doa_checked'] = '';
+    
+            $data['kriteria'] = '';
+            $data['handover'] = '';
+            $data['plan'] = '';
 
+        
+            $triage = Pasien::where('NORM', $pendaftaran['NORM'])->get();
+
+            foreach($triage as $triages) {
+                $triages['JENIS_KELAMIN'] = $pasien['JENIS_KELAMIN'];
+                $triages['RM'] = $pasien['RM'];
+                $triages['NAMA_PASIEN'] = $pasien['NAMA'];
+                $triages['UNIT'] = $ruangan['DESKRIPSI'];
+                $triages['DPJP'] = $dokters['NAMA_GELAR'];
+                $triages['TANGGAL_LAHIR'] = $pasien['TANGGAL_LAHIR'];
+            }
+    
+            $data['triage'] = $triage;
+            $data['pasien'] = $pasien;
+            $data['ruangan'] = $ruangan;
+            $data['dokter'] = $dokter;
+         }
+
+       }
 
         // return response()->json($data);
 

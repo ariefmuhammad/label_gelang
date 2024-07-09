@@ -278,8 +278,8 @@ td {
   </div>
   <div class="column7">
     <p><b style="font-family:sans-serif;font-size:15px;">Tgl Lahir</b></p>
-    <p><b style="font-family:sans-serif;font-size:15px;">Status</b></p>
-    <p><b style="font-family:sans-serif;font-size:15px;">Tgl</b></p>
+    <p><b style="font-family:sans-serif;font-size:15px;">Unit</b></p>
+    <p><b style="font-family:sans-serif;font-size:15px;">Tgl/Jam</b></p>
   </div>
   <div class="column7a">
     <p><b style="font-family:sans-serif;font-size:15px;"> : </b></p>
@@ -298,35 +298,49 @@ td {
 
 <table style="margin:0;margin-left:0px;margin-right:0px;width:100%">
   <tr>
-    <th colspan="1" style="font-family:sans-serif;font-size:15px;" class="widthjtt">
-      Cara kedatangan<br>
-      Tanggal Kedatangan : {{$kedatangan_tanggal}}<br>
-      Alat Transportasi : {{$kedatangan_alat_transportasi}} <br>
-      Datang Sendiri, Diantar Oleh : {{$kedatangan_pengantar}} <br>
-      Rujukan Dari : {{$kedatangan_asal_rujukan}} <br>
-      Dikirim Oleh Polisi Dari  : {{$kedatangan_kepolisian}} <br>
+    <th colspan="1" style="font-family:sans-serif;font-size:13px;" class="widthjtt">
+      CARA KEDATANGAN<br>
+      Tanggal Kedatangan: {{$kedatangan_tanggal}}<br>
+      Alat Transportasi: {{$kedatangan_alat_transportasi}} <br>
+      @if($kedatangan_jenis == '1')
+        Datang Sendiri, Diantar Oleh: {{$kedatangan_pengantar}} <br>
+      
+      @elseif($kedatangan_jenis == '2')
+        Rujukan Dari: {{$kedatangan_asal_rujukan}} <br>
+    
+      @elseif($kedatangan_jenis == '3')
+        Dikirim Oleh Polisi Dari: {{$kedatangan_kepolisian}} <br>
+      @endif
     </th>
   </tr>
 
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Jenis Kasus<br>
+      JENIS KASUS<br>
       @if($kasus_jenis == '1') 
-        Trauma :<br>
+        Trauma: 
+        @if($kasus_laka_lantas == 1)
+          Kecelakaan Lalu Lintas
+        @elseif($kasus_kecelakaan_kerja == 1)
+          Kecelakaan Kerja
+        @elseif($kasus_uppa == 1)
+          Kasus Perempuan dan Anak (UPPA)
+        @endif
+        <br>
       @else 
-      Non Trauma : <br>
-      @endif
+      Non Trauma: <br>
       Dimana : {{$kasus_dimana}}<br>
+      @endif
     </b> 
     </td>
   </tr>
 
   <tr>
-    <td colspan="1" style="font-family:sans-serif;font-size:15px;" class="widthjum">
-      <b>Amnanese<br> 
-      Keluhan Utama : {{$anamnese_keluhan_utama}}<br>
-      Terpimpin : {{$anamnese_terpimpin}}<br>  
+    <td colspan="1" style="font-family:sans-serif;font-size:13px;" class="widthjum">
+      <b>AMNANESE<br> 
+      Keluhan Utama: {{$anamnese_keluhan_utama}}<br>
+      Terpimpin: {{$anamnese_terpimpin}}<br>  
       <b>
       </td>
   </tr>
@@ -334,7 +348,7 @@ td {
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Tanda Vital<br>
+      TANDA VITAL<br>
       Tekanan Darah (Sistolik / Distolik) mmHg: {{$tanda_vital_sistole}} / {{$tanda_vital_diastole}}<br>
       Frekuensi Nafas (RR) (X/Menit): {{$tanda_vital_frek_nafas}}<br>
       Frekuensi Nadi (HR) (X/Menit): {{$tanda_vital_frek_nadi}}<br>
@@ -348,7 +362,7 @@ td {
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Khusus Obgyn<br>
+      KHUSUS OBGYN<br>
       Usia Gestasi (Minggu): {{$obgyn_usia_gestasi}}<br>
       Kontrasi Uterus: {{$obgyn_detak_jantung}}<br>
       Detak Jantung Janin (x/menit): {{$obgyn_dilatasi_serviks}}<br>
@@ -360,7 +374,7 @@ td {
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Kebutuhan Khusus<br>
+      KEBUTUHAN KHUSUS<br>
       Airbone: {{$kebutuhan_khusus_airbone}}<br>
       Dekontaminan: {{$kebutuhan_khusus_dekontaminan}}<br>
     </b> 
@@ -370,47 +384,51 @@ td {
   <tr>
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
-      Pemeriksaan<br>
+      PEMERIKSAAN<br>
       @if($pemeriksaan_kategori == '1')
-      Umum
-      @elseif($periksaan_kateori == '2')
-      Neonatus
-      @lseif($periksaan_kateori == '3')
-      Obgyn
+      Kategori: Umum
+      @elseif($pemeriksaan_kategori == '2')
+      Kategori: Neonatus
+      @elseif($pemeriksaan_kategori == '3')
+      Kategori: Obgyn
+      @elseif($pemeriksaan_kategori == '0')
+      Kategori: Umum
       @endif
       <br>
-      Resusitasi (R1): {{$pemeriksaan_resusitasi_checked}}<br>
-      Emergency (R2): {{$pemeriksaan_emergency_checked}}<br>
-      Urgent (R3): {{$pemeriksaan_urgent_checked}}<br>
-      Less Urgent (R4): {{$pemeriksaan_less_urgent_checked}}<br>
-      Non Urgent (R5): {{$pemeriksaan_non_urgent_checked}}<br>
-      Doa : {{$pemeriksaan_doa_checked}}<br>
+      @if($pemeriksaan_resusitasi_checked == 1)
+      <b style="font-style:italic;font-size:20px;color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
+      @elseif($pemeriksaan_emergency_checked == 1)
+      <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
+      @elseif($pemeriksaan_urgent_checked == 1)
+      <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
+      @elseif($pemeriksaan_less_urgent_checked == 1)
+      <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
+      @elseif($pemeriksaan_non_urgent_checked == 1)
+      <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
+      @elseif($pemeriksaan_doa_checked == 1)
+      <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:gray;">DOA</b>
+      @endif
+      <br>
+      Kriteria Triage: {{$kriteria}}<br>
+      Handover Jaga: {{$handover}}<br>
+      Plan Zone:&nbsp;
+      @if($plan == '1')
+      <b style="font-style:italic;font-size:20px;color:red;">Zona Merah</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Zona Kuning</b>&nbsp;&nbsp;<b style="color:green;">Zona Hijau</b>&nbsp;&nbsp;<b style="color:black;">Zona Hitam</b>
+      @elseif($plan == '2')
+      <b style="color:red;">Zona Merah</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:#FDDA0D;">Zona Kuning</b>&nbsp;&nbsp;<b style="color:green;">Zona Hijau</b>&nbsp;&nbsp;<b style="color:black;">Zona Hitam</b>
+      @elseif($plan == '3')
+      <b style="color:red;">Zona Merah</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Zona Kuning</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:green;">Zona Hijau</b>&nbsp;&nbsp;<b style="color:black;">Zona Hitam</b>
+      @elseif($plan == '4')
+      <b style="color:red;">Zona Merah</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Zona Kuning</b>&nbsp;&nbsp;<b style="color:green;">Zona Hijau</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:black;">Zona Hitam</b>
+      @endif
+
     </b> 
     </td>
   </tr>
 
-  <tr>
-    <td>
-    <b style="font-family:sans-serif;font-size:13px;"> 
-      Kriteria Triage : {{$kriteria}}<br>
-      Handover Jaga : {{$handover}}<br>
-      Plan Zone : 
-      @if($plan == '1')
-      Zona Merah
-      @elseif($plan == '2')
-      Zona Kuning
-      @elseif($plan == '3')
-      Zona Hijau
-      @elseif($plan == '4')
-      Zona Hitam
-      @endif
-      <br>
-    </b> 
-    </td>
-  </tr>
 </table>
 
-<div class="row">
+<!-- <div class="row">
   <div class="column4" style="text-align:center;">
     <p><b style="font-family:sans-serif;font-size:15px;">PETUGAS</b></p>
   </div>
@@ -418,7 +436,7 @@ td {
   <p><b style="font-family:sans-serif;font-size:15px;">DPJP</b></p>
   </div>
 </div>
-    <!-- <br> -->
+    
     <br>
     <br>
 <div class="row">
@@ -428,7 +446,7 @@ td {
   <div class="column5" style="text-align:center;">
   <p><b style="font-family:sans-serif;font-size:15px;">(........................................)</b></p>
   </div>
-</div>
+</div> -->
 
 
 

@@ -83,7 +83,7 @@ class Triage extends Component {
                 <div key="1">
                     <a
                         href={`/${data.NOPEN}/triage`}
-                        className="btn btn-danger btn-xs disabled"
+                        className="btn btn-danger btn-xs"
                         target="_blank"
                     >
                         <i className="fa fa-print"></i> Cetak Triage

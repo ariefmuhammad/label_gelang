@@ -95464,7 +95464,7 @@ var Triage = /*#__PURE__*/function (_Component) {
             key: "1"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
             href: "/".concat(data.NOPEN, "/triage"),
-            className: "btn btn-danger btn-xs disabled",
+            className: "btn btn-danger btn-xs",
             target: "_blank"
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "fa fa-print"
