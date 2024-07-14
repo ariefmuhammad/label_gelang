@@ -76,7 +76,7 @@ class Triage extends Component {
     renderCari() {
         if (!this.state.data[0]) {
             return this.state.data.map(data => (
-                <div key="1">DATA TIDAK ADA</div>
+                <div key="1">DATA TIDAK ADA / PENGISIAN TRIAGE KOSONG</div>
             ));
         } else {
             return this.state.data.map(data => (

@@ -1870,7 +1870,11 @@ class PrintController extends Controller
 
  
     if (isset($arr)) {
+        if(isset($arr['JENIS'])){
         $data['kedatangan_jenis'] = $arr['JENIS'];
+        } elseif(empty($arr['JENIS'])) {
+            $data['kedatangan_jenis'] = '';
+        }
         $data['kedatangan_tanggal'] = $arr['TANGGAL'];
         $data['kedatangan_pengantar'] = $arr['PENGANTAR'];
         $data['kedatangan_kepolisian'] = $arr['KEPOLISIAN'];
@@ -1883,27 +1887,50 @@ class PrintController extends Controller
         }
         $data['kedatangan_alat_transportasi'] = $arr['ALAT_TRANSPORTASI'];
 
+        if(isset($arr2['JENIS'])){
         $data['kasus_jenis'] = $arr2['JENIS'];
+        } elseif(empty($arr2['JENIS'])) {
+            $data['kasus_jenis'] = '';
+        }
+
 
 
         if(isset($arr2['LAKA_LANTAS'])){
         $data['kasus_laka_lantas'] = $arr2['LAKA_LANTAS'];
+        } elseif(empty($arr2['LAKA_LANTAS'])) {
+            $data['kasus_laka_lantas'] = '';
         }
 
         if(isset($arr2['KECELAKAAN_KERJA'])){
         $data['kasus_kecelakaan_kerja'] = $arr2['KECELAKAAN_KERJA'];
+        } elseif(empty($arr2['KECELAKAAN_KERJA'])) {
+            $data['kasus_kecelakaan_kerja'] = '';
         }
 
         if(isset($arr2['UPPA'])){
         $data['kasus_uppa'] = $arr2['UPPA'];
+        } elseif(empty($arr2['UPPA'])) {
+            $data['kasus_uppa'] = '';
         }
 
-        if($data['kasus_jenis'] == 0) {
         if(isset($arr2['ENDEMIS'])){   
-        $data['kasus_endemis'] = $arr2['ENDEMIS'];
+            $data['kasus_endemis'] = $arr2['ENDEMIS'];
+        } elseif(empty($arr2['ENDEMIS'])) {
+            $data['kasus_endemis'] = '';
         }
+
+        
         $data['kasus_dimana'] = $arr2['DIMANA'];
-       }
+        
+
+        // if(isset($arr2['JENIS'])){
+        //   if($data['kasus_jenis'] == 0) {
+        //     if(isset($arr2['ENDEMIS'])){   
+        //     $data['kasus_endemis'] = $arr2['ENDEMIS'];
+        //     }
+        //     $data['kasus_dimana'] = $arr2['DIMANA'];
+        //   }
+        // }
 
         $data['anamnese_terpimpin'] = $arr3['TERPIMPIN'];
         $data['anamnese_keluhan_utama'] = $arr3['KELUHAN_UTAMA'];
@@ -1940,9 +1967,9 @@ class PrintController extends Controller
         $data['pasien'] = $pasien;
         $data['ruangan'] = $ruangan;
         $data['dokter'] = $dokter;
-         }
+    }
          else {
-      
+        
             $data['kedatangan_jenis'] = '';
             $data['kedatangan_tanggal'] = '';
             $data['kedatangan_pengantar'] = '';
@@ -1956,8 +1983,9 @@ class PrintController extends Controller
             }
             $data['kedatangan_alat_transportasi'] = '';
     
+
             $data['kasus_jenis'] = '';
-    
+       
     
             if(isset($arr2['LAKA_LANTAS'])){
             $data['kasus_laka_lantas'] = '';
@@ -1971,13 +1999,14 @@ class PrintController extends Controller
             $data['kasus_uppa'] = '';
             }
     
-            if($data['kasus_jenis'] == 0) {
-            if(isset($arr2['ENDEMIS'])){   
+            if(isset($arr2['ENDEMIS'])){
             $data['kasus_endemis'] = '';
             }
+            
+            if(isset($arr2['DIMANA'])){ 
             $data['kasus_dimana'] = '';
-           }
-    
+            }
+   
             $data['anamnese_terpimpin'] = '';
             $data['anamnese_keluhan_utama'] = '';
     

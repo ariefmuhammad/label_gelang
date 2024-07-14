@@ -95456,7 +95456,7 @@ var Triage = /*#__PURE__*/function (_Component) {
         return this.state.data.map(function (data) {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "1"
-          }, "DATA TIDAK ADA");
+          }, "DATA TIDAK ADA / PENGISIAN TRIAGE KOSONG");
         });
       } else {
         return this.state.data.map(function (data) {
@@ -96293,8 +96293,8 @@ var Sidebar = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\label_gelang\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\label_gelang_triage\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang_triage\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

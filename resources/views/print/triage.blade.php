@@ -307,9 +307,14 @@ td {
       
       @elseif($kedatangan_jenis == '2')
         Rujukan Dari: {{$kedatangan_asal_rujukan}} <br>
-    
+        @if($kedatangan_sisrute == '1')
+        Melalui SISRUTE
+        @endif
       @elseif($kedatangan_jenis == '3')
         Dikirim Oleh Polisi Dari: {{$kedatangan_kepolisian}} <br>
+        @if($kedatangan_visum == '1')
+        Disertai Permintaan Visum et Repertum
+        @endif
       @endif
     </th>
   </tr>
@@ -318,20 +323,75 @@ td {
     <td>
     <b style="font-family:sans-serif;font-size:13px;"> 
       JENIS KASUS<br>
-      @if($kasus_jenis == '1') 
-        Trauma: 
-        @if($kasus_laka_lantas == 1)
+
+      <!-- @if(isset($kasus_jenis) == 1 ? $kasus_jenis : ' ')
+        Trauma :
+        @if(isset($kasus_laka_lantas) == 1)
           Kecelakaan Lalu Lintas
-        @elseif($kasus_kecelakaan_kerja == 1)
+        @elseif(isset($kasus_kecelakaan_kerja)== 1)
           Kecelakaan Kerja
-        @elseif($kasus_uppa == 1)
+        @elseif(isset($kasus_uppaisset) == 1)
+          Kasus Perempuan dan Anak (UPPA)
+        @endif  
+      @elseif(isset($kasus_jenis) == 0 ? $kasus_jenis : ' ')
+          Non Trauma :
+          @if(isset($kasus_endemis) == 1)
+          Riwayat Ke Daereh Endemis
+          Dimana : {{$kasus_dimana}}<br>
+          @endif
+      @endif -->
+
+     
+      @if($kasus_jenis == '1')
+      Trauma:
+        @if($kasus_laka_lantas == '1')
+          Kecelakaan Lalu Lintas
+        @elseif($kasus_kecelakaan_kerja == '1')
+          Kecelakaan Kerja
+        @elseif($kasus_uppa == '1')
+          Kasus Perempuan dan Anak (UPPA)
+        @endif  
+      @elseif($kasus_jenis == '0')
+          Non Trauma:
+          @if($kasus_endemis == '1')
+          Riwayat Ke Daereh Endemis
+          Dimana : {{$kasus_dimana}}<br>
+          @endif
+      @endif
+
+
+
+       <!-- @if(isset($kasus_jenis) == '1')
+        Trauma: 
+        @if(isset($kasus_laka_lantas) == 1)
+          Kecelakaan Lalu Lintas
+        @elseif(isset($kasus_kecelakaan_kerja)== 1)
+          Kecelakaan Kerja
+        @elseif(isset($kasus_uppaisset) == 1)
           Kasus Perempuan dan Anak (UPPA)
         @endif
-        <br>
-      @else 
-      Non Trauma: <br>
-      Dimana : {{$kasus_dimana}}<br>
-      @endif
+       @else
+
+       @endif
+
+       @if(isset($kasus_jenis)  == '0')
+          Non Trauma: <br>
+          @if(isset($kasus_endemis) == 1)
+          Riwayat Ke Daereh Endemis
+          Dimana : {{$kasus_dimana}}<br>
+          @endif
+       @else
+
+       @endif -->
+   
+    <!-- @if(isset($kasus_jenis) == 0)
+          Non Trauma: <br>
+          @if(isset($kasus_endemis) == 1)
+          Riwayat Ke Daereh Endemis
+          Dimana : {{$kasus_dimana}}<br>
+          @endif
+    @endif -->
+   
     </b> 
     </td>
   </tr>
@@ -395,17 +455,17 @@ td {
       Kategori: Umum
       @endif
       <br>
-      @if($pemeriksaan_resusitasi_checked == 1)
+      @if($pemeriksaan_resusitasi_checked == '1')
       <b style="font-style:italic;font-size:20px;color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
-      @elseif($pemeriksaan_emergency_checked == 1)
+      @elseif($pemeriksaan_emergency_checked == '1')
       <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
-      @elseif($pemeriksaan_urgent_checked == 1)
+      @elseif($pemeriksaan_urgent_checked == '1')
       <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
-      @elseif($pemeriksaan_less_urgent_checked == 1)
+      @elseif($pemeriksaan_less_urgent_checked == '1')
       <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
-      @elseif($pemeriksaan_non_urgent_checked == 1)
+      @elseif($pemeriksaan_non_urgent_checked == '1')
       <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="color:gray;">DOA</b>
-      @elseif($pemeriksaan_doa_checked == 1)
+      @elseif($pemeriksaan_doa_checked == '1')
       <b style="color:blue;">Resusitasi (R1)</b>&nbsp;&nbsp;<b style="color:red;">Emergency (R2)</b>&nbsp;&nbsp;<b style="color:orange;">Urgent (R3)</b>&nbsp;&nbsp;<b style="color:green;">Less Urgent (R4)</b>&nbsp;&nbsp;<b style="color:#FDDA0D;">Non Urgent (R5)</b>&nbsp;&nbsp;<b style="font-style:italic;font-size:20px;color:gray;">DOA</b>
       @endif
       <br>

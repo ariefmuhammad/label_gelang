@@ -17,20 +17,20 @@ class TriageController extends Controller
 
         $input = $request->cari;
 
-        // $pendaftaran = Pendaftaran::where('NOMOR', '2406300077')->first();
+        // $pendaftaran = Pendaftaran::where('NOMOR', '2407010234')->first();
         $pendaftaran = Pendaftaran::where('NOMOR', 'like', '%' . $input . '%')->first();
 
         if (!$pendaftaran) {
-            $joins = null;
+            $triages = null;
         }
 
         $pasien = Pasien::where('NORM', $pendaftaran['NORM'])->first();
 
         if (!$pasien) {
-            $joins = null;
+            $triages = null;
         }
 
-        else {
+        
 
         $norm = $pasien['NORM'];
         $length = strlen($norm);
@@ -46,7 +46,7 @@ class TriageController extends Controller
 
         $pasien['RM'] = $norm;
         $pasien['TANGGAL_LAHIR'] = $lahir;
-
+    
        
 
         $ruangan = Ruang::join('pendaftaran.kunjungan', 'master.ruangan.ID', '=', 'pendaftaran.kunjungan.RUANGAN')
@@ -80,7 +80,11 @@ class TriageController extends Controller
 
 
         $triage = Triage::where('NOPEN', $pendaftaran['NOMOR'])->get();
-
+        if (!$triage) {
+            $triages = null;
+        }
+        else{
+      
 
         foreach($triage as $triages) {
             $triages['NOPEN'];
@@ -93,9 +97,15 @@ class TriageController extends Controller
             $triages['DPJP'] = $dokters['NAMA_GELAR'];
             $triages['TANGGAL_LAHIR'] = $pasien['TANGGAL_LAHIR'];
         }
+    
     }
 
+   
+        if (isset($triages)){
         $data = $triages;
+        } else {
+            $data = null;
+        }
 
         return response()->json([
             'cari' => $data
