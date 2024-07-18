@@ -83,7 +83,7 @@ class ObatController extends Controller
             $joins = null;
         }
 
-        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->first();
         
         if (!$pembayaran) {
             $joins = null;
