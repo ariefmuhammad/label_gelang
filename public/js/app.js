@@ -96293,8 +96293,8 @@ var Sidebar = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\label_gelang_triage\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang_triage\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\label_gelang_triage_new\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\label_gelang_triage_new\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

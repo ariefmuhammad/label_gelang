@@ -31,7 +31,7 @@ Route::get('/pasien/data/{id}', 'DataController@pasienData');
 Route::get('/pasien/data/ugd/{id}', 'DataController@pasienDataUGD');
 // Route::get('/pasien/data', 'DataController@cariData');
 
-Route::get('/test', 'DataController@test');
+// Route::get('/test', 'DataController@test');
 
 // route::get('/templatelabel','PrintController@templateLabel');
 route::get('/templategelangdewasa','PrintController@templateGelangDewasa');
