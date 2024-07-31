@@ -613,7 +613,7 @@ class PrintController extends Controller
             $data = null;
         }
 
-        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->first();
         
         if (!$pembayaran) {
             $data = null;
@@ -819,7 +819,7 @@ class PrintController extends Controller
             $data = null;
         }
 
-        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->first();
         
         if (!$pembayaran) {
             $data = null;
@@ -1029,7 +1029,7 @@ class PrintController extends Controller
             $data = null;
         }
 
-        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->where('JENIS', '4')->first();
+        $pembayaran = RincianTagihan::where('TAGIHAN', $pendaftaran['NOMOR'])->first();
         
         if (!$pembayaran) {
             $data = null;

@@ -4,6 +4,7 @@
     <title>Resep Klaim Inacbg</title>
     <style>
         body {
+            font-family: Helvetica, Arial, sans-serif;
             font-size:10px;
             margin:0px;
             line-height: 15px;
@@ -53,33 +54,33 @@
         </tr>
         <tr>
           <td colspan="8" style="text-align:center;">
-            <ins><b style="font-family:sans-serif;">Kwitansi Pelayanan Obat Inacbg</b></ins>
+            <ins>Kwitansi Pelayanan Obat Inacbg</ins>
           </td>
         </tr>
         <tr>
             <td colspan="8">
-                <b style="font-family:sans-serif;">Trs/Reg : {{$kunjungan->NOMOR}}</b>
+                Trs/Reg : {{$kunjungan->NOMOR}}
             </td>
          </tr>
          <tr>
             <td colspan="8">
-                <b style="font-family:sans-serif;"> Tgl/Jam : {{$kunjungan->MASUK}}</b>
+                Tgl/Jam : {{$kunjungan->MASUK}}
             </td>
          </tr>
         @foreach($label as $i => $label)
         <tr>
             <td colspan="8">
-                <b style="font-family:sans-serif;"> Nama : {{$label->NAMA}}</b>
+                Nama : {{$label->NAMA}}
             </td>
          </tr>
          <tr>
             <td colspan="8">
-                <b style="font-family:sans-serif;"> No.RM : {{$label->NORM}}</b>
+                 No.RM : {{$label->NORM}}
             </td>
          </tr>
          <tr>
             <td colspan="8">
-                <b style="font-family:sans-serif;"> Tgl.Lahir : {{$label->TANGGAL_LAHIR}}</b>
+                Tgl.Lahir : {{$label->TANGGAL_LAHIR}}
             </td>
          </tr>
          @endforeach
@@ -87,108 +88,108 @@
    
     <tr>
         <td colspan="8">
-         <b style="font-family:sans-serif;">Unit : {{$ruangan->DESKRIPSI}}</b>
-         </td>
+            Unit : {{$ruangan->DESKRIPSI}}
+        </td>
     </tr>
     <tr>
          <td colspan="8">
-         <b style="font-family:sans-serif;">Dpjp : {{$dokter->NAMA_GELAR}}</b>
+           Dpjp : {{$dokter->NAMA_GELAR}}
          </td>
     </tr>
        
    
     <tr>
         <td colspan="8">
-             <b style="font-family:sans-serif;">------------------------------------------------------</b>
+             ------------------------------------------------------
         </td>
     </tr>
     <tr>
         <td colspan="2">
-         <b style="font-family:sans-serif;">Nama Obat</b>
+         Nama Obat
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">Qty</b>
+         Qty
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">Harga</b>
+         Harga
          </td>
     </tr>
     <tr>
         <td colspan="8">
-             <b style="font-family:sans-serif;">------------------------------------------------------</b>
+             ------------------------------------------------------
         </td>
     </tr>
      @foreach($tarif as $i => $tarif)
      <tr>
         <td colspan="2">
-         <b style="font-family:sans-serif;">{{$tarif->NAMA}}</b>
+         {{$tarif->NAMA}}
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">{{$tarif->HASIL_QTY_INACBG}}</b>
+         {{$tarif->HASIL_QTY_INACBG}}
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">{{$tarif->HASIL_KLAIM_INACBG}}</b>
+         {{$tarif->HASIL_KLAIM_INACBG}}
          </td>
     </tr>
       @endforeach
       <tr>
         <td colspan="8">
-             <b style="font-family:sans-serif;">------------------------------------------------------</b>
+             ------------------------------------------------------
         </td>
     </tr>
     <tr>
        <td colspan="2">
         </td>
         <td colspan="3">
-        <b style="font-family:sans-serif;"> Total :</b>
+        Total :
         </td>
         <td colspan="3">
-         <b style="font-family:sans-serif;">{{$HASIL_TOTAL_INACBG}}</b>
+         {{$HASIL_TOTAL_INACBG}}
         </td>
     </tr>
 
     <tr>
-        <td colspan="2">
-         <b style="font-family:sans-serif;"></b>
+         <td colspan="2">
+
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;"></b>
+
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">&nbsp;</b>
+         &nbsp;
          </td>
     </tr>
     <tr>
-        <td colspan="2">
-         <b style="font-family:sans-serif;"></b>
+         <td colspan="2">
+
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;"></b>
+            
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">Petugas</b>
+          Petugas
          </td>
     </tr>
     <tr>
-        <td colspan="2">
-         <b style="font-family:sans-serif;"></b>
+         <td colspan="2">
+
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;"></b>
+
          </td>
          <td colspan="3">
-         <b style="font-family:sans-serif;">&nbsp;</b>
+         &nbsp;
          </td>
     </tr>
     <tr>
-        <td colspan="2">
-         <b style="font-family:sans-serif;"></b>
+         <td colspan="2">
+
          </td>
          <td colspan="2">
-         <b style="font-family:sans-serif;"></b>
+            
          </td>
          <td colspan="4">
-         <b style="font-family:sans-serif;">--------------------</b>
+          --------------------
          </td>
     </tr>
     </table>
