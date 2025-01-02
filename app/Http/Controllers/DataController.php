@@ -309,8 +309,8 @@ class DataController extends Controller
 
     public function pasienData($id)
     {
-        $tujuan = Tujuan::where('RUANGAN',$id)->orderBy("NOPEN", "DESC")->get();
-        $dokter_ruangan = DokterRuangan::where('RUANGAN',$id)->get();
+        // $tujuan = Tujuan::where('RUANGAN',$id)->orderBy("NOPEN", "DESC")->get();
+        $dokter_ruangan = DokterRuangan::where('RUANGAN',$id)->where('STATUS', 1)->get();
         foreach ($dokter_ruangan as $dokter_ruangans) {
             $cek = Dokter::where('ID',$dokter_ruangans['DOKTER'])->first();
             if ($cek['STATUS'] === 1) {
@@ -322,7 +322,7 @@ class DataController extends Controller
 
             $today = $pendaftarans = Pendaftaran::whereDate('TANGGAL', Carbon::now()->today())->orderBy("TANGGAL", "DESC")->get();
             foreach ($today as $todays) {
-                $cek = Tujuan::where('DOKTER',$docter['ID'])->where('NOPEN',$todays['NOMOR'])->first();
+                $cek = Tujuan::where('DOKTER',$docter['ID'])->where('NOPEN',$todays['NOMOR'])->where('RUANGAN', $id)->first();
                 if ($cek) {
                     $tujuan_dokter[$dokterCount][] = $cek;
                 }
@@ -373,6 +373,10 @@ class DataController extends Controller
             }
             $dokterCount++;
         }
+
+        return response()->json([
+            'cari' => $tujuan_dokter
+		]);
         // dd($tujuan_dokter);
         // foreach ($tujuan as $tujuans) {
         //     $cek = Pendaftaran::whereDate('TANGGAL', Carbon::today())->where('NOMOR', $tujuans['NOPEN'])->first();
@@ -406,9 +410,7 @@ class DataController extends Controller
         //     $count--;
         // }
 
-		return response()->json([
-            'cari' => $tujuan_dokter
-		]);
+	
     }
 
     public function pasienDataUGD(Request $request)

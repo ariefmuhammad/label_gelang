@@ -1,4 +1,5 @@
 <?php
+
 Route::get('/dokter/data', 'DataController@dokter');
 Route::get('/petugas_lab/data', 'DataController@petugasLab');
 Route::get('/laboratorium/data', 'DataController@tindakanLab');
@@ -40,6 +41,8 @@ route::get('/templatetracer','PrintController@templateTracer');
 
 Route::post('/triage/data', 'TriageController@Triage');
 Route::get('/{id}/triage', 'PrintController@triage')->name('print_triage');
+
+Route::get('/datapasien', 'PasienController@pasien');
 
 
 Route::any('{all}', function () {
