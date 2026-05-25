@@ -288,7 +288,16 @@ class Pasien extends Component {
                                         {/* <option value="101010103">
                                             Poli Gigi Anak
                                         </option> */}
+                                        <option value="101010123">
+                                            Poli Emerald 
+                                        </option>
+                                        <option value="101010124">
+                                            Poli Poli Geriatri 
+                                        </option>
                                         <option value="101010104">
+                                            Poli Gigi Endodonsi
+                                        </option>
+                                        <option value="101010121">
                                             Poli Gigi Umum
                                         </option>
                                         {/* <option value="101010114">
@@ -299,6 +308,9 @@ class Pasien extends Component {
                                         </option>
                                         <option value="101010119">
                                             Poli Jiwa
+                                        </option>
+                                        <option value="101010122">
+                                            Poli KIA
                                         </option>
                                         <option value="101010105">
                                             Poli Mata
@@ -320,6 +332,9 @@ class Pasien extends Component {
                                         </option>
                                         <option value="101010112">
                                             Poli Rehabilitas Medik
+                                        </option>
+                                        <option value="101010125">
+                                            Poli TB
                                         </option>
                                         <option value="101010109">
                                             Poli THT
